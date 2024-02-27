@@ -42,7 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
 
-    public void pageconnecter(View view) {
+    public void page(View view) {
         startActivity(new Intent(MainActivity2.this, choix_du_profil.class));
     }
 }

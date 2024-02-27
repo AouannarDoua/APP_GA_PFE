@@ -9,12 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class Techeardb extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "Student.db";
+    private static final String DATABASE_NAME = "amitdb3.db";
     private static final int DATABASE_VERSION = 1;
     static final String TABLE_NAME = "Teachers";
-    private  String COLUMN_NAME = "NomPrenom";
-    private  String COLUMN_CODE = "CodeTeach";
-    public Techeardb(Context context) {
+    static final String COLUMN_NAME = "nom";
+    static final String COLUMN_CODE = "CodeTeach";
+
+    public  Techeardb(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -24,10 +26,8 @@ public class Techeardb extends SQLiteOpenHelper {
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_CODE + " TEXT)";
         db.execSQL(createTableQuery);
-        insertData("alami nabil" , "1234");
-        insertData("fissaoui mohamed","5678");
-
-
+        insertData(db, "alami nabil","1234");
+        insertData(db, "fissaoui mohamed","5678");
     }
 
     @Override
@@ -36,20 +36,18 @@ public class Techeardb extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String NOM, String CODE) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean insertData(SQLiteDatabase db, String nom, String Code) {
         ContentValues Values = new ContentValues();
-        Values.put(COLUMN_NAME, NOM);
-        Values.put(COLUMN_CODE, CODE);
+        Values.put(COLUMN_NAME, nom);
+        Values.put(COLUMN_CODE, Code);
         long result = db.insert(TABLE_NAME, null, Values);
-        db.close(); // Fermez la base de données après l'insertion
-        return result != -1;
+        return result != -1; // Retourne true si l'insertion a réussi, sinon false
     }
 
-    public boolean verificationDonnees(String nomPrenom, String codeTeach) {
+    public boolean verificationDonnees(String nom, String apogee) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COLUMN_NAME + " = ? AND " + COLUMN_CODE + " = ?";
-        String[] selectionArgs = {nomPrenom, codeTeach};
+        String[] selectionArgs = {nom, apogee};
 
         Cursor cursor = db.query(
                 TABLE_NAME,
@@ -67,7 +65,9 @@ public class Techeardb extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.close();
         }
-        db.close(); // Fermez la base de données après avoir fini de l'utiliser
+        db.close();
 
         return userExists;
-    }}
+    }
+}
+
