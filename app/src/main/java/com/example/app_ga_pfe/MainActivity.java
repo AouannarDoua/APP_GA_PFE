@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
                     // Afficher un message de bienvenue
                     Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, choix_du_profil.class);
+                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
                     intent.putExtra("idFilieres", selectedFiliereId);
                     startActivity(intent);
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pageconnecter(View view) {
-        startActivity(new Intent(MainActivity.this, choix_du_profil.class));
+        startActivity(new Intent(MainActivity.this, MainActivity2.class));
     }
 }
 
