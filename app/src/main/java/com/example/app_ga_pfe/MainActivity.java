@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private databasemain database;
     private filiereDataHelper dbHelper;
     private Spinner filiereSpinner;
+    Switch faceIdSwitch;
+    Switch fingerprintSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         editTextApogee = findViewById(R.id.CA);
         buttonConnecter = findViewById(R.id.con);
         filiereSpinner = findViewById(R.id.filiereSpinner);
+        faceIdSwitch = findViewById(R.id.faceIdSwitch);
+        fingerprintSwitch = findViewById(R.id.fingerprintSwitch);
 
         database = new databasemain(this);
         dbHelper = new filiereDataHelper(this);
@@ -57,7 +62,17 @@ public class MainActivity extends AppCompatActivity {
                     // Afficher un message d'erreur
                     Toast.makeText(MainActivity.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
                 }
+                boolean isFaceIdActivated = faceIdSwitch.isChecked();
+                // Récupérer l'état de Fingerprint
+                boolean isFingerprintActivated = fingerprintSwitch.isChecked();
+
+                // Créer l'intent pour lancer l'activité de choix de profil et passer les états de Face ID et de Fingerprint
+                Intent intent = new Intent(MainActivity.this, choix_du_profil.class);
+                intent.putExtra("isFaceIdActivated", isFaceIdActivated);
+                intent.putExtra("isFingerprintActivated", isFingerprintActivated);
+                startActivity(intent);
             }
+
         });
     }
     private void chargerFilieres() {

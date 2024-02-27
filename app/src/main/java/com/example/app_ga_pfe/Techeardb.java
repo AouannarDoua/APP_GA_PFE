@@ -9,23 +9,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class Techeardb extends SQLiteOpenHelper {
-    private static final String database="teachers.db";
-    private static final int version = 1 ;
-    private final String TABLE_NAME = "Teachers";
+    private static final String DATABASE_NAME = "Student.db";
+    private static final int DATABASE_VERSION = 1;
+    static final String TABLE_NAME = "Teachers";
     private  String COLUMN_NAME = "NomPrenom";
     private  String COLUMN_CODE = "CodeTeach";
-    public Techeardb(@Nullable Context context) {
-        super(context, database, null, version);
+    public Techeardb(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + TABLE_NAME + "("
-                + COLUMN_NAME + " TEXT, "
-                + COLUMN_CODE + " TEXT) ";
+        String createTableQuery = "CREATE TABLE " + TABLE_NAME + " (" +
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_CODE + " TEXT)";
         db.execSQL(createTableQuery);
-        insertData(db,"alami nabil" , "1234");
-        insertData(db,"fissaoui mohamed","5678");
+        insertData("alami nabil" , "1234");
+        insertData("fissaoui mohamed","5678");
 
 
     }
@@ -36,16 +36,16 @@ public class Techeardb extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(SQLiteDatabase db, String NOM, String CODE) {
-        // Appeler getWritableDatabase() pour obtenir une référence à une base de données en écriture
-         db = this.getWritableDatabase();
+    public boolean insertData(String NOM, String CODE) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues Values = new ContentValues();
-        Values.put(COLUMN_NAME,NOM);
-        Values.put(COLUMN_CODE , CODE);
-        long result = db.insert(TABLE_NAME , null , Values);
-        return result != -1 ;
-
+        Values.put(COLUMN_NAME, NOM);
+        Values.put(COLUMN_CODE, CODE);
+        long result = db.insert(TABLE_NAME, null, Values);
+        db.close(); // Fermez la base de données après l'insertion
+        return result != -1;
     }
+
     public boolean verificationDonnees(String nomPrenom, String codeTeach) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COLUMN_NAME + " = ? AND " + COLUMN_CODE + " = ?";
@@ -67,11 +67,7 @@ public class Techeardb extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.close();
         }
-        db.close();
+        db.close(); // Fermez la base de données après avoir fini de l'utiliser
 
         return userExists;
-    }
-
-
-
-}
+    }}

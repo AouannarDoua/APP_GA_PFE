@@ -14,6 +14,7 @@ public class databasemain extends SQLiteOpenHelper {
     static final String COLUMN_APOGEE = "apogee";
 
     public databasemain(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

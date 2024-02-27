@@ -10,10 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity2 extends AppCompatActivity {
-    EditText TeacherName ;
-    EditText TeacherCode ;
-    Button Connect ;
-    private Techeardb techeardb ;
+    EditText TeacherName;
+    EditText TeacherCode;
+    Button Connect;
+    private Techeardb techeardb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +31,17 @@ public class MainActivity2 extends AppCompatActivity {
                 String code = TeacherCode.getText().toString().trim();
                 boolean utilisateurExiste = techeardb.verificationDonnees(nom, code);
 
-                // Faire quelque chose avec le résultat, par exemple afficher un message
                 if (utilisateurExiste) {
-                    // Afficher un message de bienvenue
                     Toast.makeText(MainActivity2.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity2.this, choix_du_profil.class);
                     startActivity(intent);
-                    // L'utilisateur existe, faire quelque chose...
                 } else {
                     Toast.makeText(MainActivity2.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
+
     public void pageconnecter(View view) {
         startActivity(new Intent(MainActivity2.this, choix_du_profil.class));
     }
