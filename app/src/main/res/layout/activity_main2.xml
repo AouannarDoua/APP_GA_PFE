@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="page"
+            android:onClick="pageconnecter"
             android:padding="10dp"
             android:orientation="horizontal">
             <ImageView
@@ -109,7 +109,7 @@
                     android:text="Face ID"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:thumbTint="@color/app_color"
+                    android:theme="@style/myswitch"
                     android:trackTint="@color/button_color"
                     />
 
@@ -123,10 +123,10 @@
                     android:layout_marginTop="16dp"
                     android:minWidth="120dp"
                     android:minHeight="48dp"
+                    android:theme="@style/myswitch"
                     android:text="Fingerprint"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:thumbTint="@color/app_color"
                     android:trackTint="@color/button_color" />
 
             </RelativeLayout>

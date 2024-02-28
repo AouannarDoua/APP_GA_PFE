@@ -52,25 +52,22 @@ public class MainActivity extends AppCompatActivity {
                 if (utilisateurExiste) {
                     int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
                     long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
+                    boolean isFaceIdActivated = faceIdSwitch.isChecked();
+                    boolean isFingerprintActivated = fingerprintSwitch.isChecked();
                     // Afficher un message de bienvenue
                     Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                    Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
                     intent.putExtra("idFilieres", selectedFiliereId);
+                    intent.putExtra("isFaceIdActivated", isFaceIdActivated);
+                    intent.putExtra("isFingerprintActivated", isFingerprintActivated);
                     startActivity(intent);
+
 
                 } else {
                     // Afficher un message d'erreur
                     Toast.makeText(MainActivity.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
                 }
-                boolean isFaceIdActivated = faceIdSwitch.isChecked();
-                // Récupérer l'état de Fingerprint
-                boolean isFingerprintActivated = fingerprintSwitch.isChecked();
 
-                // Créer l'intent pour lancer l'activité de choix de profil et passer les états de Face ID et de Fingerprint
-                Intent intent = new Intent(MainActivity.this, choix_du_profil.class);
-                intent.putExtra("isFaceIdActivated", isFaceIdActivated);
-                intent.putExtra("isFingerprintActivated", isFingerprintActivated);
-                startActivity(intent);
             }
 
         });
@@ -100,5 +97,7 @@ public class MainActivity extends AppCompatActivity {
     public void pageconnecter(View view) {
         startActivity(new Intent(MainActivity.this, MainActivity2.class));
     }
+
+
 }
 

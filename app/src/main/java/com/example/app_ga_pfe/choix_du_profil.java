@@ -9,6 +9,7 @@ public class choix_du_profil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choix_du_profil);
 
     }
 }

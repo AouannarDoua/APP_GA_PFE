@@ -159,10 +159,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:minHeight="48dp"
+                    android:theme="@style/myswitch"
                     android:text="Face ID"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:thumbTint="@color/app_color"
                     android:trackTint="@color/button_color"
               />
 
@@ -175,11 +175,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:minWidth="120dp"
+                    android:theme="@style/myswitch"
                     android:minHeight="48dp"
                     android:text="Fingerprint"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:thumbTint="@color/app_color"
                     android:trackTint="@color/button_color" />
 
             </RelativeLayout>

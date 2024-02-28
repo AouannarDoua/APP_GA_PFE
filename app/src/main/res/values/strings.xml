@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">APP_GA_PFE</string>
+
+    <style name="myswitch">
+        <item name="colorControlActivated">@color/app_color</item>
+    </style>
 </resources>
