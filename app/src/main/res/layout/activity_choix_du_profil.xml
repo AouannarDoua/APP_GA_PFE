@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/newback"
     tools:context=".choix_du_profil">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -35,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499"
         app:shapeAppearanceOverlay="@style/circular"
-        tools:srcCompat="@drawable/iconStudent" />
+        tools:srcCompat="@drawable/teacher_icon" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/admin"

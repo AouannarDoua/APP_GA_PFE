@@ -14,6 +14,7 @@ public class choix_du_profil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choix_du_profil);
         teacher=findViewById(R.id.teacher);
         student=findViewById(R.id.student);
         admin=findViewById((R.id.admin));

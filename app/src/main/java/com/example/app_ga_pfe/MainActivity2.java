@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -15,6 +16,8 @@ public class MainActivity2 extends AppCompatActivity {
     EditText TeacherCode;
     Button Connect;
     private Techeardb techeardb;
+    Switch faceIdSwitch;
+    Switch fingerprintSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class MainActivity2 extends AppCompatActivity {
         TeacherCode = findViewById(R.id.codeTeacher);
         Connect = findViewById(R.id.connect);
         techeardb = new Techeardb(this);
+        faceIdSwitch = findViewById(R.id.faceIdSwitch);
+        fingerprintSwitch = findViewById(R.id.fingerprintSwitch);
 
         Connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +39,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 if (utilisateurExiste) {
                     Toast.makeText(MainActivity2.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity2.this, choix_du_profil.class);
+                    Intent intent = new Intent(MainActivity2.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity2.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
