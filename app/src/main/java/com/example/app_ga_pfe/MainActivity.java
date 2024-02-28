@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pageconnecter(View view) {
-        startActivity(new Intent(MainActivity.this, MainActivity2.class));
+        startActivity(new Intent(MainActivity.this, choix_du_profil.class));
     }
 
 

@@ -35,11 +35,15 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String nom = TeacherName.getText().toString().trim();
                 String code = TeacherCode.getText().toString().trim();
+                boolean isFaceIdActivated = faceIdSwitch.isChecked();
+                boolean isFingerprintActivated = fingerprintSwitch.isChecked();
                 boolean utilisateurExiste = techeardb.verificationDonnees(nom, code);
 
                 if (utilisateurExiste) {
                     Toast.makeText(MainActivity2.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                    Intent intent = new Intent(MainActivity2.this, FringerPrintFaceid.class);
+                    intent.putExtra("isFaceIdActivated", isFaceIdActivated);
+                    intent.putExtra("isFingerprintActivated", isFingerprintActivated);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity2.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();

@@ -19,10 +19,10 @@
             android:name=".FringerPrintFaceid"
             android:exported="false" />
         <activity
-            android:name=".choix_du_profil"
+            android:name=".MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".choix_du_profil"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
