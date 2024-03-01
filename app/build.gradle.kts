@@ -41,7 +41,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.readystatesoftware.sqliteasset:sqliteassethelper:+")
     implementation("androidx.biometric:biometric:1.1.0")
-    implementation ("de.codecrafters.tableview:tableview:4.0.1")
 
 
 }
