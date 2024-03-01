@@ -3,12 +3,14 @@ package com.example.app_ga_pfe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private filiereDataHelper dbHelper;
     private Spinner filiereSpinner;
     Switch faceIdSwitch;
+    RadioGroup scheduleRadioGroup;
+    boolean isFaceIdActivated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +36,23 @@ public class MainActivity extends AppCompatActivity {
         buttonConnecter = findViewById(R.id.con);
         filiereSpinner = findViewById(R.id.filiereSpinner);
         faceIdSwitch = findViewById(R.id.faceIdSwitch);
+        scheduleRadioGroup = findViewById(R.id.scheduleRadioGroup);
 
         database = new databasemain(this);
         dbHelper = new filiereDataHelper(this);
 
+
         chargerFilieres(); // Appel à la méthode pour charger les filières
 
+        // Vérifier si l'utilisateur s'est déjà connecté une fois
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        boolean isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
+
+        if (!isFirstLogin) {
+            // Rediriger directement vers la page FringerPrintFaceid
+            startActivity(new Intent(MainActivity.this, FringerPrintFaceid.class));
+            finish(); // Fermer l'activité actuelle
+        }
         buttonConnecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,16 +63,16 @@ public class MainActivity extends AppCompatActivity {
                 boolean utilisateurExiste = database.verificationDonnees(nom, apogee);
 
                 if (utilisateurExiste) {
-                    int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
-                    long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
-                    boolean isFaceIdActivated = faceIdSwitch.isChecked();
-                    // Afficher un message de bienvenue
-                    Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
-                    intent.putExtra("idFilieres", selectedFiliereId);
-                    intent.putExtra("isFaceIdActivated", isFaceIdActivated);
-                    startActivity(intent);
-
+                    if (validateInputs()) {
+                        int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
+                        long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
+                        // Afficher un message de bienvenue
+                        Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
+                        intent.putExtra("idFilieres", selectedFiliereId);
+                        intent.putExtra("isFaceIdActivated", isFaceIdActivated);
+                        startActivity(intent);
+                    }
 
                 } else {
                     // Afficher un message d'erreur
@@ -89,6 +104,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean validateInputs() {
+        isFaceIdActivated = faceIdSwitch.isChecked();
+        if (!isFaceIdActivated) {
+            Toast.makeText(MainActivity.this, "Veuillez activer Face ID & FingerPrint", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (scheduleRadioGroup.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(MainActivity.this, "Veuillez sélectionner une option pour votre année", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
 
     public void pageconnecter(View view) {
         startActivity(new Intent(MainActivity.this, choix_du_profil.class));

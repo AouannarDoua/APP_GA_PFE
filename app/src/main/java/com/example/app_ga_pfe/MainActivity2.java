@@ -35,6 +35,10 @@ public class MainActivity2 extends AppCompatActivity {
                 String code = TeacherCode.getText().toString().trim();
                 boolean isFaceIdActivated = faceIdSwitch.isChecked();
                 boolean utilisateurExiste = techeardb.verificationDonnees(nom, code);
+                if (!isFaceIdActivated) {
+                    Toast.makeText(MainActivity2.this, "Veuillez activer Face ID & FingerPrint", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (utilisateurExiste) {
                     Toast.makeText(MainActivity2.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
