@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private filiereDataHelper dbHelper;
     private Spinner filiereSpinner;
     Switch faceIdSwitch;
-    Switch fingerprintSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         buttonConnecter = findViewById(R.id.con);
         filiereSpinner = findViewById(R.id.filiereSpinner);
         faceIdSwitch = findViewById(R.id.faceIdSwitch);
-        fingerprintSwitch = findViewById(R.id.fingerprintSwitch);
 
         database = new databasemain(this);
         dbHelper = new filiereDataHelper(this);
@@ -53,13 +51,11 @@ public class MainActivity extends AppCompatActivity {
                     int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
                     long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
                     boolean isFaceIdActivated = faceIdSwitch.isChecked();
-                    boolean isFingerprintActivated = fingerprintSwitch.isChecked();
                     // Afficher un message de bienvenue
                     Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
                     intent.putExtra("idFilieres", selectedFiliereId);
                     intent.putExtra("isFaceIdActivated", isFaceIdActivated);
-                    intent.putExtra("isFingerprintActivated", isFingerprintActivated);
                     startActivity(intent);
 
 
