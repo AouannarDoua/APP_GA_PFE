@@ -32,11 +32,20 @@
                 android:textColor="@color/black"
                 android:textSize="22sp"/>
         </LinearLayout>
+        <ImageView
+            android:id="@+id/topImage"
+            android:layout_width="230dp"
+            android:layout_height="210dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/teacher_icon"
+            android:layout_marginLeft="100dp"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
 
@@ -91,45 +100,32 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="137dp"
-                tools:context=".MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        tools:context=".MainActivity">
 
-                <!-- Votre mise en page existante -->
+        <!-- Votre mise en page existante -->
 
-                <!-- Ajout du switch pour activer/désactiver Face ID -->
-                <Switch
-                    android:id="@+id/faceIdSwitch"
-                    android:layout_width="207dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:minHeight="48dp"
-                    android:text="Face ID"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:theme="@style/myswitch"
-                    android:trackTint="@color/button_color"
-                    />
+        <!-- Ajout du switch pour activer/désactiver Face ID -->
+        <Switch
+            android:id="@+id/faceIdSwitch"
+            android:layout_width="309dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:text="Face ID &amp; FingerPrint"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:theme="@style/myswitch"
+            android:trackTint="@color/button_color"/>
 
-                <!-- Ajout du switch pour activer/désactiver Fingerprint -->
-                <Switch
-                    android:id="@+id/fingerprintSwitch"
-                    android:layout_width="225dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/faceIdSwitch"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:minWidth="120dp"
-                    android:minHeight="48dp"
-                    android:theme="@style/myswitch"
-                    android:text="Fingerprint"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:trackTint="@color/button_color" />
+    </RelativeLayout>
 
-            </RelativeLayout>
+
+
 
             <Button
                 android:id="@+id/connect"
@@ -137,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/button_color"
+                android:backgroundTint="@color/app_color"
                 android:padding="10dp"
                 android:text="Connecter"
                 android:textAllCaps="true"
