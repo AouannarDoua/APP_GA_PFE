@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_teacher"
+    android:background="@drawable/background1"
     tools:context=".MainActivity2">
 
 
@@ -93,8 +93,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="137dp"
                 tools:context=".MainActivity">
 
                 <!-- Votre mise en page existante -->
@@ -102,15 +101,32 @@
                 <!-- Ajout du switch pour activer/désactiver Face ID -->
                 <Switch
                     android:id="@+id/faceIdSwitch"
-                    android:layout_width="309dp"
+                    android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:minHeight="48dp"
-                    android:text="Face ID &amp; FingerPrint"
+                    android:text="Face ID"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:theme="@style/myswitch"
+                    android:trackTint="@color/button_color"
+                    />
+
+                <!-- Ajout du switch pour activer/désactiver Fingerprint -->
+                <Switch
+                    android:id="@+id/fingerprintSwitch"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/faceIdSwitch"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:minWidth="120dp"
+                    android:minHeight="48dp"
+                    android:theme="@style/myswitch"
+                    android:text="Fingerprint"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
                     android:trackTint="@color/button_color" />
 
             </RelativeLayout>
