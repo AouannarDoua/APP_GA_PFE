@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_student"
+    android:background="@drawable/background1"
     tools:context=".MainActivity">
 
 
@@ -12,25 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="pageconnecter"
-            android:padding="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_arrow_back_24"
                 android:padding="10dp"
+                android:src="@drawable/baseline_arrow_back_24"
                 app:tint="@color/black" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Student"
                 android:textColor="@color/black"
-                android:textSize="22sp"/>
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -40,12 +46,13 @@
             android:orientation="vertical">
 
 
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="0dp"
                 android:hint="Entrer Votre Nom&amp;Prenom"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -69,8 +76,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
                 android:hint="Code Appogee"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -94,18 +101,17 @@
                 android:id="@+id/filiereSpinner"
                 android:layout_width="352dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
-                android:background="@color/button_color"
-                />
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border_circ" />
 
             <RadioGroup
                 android:id="@+id/scheduleRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/s1"
@@ -119,28 +125,28 @@
                     android:id="@+id/s2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:text="S2"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_marginStart="20dp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/s3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:text="S3"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_marginStart="20dp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:id="@+id/s4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:text="S4"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_marginStart="20dp" />
+                    android:textSize="18sp" />
 
             </RadioGroup>
 
@@ -159,12 +165,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:minHeight="48dp"
-                    android:theme="@style/myswitch"
                     android:text="Face ID"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:trackTint="@color/button_color"
-              />
+                    android:theme="@style/myswitch"
+                    android:trackTint="@color/button_color" />
 
                 <!-- Ajout du switch pour activer/désactiver Fingerprint -->
                 <Switch
@@ -175,15 +180,14 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:minWidth="120dp"
-                    android:theme="@style/myswitch"
                     android:minHeight="48dp"
                     android:text="Fingerprint"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:theme="@style/myswitch"
                     android:trackTint="@color/button_color" />
 
             </RelativeLayout>
-
 
 
         </LinearLayout>
@@ -203,11 +207,6 @@
 
 
     </LinearLayout>
-
-
-
-
-
 
 
 </RelativeLayout>

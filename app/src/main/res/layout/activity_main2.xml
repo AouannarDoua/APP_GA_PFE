@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_teacher"
+    android:background="@drawable/background1"
     tools:context=".MainActivity2">
 
 
@@ -44,8 +44,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="0dp"
                 android:hint="Entrer Votre Nom&amp;Prenom"
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -69,8 +69,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
                 android:hint="Code "
                 app:boxCornerRadiusBottomEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
@@ -110,8 +110,7 @@
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:theme="@style/myswitch"
-                    android:trackTint="@color/button_color"
-                    />
+                    android:trackTint="@color/button_color" />
 
                 <!-- Ajout du switch pour activer/désactiver Fingerprint -->
                 <Switch
@@ -123,10 +122,10 @@
                     android:layout_marginTop="16dp"
                     android:minWidth="120dp"
                     android:minHeight="48dp"
-                    android:theme="@style/myswitch"
                     android:text="Fingerprint"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:theme="@style/myswitch"
                     android:trackTint="@color/button_color" />
 
             </RelativeLayout>

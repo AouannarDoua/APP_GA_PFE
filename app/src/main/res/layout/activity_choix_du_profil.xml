@@ -4,50 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".choix_du_profil">
+    tools:context=".choix_du_profil"
+    android:background="@drawable/background1">
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/teacher"
-        android:layout_width="182dp"
-        android:layout_height="165dp"
+        android:layout_width="210dp"
+        android:layout_height="190dp"
         android:clickable="true"
         android:contentDescription="@string/image_description1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_bias="0.112"
         app:shapeAppearanceOverlay="@style/circular"
         app:srcCompat="@drawable/teacher_icon" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/student"
-        android:layout_width="180dp"
-        android:layout_height="170dp"
+        android:layout_width="292dp"
+        android:layout_height="230dp"
         android:clickable="true"
         android:contentDescription="@string/image_description2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
+        app:layout_constraintVertical_bias="0.504"
         app:shapeAppearanceOverlay="@style/circular"
-        app:srcCompat="@drawable/teacher_icon"/>
+        app:srcCompat="@drawable/student_icon" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/admin"
-        android:layout_width="186dp"
-        android:layout_height="177dp"
+        android:layout_width="247dp"
+        android:layout_height="218dp"
         android:clickable="true"
         android:contentDescription="@string/image_description3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759"
+        app:layout_constraintVertical_bias="0.914"
         app:shapeAppearanceOverlay="@style/circular"
         app:srcCompat="@drawable/administration_icon" />
 
@@ -61,9 +63,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.673"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <TextView
         android:id="@+id/textView2"
@@ -75,10 +78,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.202" />
 
     <TextView
         android:id="@+id/textView3"
@@ -90,25 +93,25 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintVertical_bias="0.512" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="199dp"
-        android:layout_height="53dp"
+        android:layout_width="140dp"
+        android:layout_height="36dp"
         android:text="administration"
         android:textColor="@color/button_color"
         android:textSize="9pt"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.823" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
