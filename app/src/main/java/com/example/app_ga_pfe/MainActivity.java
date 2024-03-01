@@ -91,6 +91,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filiereSpinner.setAdapter(adapter);
 
+        // Trouver l'index de "DUT - Finance,Comptabilité et Fiscalité (FCF)" dans la liste des filières
+        int index = filieres.indexOf("DUT - Finance,Comptabilité et Fiscalité (FCF)");
+
+// Définir cet index comme l'élément sélectionné par défaut dans le Spinner
+        filiereSpinner.setSelection(index);
+
+
         // Gérer la sélection d'une filière dans le Spinner
         filiereSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

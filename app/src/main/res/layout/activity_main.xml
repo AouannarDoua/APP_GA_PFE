@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="ExtraText">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +110,10 @@
                 android:layout_height="55dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/button_color" />
+                android:background="@drawable/spinner_border"
+                 />
+
+            />
 
             <RadioGroup
                 android:id="@+id/scheduleRadioGroup"
@@ -171,7 +175,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:minHeight="48dp"
-                    android:text="Face ID &amp; FingerPrint"
+                    android:text="Face ID Ou FingerPrint"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:theme="@style/myswitch"
