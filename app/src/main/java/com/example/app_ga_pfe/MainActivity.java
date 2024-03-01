@@ -44,15 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         chargerFilieres(); // Appel à la méthode pour charger les filières
 
-        // Vérifier si l'utilisateur s'est déjà connecté une fois
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        boolean isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
 
-        if (!isFirstLogin) {
-            // Rediriger directement vers la page FringerPrintFaceid
-            startActivity(new Intent(MainActivity.this, FringerPrintFaceid.class));
-            finish(); // Fermer l'activité actuelle
-        }
+
+
         buttonConnecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

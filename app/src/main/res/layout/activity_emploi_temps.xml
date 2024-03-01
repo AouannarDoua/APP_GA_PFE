@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Emploi_Temps">
 
-
+    <de.codecrafters.tableview.TableView
+        android:id="@+id/tableView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingClass" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

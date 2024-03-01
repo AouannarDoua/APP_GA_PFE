@@ -78,11 +78,7 @@ public class FringerPrintFaceid extends AppCompatActivity {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
-                // Enregistrer l'état de la première connexion
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("isFirstLogin", false);
-                editor.apply();
+
 
                 // Démarrer MainActivity2
                 Intent intent = new Intent(FringerPrintFaceid.this, MainActivity2.class);
