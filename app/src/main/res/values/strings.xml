@@ -9,5 +9,18 @@
     <string name="image_description2">image of student</string>
     <string name="image_description3">image of admin</string>
 
+    <string name="coll1">Monday</string>
+    <string name="coll2">Tuesday</string>
+    <string name="coll3">Wednesday</string>
+    <string name="coll4">Thursday</string>
+    <string name="coll5">Friday</string>
+    <string name="coll6">Saturday</string>
+    <string name="rows1">9:00 --> 10:30</string>
+    <string name="rows2">10:45 --> 12:15</string>
+    <string name="rows3">14:00 --> 15:30</string>
+    <string name="rows4">15:45 --> 17:15</string>
+
+
+
 
 </resources>
