@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.icu.number.FractionPrecision;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,8 @@ public class MainActivity2 extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity2.this, FringerPrintFaceid.class);
                     intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                     startActivity(intent);
+                    goToProfil();
+
                 } else {
                     Toast.makeText(MainActivity2.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
                 }
@@ -56,6 +59,14 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void page(View view) {
-        startActivity(new Intent(MainActivity2.this, choix_du_profil.class));
+        startActivity(new Intent(MainActivity2.this, profil_teacher.class));
     }
+    public void goToProfil() {
+        String fullName = TeacherName.getText().toString();
+            Intent intent = new Intent(this, profil_teacher.class);
+            intent.putExtra("FULL_NAME", fullName);
+            startActivity(intent);
+
+    }
+
 }

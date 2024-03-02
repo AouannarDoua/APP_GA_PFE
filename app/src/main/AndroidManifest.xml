@@ -24,6 +24,9 @@
         <activity
             android:name=".MainActivity2"
             android:exported="false" />
+        <activity
+            android:name=".profil_teacher"
+            android:exported="false" />
 
         <activity
             android:name=".Emploi_Temps"

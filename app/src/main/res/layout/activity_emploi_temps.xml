@@ -104,44 +104,33 @@
                     <TextView
 
                         android:layout_width="50dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="102dp"
+                        android:background="@drawable/borderleft"
                         android:gravity="center"
                         android:text="@string/coll1"
                         android:textAlignment="center"
-                        android:background="@drawable/borderleft"
                         android:textColor="@color/white"
                         android:textSize="23sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="90dp"
+                        android:layout_width="196dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border"
                         android:clickable="true"
                         android:gravity="center"
-                        android:text="JAVA"
+                        android:text="Droit \n Social"
                         android:textColor="@color/app_color"
                         android:textSize="23sp"
-                        android:background="@drawable/border"/>
+                        android:textStyle="bold" />
 
                     <TextView
 
-                        android:layout_width="50dp"
-                        android:layout_height="90dp"
+                        android:layout_width="196dp"
+                        android:layout_height="match_parent"
                         android:clickable="true"
                         android:gravity="center"
-                        android:text="JAVA"
-                        android:textColor="@color/app_color"
-                        android:textSize="23sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/border"/>
-
-                    <TextView
-
-                        android:layout_width="50dp"
-                        android:layout_height="90dp"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:text="JAVA"
+                        android:text="Droit \n Commercial"
                         android:textColor="@color/app_color"
                         android:textSize="23sp"
                         android:textStyle="bold"
@@ -149,12 +138,24 @@
 
                     <TextView
 
-
-                        android:layout_width="50dp"
-                        android:layout_height="90dp"
+                        android:layout_width="196dp"
+                        android:layout_height="match_parent"
                         android:clickable="true"
                         android:gravity="center"
-                        android:text="JAVA"
+                        android:text="Control \nde Gestion"
+                        android:textColor="@color/app_color"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/border"/>
+
+                    <TextView
+
+
+                        android:layout_width="196dp"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="Activités des \n organisation"
                         android:textColor="@color/app_color"
                         android:textSize="23sp"
                         android:textStyle="bold"
@@ -169,22 +170,34 @@
                 <TextView
 
                     android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="115dp"
+                    android:background="@drawable/borderleft"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textAlignment="center"
-                    android:background="@drawable/borderleft"
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <TextView
 
-                    android:layout_width="124dp"
-                    android:layout_height="90dp"
+                    android:layout_width="196dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="JAVA"
+                    android:text="Base de Données \n sous Oracle"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="196dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="Base de Données \n sous Oracle"
                     android:textColor="@color/app_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -193,10 +206,10 @@
                 <TextView
 
                     android:layout_width="124dp"
-                    android:layout_height="90dp"
+                    android:layout_height="match_parent"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="JAVA"
+                    android:text="Oracle \n SQL plus"
                     android:textColor="@color/app_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
@@ -205,22 +218,10 @@
                 <TextView
 
                     android:layout_width="124dp"
-                    android:layout_height="90dp"
+                    android:layout_height="match_parent"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="JAVA"
-                    android:textColor="@color/app_color"
-                    android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
-
-                <TextView
-
-                    android:layout_width="124dp"
-                    android:layout_height="90dp"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="JAVA"
+                    android:text="Oracle \n SQL plus"
                     android:textColor="@color/app_color"
                     android:textSize="23sp"
                     android:textStyle="bold"

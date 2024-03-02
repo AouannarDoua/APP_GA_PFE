@@ -48,10 +48,10 @@
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/fullName"
         android:layout_width="99dp"
         android:layout_height="30dp"
-        android:text="Teacher"
+        android:text="Full Name"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -62,29 +62,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.383" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="406dp"
-        android:layout_height="53dp"
+    <EditText
+        android:id="@+id/gmail"
+        android:layout_width="391dp"
+        android:layout_height="54dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="Full Name"
+        android:hint="enter your gmail"
+        android:textColorHint="@color/button_color"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
+        app:layout_constraintVertical_bias="0.54" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="410dp"
-        android:layout_height="49dp"
+    <EditText
+        android:id="@+id/programLeader"
+        android:layout_width="397dp"
+        android:layout_height="52dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="Code"
+        android:hint="enter you program"
+        android:textColorHint="@color/button_color"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,28 +96,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.695" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="412dp"
-        android:layout_height="51dp"
+    <EditText
+        android:id="@+id/subjectTaught"
+        android:layout_width="388dp"
+        android:layout_height="58dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:text="jsp"
+        android:hint="add the subjects you teach"
+        android:textColorHint="@color/button_color"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.86" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="106dp"
         android:layout_height="31dp"
         android:gravity="center"
-        android:text="Full Name:"
+        android:text="Gmail :"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -127,10 +130,10 @@
 
     <TextView
         android:id="@+id/textView12"
-        android:layout_width="106dp"
-        android:layout_height="31dp"
+        android:layout_width="204dp"
+        android:layout_height="37dp"
         android:gravity="center"
-        android:text="Jsp :"
+        android:text="Subjects Taught :"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -142,10 +145,10 @@
 
     <TextView
         android:id="@+id/textView13"
-        android:layout_width="106dp"
-        android:layout_height="31dp"
+        android:layout_width="228dp"
+        android:layout_height="39dp"
         android:gravity="center"
-        android:text="Code :"
+        android:text="Program Leader for:"
         android:textColor="@color/button_color"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
