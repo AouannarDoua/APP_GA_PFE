@@ -1,16 +1,503 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/back_color"
     tools:context=".Emploi_Temps">
 
-    <de.codecrafters.tableview.TableView
-        android:id="@+id/tableView"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingClass" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <!-- Votre contenu à l'intérieur de HorizontalScrollView -->
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/first"
+                        android:layout_width="52dp"
+                        android:layout_height="match_parent"
+                        android:padding="10sp"
+                        android:background="@color/back_color"
+                        android:textColor="@color/app_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="10sp"
+                        android:text="@string/rows1"
+                        android:textColor="@color/app_color"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/borderhead"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/third"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:padding="10sp"
+                        android:text="@string/rows2"
+                        android:textColor="@color/app_color"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/borderhead"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/forth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="49dp"
+                        android:gravity="center_horizontal"
+                        android:padding="10sp"
+                        android:text="@string/rows3"
+                        android:textColor="@color/app_color"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/borderhead"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/fifth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:padding="10sp"
+                        android:text="@string/rows4"
+                        android:textColor="@color/app_color"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/borderhead"
+
+                        />
+
+
+                </TableRow>
+
+                <TableRow
+                    >
+
+                    <TextView
+
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/coll1"
+                        android:textAlignment="center"
+                        android:background="@drawable/borderleft"
+                        android:textColor="@color/white"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="90dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="JAVA"
+                        android:textColor="@color/app_color"
+                        android:textSize="23sp"
+                        android:background="@drawable/border"/>
+
+                    <TextView
+
+                        android:layout_width="50dp"
+                        android:layout_height="90dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="JAVA"
+                        android:textColor="@color/app_color"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/border"/>
+
+                    <TextView
+
+                        android:layout_width="50dp"
+                        android:layout_height="90dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="JAVA"
+                        android:textColor="@color/app_color"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/border"/>
+
+                    <TextView
+
+
+                        android:layout_width="50dp"
+                        android:layout_height="90dp"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="JAVA"
+                        android:textColor="@color/app_color"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/border"/>
+
+
+                </TableRow>
+
+            <TableRow
+                >
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/coll2"
+                    android:textAlignment="center"
+                    android:background="@drawable/borderleft"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+
+            </TableRow>
+
+            <TableRow
+                >
+
+                <TextView
+                    android:layout_width="125dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/coll3"
+                    android:textAlignment="center"
+                    android:background="@color/app_color"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"
+                    />
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="124dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+
+            </TableRow>
+
+            <TableRow
+                >
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/coll4"
+                    android:textAlignment="center"
+                    android:background="@drawable/borderleft"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"
+                    />
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+
+            </TableRow>
+
+            <TableRow
+                >
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/coll5"
+                    android:textAlignment="center"
+                    android:background="@drawable/borderleft"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+
+            </TableRow>
+
+            <TableRow
+                >
+
+                <TextView
+
+                    android:layout_width="115dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/coll6"
+                    android:textAlignment="center"
+                    android:background="@drawable/borderleft"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+                <TextView
+
+                    android:layout_width="50dp"
+                    android:layout_height="90dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="JAVA"
+                    android:textColor="@color/app_color"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/border"/>
+
+
+            </TableRow>
+
+
+
+
+        </TableLayout>
+        </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
