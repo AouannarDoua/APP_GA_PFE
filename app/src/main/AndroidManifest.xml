@@ -13,10 +13,13 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
+            android:name=".Profil_Student"
+            android:exported="false" />
+        <activity
             android:name=".choix_du_profil"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Emploi_Temps"
             android:exported="false" />
         <activity
             android:name=".FringerPrintFaceid"
@@ -27,9 +30,8 @@
         <activity
             android:name=".profil_teacher"
             android:exported="false" />
-
         <activity
-            android:name=".Emploi_Temps"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

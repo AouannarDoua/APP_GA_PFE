@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextApogee;
     Button buttonConnecter;
     private databasemain database;
+    private infoStudentDB infodata;
     private filiereDataHelper dbHelper;
     private Spinner filiereSpinner;
     Switch faceIdSwitch;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         database = new databasemain(this);
         dbHelper = new filiereDataHelper(this);
-
+        infodata = new infoStudentDB(this);
 
         chargerFilieres(); // Appel à la méthode pour charger les filières
 
@@ -60,9 +61,12 @@ public class MainActivity extends AppCompatActivity {
                     if (validateInputs()) {
                         int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
                         long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
+                        int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
+
+                        infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
                         // Afficher un message de bienvenue
                         Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
+                        Intent intent = new Intent(MainActivity.this,FringerPrintFaceid.class);
                         intent.putExtra("idFilieres", selectedFiliereId);
                         intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                         startActivity(intent);

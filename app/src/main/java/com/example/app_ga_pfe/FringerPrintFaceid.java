@@ -37,6 +37,8 @@ public class FringerPrintFaceid extends AppCompatActivity {
 
         Toast.makeText(this, "Face ID activé : " + isFaceIdActivated, Toast.LENGTH_SHORT).show();
 
+
+
         // Utiliser les valeurs récupérées comme nécessaire
         if (isFaceIdActivated) {
             Toast.makeText(this, "Face ID est activé", Toast.LENGTH_SHORT).show();
@@ -80,9 +82,14 @@ public class FringerPrintFaceid extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
 
 
-                // Démarrer MainActivity2
-                Intent intent = new Intent(FringerPrintFaceid.this, MainActivity2.class);
-                startActivity(intent);
+                // Récupérer l'identifiant de la filière transmis par l'activité précédente
+                Intent intent = getIntent();
+                long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
+
+                // Passer à l'activité Emploi_Temps
+                Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, Emploi_Temps.class);
+                emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
+                startActivity(emploiTempsIntent);
                 finish();
             }
 
