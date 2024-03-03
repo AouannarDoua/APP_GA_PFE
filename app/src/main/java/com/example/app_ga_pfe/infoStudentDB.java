@@ -2,6 +2,7 @@ package com.example.app_ga_pfe;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -50,5 +51,26 @@ public class infoStudentDB extends SQLiteOpenHelper {
         db.close();
         return result;
     }
+    public Cursor getDonneesUtilisateur() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_NOM, COLUMN_APOGEE}; // Les colonnes à récupérer
+        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
+        return cursor;
+    }
+    public Cursor insérerDonnéesEtRécupérerInformations(String nom, String apogee) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOM, nom);
+        values.put(COLUMN_APOGEE, apogee);
+        long result = db.insert(TABLE_NAME, null, values);
+
+        // Après l'insertion, récupérez les informations de l'utilisateur
+        Cursor cursor = null;
+        if (result != -1) {
+            cursor = getDonneesUtilisateur();
+        }
+        return cursor;
+    }
+
 }
 

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:gravity="bottom"
     android:padding="12dp"
     android:background="@drawable/headerback"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    tools:context=".nav_header">
 
     <ImageView
         android:layout_width="87dp"
@@ -15,6 +16,7 @@
         android:src="@drawable/student_icon" />
 
     <TextView
+        android:id="@+id/name"
         android:layout_marginTop="10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

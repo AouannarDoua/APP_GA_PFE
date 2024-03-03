@@ -152,6 +152,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void goToEmploi() {
+        String fullNameStudent = editTextNom.getText().toString();
+        Intent intent = new Intent(this, MenuEmploi.class);
+        intent.putExtra("FULL_NAMES", fullNameStudent);
+        startActivity(intent);
+
+    }
+
 
 
 }
