@@ -85,10 +85,13 @@ public class FringerPrintFaceid extends AppCompatActivity {
                 // Récupérer l'identifiant de la filière transmis par l'activité précédente
                 Intent intent = getIntent();
                 long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
+                int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
 
                 // Passer à l'activité Emploi_Temps
                 Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, Emploi_Temps.class);
                 emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
+                emploiTempsIntent.putExtra("radiobutton_id", selectedRadioButtonId);
+                startActivity(intent);
                 startActivity(emploiTempsIntent);
                 finish();
             }

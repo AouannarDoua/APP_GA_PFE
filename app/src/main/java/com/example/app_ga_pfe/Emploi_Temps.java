@@ -23,9 +23,9 @@ public class Emploi_Temps extends AppCompatActivity {
 
         Intent intent = getIntent();
         long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
-
+        int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
         // Récupérer les données de la base de données en fonction des sélections de l'utilisateur
-        getDataFromDatabase(selectedFiliereId);
+        getDataFromDatabase(selectedFiliereId,selectedRadioButtonId);
 
     }
 
@@ -42,9 +42,9 @@ public class Emploi_Temps extends AppCompatActivity {
         }
     }
 
-    private void getDataFromDatabase(long filiereId) {
+    private void getDataFromDatabase(long filiereId,int Radio) {
         Emploi_TempsBD emploiTempsBD = new Emploi_TempsBD(this);
-        List<EmploiTempsClass> emploiDataList = emploiTempsBD.getEmploiData(filiereId);
+        List<EmploiTempsClass> emploiDataList = emploiTempsBD.getEmploiData(filiereId,Radio);
         displayEmploiData(emploiDataList);
     }
 }

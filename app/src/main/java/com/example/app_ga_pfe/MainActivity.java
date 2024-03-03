@@ -66,9 +66,10 @@ public class MainActivity extends AppCompatActivity {
                         infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
                         // Afficher un message de bienvenue
                         Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this,FringerPrintFaceid.class);
+                        Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
                         intent.putExtra("idFilieres", selectedFiliereId);
                         intent.putExtra("isFaceIdActivated", isFaceIdActivated);
+                        intent.putExtra("radiobutton_id", selectedRadioButtonId);
                         startActivity(intent);
                     }
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Emploi_TempsBD  extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "amitEmploii.db";
+    private static final String DATABASE_NAME = "EmploiDB.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "EmploiTemps";
     private static final String COLUMN_ID = "idEmploi";
@@ -23,7 +23,7 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
     public static final String COLUMN_Text5 = "Matiere5";
     public static final String COLUMN_Text6 = "Matiere6";
     private static final String COLUMN_FILIERE_ID = "idFilieres";
-    public static final String radioButton_ID = "id_s";
+    public static final String radioButton_ID= "radiobutton_id";
     private SQLiteDatabase db;
 
     public Emploi_TempsBD(Context context) {
@@ -36,6 +36,7 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
         String createTableQuery = "CREATE TABLE " + TABLE_NAME + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FILIERE_ID + " INTEGER, " +
+                radioButton_ID + " INTEGER, " +
                 COLUMN_Text1 + " TEXT, " +
                 COLUMN_Text2 + " TEXT, " +
                 COLUMN_Text3 + " TEXT, " +
@@ -43,11 +44,11 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + COLUMN_FILIERE_ID + ") REFERENCES Filieres(idFilieres));";
         db.execSQL(createTableQuery);
 
-        insererEmploiTemps(db,1, "JAVA", "J2ee", "droit", "sql");
-        insererEmploiTemps(db,1, "RO", "LINUX", "doua", "reseau");
-        insererEmploiTemps(db,3, "J2ee", "jhh", "droit", "securite");
-        insererEmploiTemps(db,1, "JA", "2ee", "sece", "s");
-        insererEmploiTemps(db,2, "JAV", "Jee", "oit", "s");
+        insererEmploiTemps(db,1,2131296634, "JAVA", "J2ee", "droit", "sql");
+        insererEmploiTemps(db,1, 2131296635,"RO", "LINUX", "doua", "reseau");
+        insererEmploiTemps(db,3, 2131296636,"J2ee", "jhh", "droit", "securite");
+        insererEmploiTemps(db,1, 2131296637,"JA", "2ee", "sece", "s");
+        insererEmploiTemps(db,2, 2131296635,"JAV", "Jee", "oit", "s");
     }
 
     @Override
@@ -57,21 +58,23 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
 
 
     }
-    private void insererEmploiTemps(SQLiteDatabase db, long filiereId, String matiere1, String matiere2, String matiere3, String matiere4) {
+    private void insererEmploiTemps(SQLiteDatabase db, long filiereId,int Radio, String matiere1, String matiere2, String matiere3, String matiere4) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_FILIERE_ID, filiereId);
+        values.put(radioButton_ID, Radio);
         values.put(COLUMN_Text1, matiere1);
         values.put(COLUMN_Text2, matiere2);
         values.put(COLUMN_Text3, matiere3);
         values.put(COLUMN_Text4, matiere4);
         db.insert(TABLE_NAME, null, values);
     }
-    public List<EmploiTempsClass> getEmploiData(Long filiereId) {
+    public List<EmploiTempsClass> getEmploiData(Long filiereId,int Radio) {
         List<EmploiTempsClass> emploiDataList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_FILIERE_ID + " = ?",
-                new String[]{String.valueOf(filiereId)}, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_FILIERE_ID + " = ? AND " + radioButton_ID + " = ?",
+                new String[]{String.valueOf(filiereId), String.valueOf(Radio)}, null, null, null);
+
 
         int columnIndex1 = cursor.getColumnIndex("Matiere1");
         int columnIndex2 = cursor.getColumnIndex("Matiere2");

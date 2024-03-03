@@ -9,7 +9,6 @@ public class EmploiTempsClass {
     private String Matiere4;
 
     public EmploiTempsClass(String Matiere1, String Matiere2,String Matiere3,String Matiere4) {
-        this.id = id;
         this.Matiere1 = Matiere1;
         this.Matiere2 = Matiere2;
         this.Matiere3 = Matiere3;
