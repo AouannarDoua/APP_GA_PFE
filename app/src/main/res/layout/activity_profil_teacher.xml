@@ -1,176 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/back_profil"
     tools:context=".profil_teacher">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="196dp"
-        android:layout_height="192dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142"
-        app:srcCompat="@drawable/teacher_icon" />
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="34dp"
+            android:layout_height="42dp"
+            android:layout_gravity="start"
+            android:src="@drawable/baseline_arrow_back_24" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="158dp"
-        android:layout_height="44dp"
-        android:text="Profil"
-        android:textColor="@color/back_color"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Profil"
+            android:textColor="@color/back_color"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="34dp"
-        android:layout_height="42dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014"
-        app:srcCompat="@drawable/baseline_arrow_back_24" />
+        <ImageView
+            android:id="@+id/profil_img"
+            android:layout_width="196dp"
+            android:layout_height="192dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/teacher_icon"
+            app:shapeAppearanceOverlay="@drawable/circular"
+            />
 
-    <TextView
-        android:id="@+id/fullName"
-        android:layout_width="99dp"
-        android:layout_height="30dp"
-        android:text="Full Name"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383" />
+        <TextView
+            android:id="@+id/fullName"
+            android:layout_width="141dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:text="Full Name"
+            android:visibility="visible"
+            android:textColor="@color/button_color"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/gmail"
-        android:layout_width="391dp"
-        android:layout_height="54dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
-        android:hint="enter your gmail"
-        android:textColorHint="@color/button_color"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.54" />
+        <ImageView
+            android:id="@+id/edit_profil_img"
+            android:layout_width="69dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/edit"
+            android:onClick="openGallery"
+            tools:ignore="TouchTargetSizeCheck" />
 
-    <EditText
-        android:id="@+id/programLeader"
-        android:layout_width="397dp"
-        android:layout_height="52dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
-        android:hint="enter you program"
-        android:textColorHint="@color/button_color"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.695" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gmail :"
+            android:textColor="@color/button_color"
+            android:textSize="20dp" />
 
-    <EditText
-        android:id="@+id/subjectTaught"
-        android:layout_width="388dp"
-        android:layout_height="58dp"
-        android:background="@drawable/textview_border"
-        android:gravity="center"
-        android:hint="add the subjects you teach"
-        android:textColorHint="@color/button_color"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86" />
+        <EditText
+            android:id="@+id/gmail"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:hint="enter your gmail"
+            android:textColor="@color/button_color"
+            android:textColorHint="@color/button_color"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="106dp"
-        android:layout_height="31dp"
-        android:gravity="center"
-        android:text="Gmail :"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Program Leader for:"
+            android:textColor="@color/button_color"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="204dp"
-        android:layout_height="37dp"
-        android:gravity="center"
-        android:text="Subjects Taught :"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781" />
+        <EditText
+            android:id="@+id/programLeader"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:hint="enter you program"
+            android:textColor="@color/button_color"
+            android:textColorHint="@color/button_color"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="228dp"
-        android:layout_height="39dp"
-        android:gravity="center"
-        android:text="Program Leader for:"
-        android:textColor="@color/button_color"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Programs Taught :"
+            android:textColor="@color/button_color"
+            android:textSize="20dp" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="41dp"
-        android:layout_height="38dp"
-        android:clickable="true"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.649"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334"
-        app:srcCompat="@drawable/edit"
-        tools:ignore="TouchTargetSizeCheck" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Spinner
+            android:id="@+id/filSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/spinner_border" />
+
+        <ListView
+            android:id="@+id/listFil"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+</ScrollView>

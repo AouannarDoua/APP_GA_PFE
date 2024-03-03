@@ -16,7 +16,7 @@
             android:name=".Profil_Student"
             android:exported="false" />
         <activity
-            android:name=".choix_du_profil"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Emploi_Temps"
@@ -31,7 +31,7 @@
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".choix_du_profil"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
