@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -67,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
                         // Afficher un message de bienvenue
                         Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
+
                         intent.putExtra("idFilieres", selectedFiliereId);
                         intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                         intent.putExtra("radiobutton_id", selectedRadioButtonId);
                         startActivity(intent);
+                        goToProfil();
                     }
 
                 } else {
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         // Trouver l'index de "DUT - Finance,Comptabilité et Fiscalité (FCF)" dans la liste des filières
         int index = filieres.indexOf("DUT - Finance,Comptabilité et Fiscalité (FCF)");
 
-// Définir cet index comme l'élément sélectionné par défaut dans le Spinner
+        // Définir cet index comme l'élément sélectionné par défaut dans le Spinner
         filiereSpinner.setSelection(index);
 
 
@@ -126,6 +129,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void pageconnecter(View view) {
         startActivity(new Intent(MainActivity.this, choix_du_profil.class));
+    }
+    public void goToProfil() {
+        String fullNameStudent = editTextNom.getText().toString();
+        String filiere = filiereSpinner.getSelectedItem().toString();
+        Intent intent = new Intent(this, Profil_Student.class);
+        // Récupérer l'ID du RadioButton sélectionné dans le RadioGroup
+        int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
+
+        // Trouver la vue RadioButton correspondante à cet ID
+        View radioButton = scheduleRadioGroup.findViewById(selectedRadioButtonId);
+
+        String selectedRadioButtonText = "";
+        // Vérifier si le RadioButton est trouvé
+        if (radioButton != null && radioButton instanceof RadioButton) {
+            // Récupérer le texte de la vue RadioButton
+            selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
+        }
+        intent.putExtra("FULL_NAMES", fullNameStudent);
+        intent.putExtra("Filiere Selectionnee", filiere);
+        intent.putExtra("Semester",selectedRadioButtonText);
+        startActivity(intent);
+
     }
 
 

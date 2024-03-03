@@ -29,25 +29,14 @@
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profil_img"
             android:layout_width="196dp"
             android:layout_height="192dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/teacher_icon"
-            app:shapeAppearanceOverlay="@drawable/circular"
+            android:background="@drawable/circular"
             />
-
-        <TextView
-            android:id="@+id/fullName"
-            android:layout_width="141dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:text="Full Name"
-            android:visibility="visible"
-            android:textColor="@color/button_color"
-            android:textSize="20dp"
-            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/edit_profil_img"
@@ -56,9 +45,21 @@
             android:layout_gravity="center_horizontal"
             android:clickable="true"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/edit"
             android:onClick="openGallery"
+            android:src="@drawable/edit"
             tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/fullName"
+            android:layout_width="141dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Full Name"
+            android:visibility="visible"
+            android:textColor="@color/button_color"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView11"
@@ -116,7 +117,7 @@
         <ListView
             android:id="@+id/listFil"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:visibility="visible" />
 
     </LinearLayout>
