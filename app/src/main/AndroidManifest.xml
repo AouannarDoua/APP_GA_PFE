@@ -13,9 +13,6 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
-            android:name=".Emploi_Temps"
-            android:exported="false" />
-        <activity
             android:name=".Profil_Student"
             android:exported="false" />
         <activity
