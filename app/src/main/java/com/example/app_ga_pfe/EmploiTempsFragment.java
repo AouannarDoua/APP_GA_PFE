@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,13 +25,19 @@ import androidx.fragment.app.Fragment;
 
 import java.util.List;
 public class EmploiTempsFragment extends Fragment {
-    TextView t1, t2, t3, t4;
+    TextView t1, t2, t3, t4,textViewDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_emploi_temps, container, false);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Définir le format de la date
+        String currentDate = dateFormat.format(calendar.getTime()); // Formater la date actuelle selon le format spécifié
+
+        textViewDate = view.findViewById(R.id.text_view_date);
+        textViewDate.setText(currentDate);
         t1 = view.findViewById(R.id.t1);
         t2 = view.findViewById(R.id.t2);
         t3 = view.findViewById(R.id.t3);

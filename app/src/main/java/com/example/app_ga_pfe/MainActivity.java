@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                         long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
                         int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
 
+
+
                         infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
                         // Afficher un message de bienvenue
                         Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
@@ -72,8 +74,11 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("idFilieres", selectedFiliereId);
                         intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                         intent.putExtra("radiobutton_id", selectedRadioButtonId);
-                        startActivity(intent);
+                        intent.putExtra("FULL_NAMES", nom);
                         goToProfil();
+                        startActivity(intent);
+
+
                     }
 
                 } else {
@@ -149,13 +154,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("FULL_NAMES", fullNameStudent);
         intent.putExtra("Filiere Selectionnee", filiere);
         intent.putExtra("Semester",selectedRadioButtonText);
-        startActivity(intent);
-
-    }
-    public void goToEmploi() {
-        String fullNameStudent = editTextNom.getText().toString();
-        Intent intent = new Intent(this, MenuEmploi.class);
-        intent.putExtra("FULL_NAMES", fullNameStudent);
         startActivity(intent);
 
     }
