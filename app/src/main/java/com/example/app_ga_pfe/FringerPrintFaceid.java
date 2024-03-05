@@ -87,11 +87,15 @@ public class FringerPrintFaceid extends AppCompatActivity {
                 long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
                 int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
                 String fullNameS = getIntent().getStringExtra("FULL_NAMES");
+                String filiere = getIntent().getStringExtra("Filiere Selectionnee");
+                String selectedRadioButtonText = getIntent().getStringExtra("Semester");
                 // Passer à l'activité Emploi_Temps
                 Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, MenuEmploi.class);
                 emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
                 emploiTempsIntent.putExtra("radiobutton_id", selectedRadioButtonId);
                 emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);
+                emploiTempsIntent.putExtra("Filiere Selectionnee", filiere);
+                emploiTempsIntent.putExtra("Semester", selectedRadioButtonText);
                 startActivity(intent);
                 startActivity(emploiTempsIntent);
                 finish();

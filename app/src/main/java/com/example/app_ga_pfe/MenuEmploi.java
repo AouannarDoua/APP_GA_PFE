@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
+    ImageView imageViewProfile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,12 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_menu_emploi);
         Intent intent = getIntent();
         String fullName = intent.getStringExtra("FULL_NAMES");
+        String filiere = getIntent().getStringExtra("Filiere Selectionnee");
+        String selectedRadioButtonText = getIntent().getStringExtra("Semester");
+        String gmail = intent.getStringExtra("Gmail");
+
+
+
 
         // Récupérer le NavigationView
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -34,7 +43,20 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
 
         // Récupérer le TextView à l'intérieur du HeaderView
         TextView textViewName = headerView.findViewById(R.id.name);
+        TextView textViewgmail = headerView.findViewById(R.id.gmail1);
+        imageViewProfile = headerView.findViewById(R.id.imageView_profile);imageViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Rediriger vers la page de profil
+                Intent Profile = new Intent(MenuEmploi.this, Profil_Student.class);
+                Profile.putExtra("Filiere Selectionnee", filiere);
+                Profile.putExtra("Semester", selectedRadioButtonText);
+                Profile.putExtra("FULL_NAMES", fullName);
+                startActivity(Profile);
+            }
+        });
 
+        textViewgmail.setText(gmail);
         // Mettre à jour le TextView avec le nom de l'utilisateur
         textViewName.setText(fullName);
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
