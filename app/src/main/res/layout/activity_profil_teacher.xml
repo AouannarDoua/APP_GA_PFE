@@ -56,7 +56,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Full Name"
-            android:visibility="visible"
             android:textColor="@color/button_color"
             android:textSize="20dp"
             android:textStyle="bold" />

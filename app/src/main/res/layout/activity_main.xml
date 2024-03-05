@@ -194,6 +194,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="0dp"
             android:backgroundTint="@color/app_color"
+            android:minHeight="48dp"
             android:padding="10dp"
             android:text="Connecter"
             android:textAllCaps="true"

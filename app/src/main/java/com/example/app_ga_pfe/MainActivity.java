@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToProfil() {
         String fullNameStudent = editTextNom.getText().toString();
         String filiere = filiereSpinner.getSelectedItem().toString();
-        Intent intent = new Intent(this, Profil_Student.class);
+        Intent intent = new Intent(this,MenuEmploi.class);
         // Récupérer l'ID du RadioButton sélectionné dans le RadioGroup
         int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
 

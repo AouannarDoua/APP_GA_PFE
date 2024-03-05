@@ -26,6 +26,25 @@ import androidx.fragment.app.Fragment;
 import java.util.List;
 public class EmploiTempsFragment extends Fragment {
     TextView t1, t2, t3, t4,textViewDate;
+    // Définir les heures de début et de fin pour chaque jour et chaque plage horaire
+    private static final int[][] HEURES_DEBUT = {
+            {9, 0}, // Lundi
+            {8, 0}, // Mardi
+            {10, 0}, // Mercredi
+            {8, 30}, // Jeudi
+            {9, 0}, // Vendredi
+            {0, 0}, // Samedi (pas de cours)
+            {0, 0}  // Dimanche (pas de cours)
+    };
+    private static final int[][] HEURES_FIN = {
+            {10, 30}, // Lundi
+            {9, 30}, // Mardi
+            {12, 0}, // Mercredi
+            {12, 0}, // Jeudi
+            {10, 0}, // Vendredi
+            {0, 0}, // Samedi (pas de cours)
+            {0, 0}  // Dimanche (pas de cours)
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +71,8 @@ public class EmploiTempsFragment extends Fragment {
 
         return view;
     }
+
+
 
     private void displayEmploiData(List<EmploiTempsClass> emploiDataList) {
         // Vérifier si la liste est vide
