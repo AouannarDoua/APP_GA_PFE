@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -22,10 +23,23 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_emploi);
+        Intent intent = getIntent();
+        String fullName = intent.getStringExtra("FULL_NAMES");
+
+        // Récupérer le NavigationView
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        // Récupérer le HeaderView du NavigationView
+        View headerView = navigationView.getHeaderView(0);
+
+        // Récupérer le TextView à l'intérieur du HeaderView
+        TextView textViewName = headerView.findViewById(R.id.name);
+
+        // Mettre à jour le TextView avec le nom de l'utilisateur
+        textViewName.setText(fullName);
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
                 R.string.close_nav);
