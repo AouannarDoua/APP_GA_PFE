@@ -64,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
                         long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
                         int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
 
+                        String filiere = filiereSpinner.getSelectedItem().toString();
+                        // Trouver la vue RadioButton correspondante à cet ID
+                        View radioButton = scheduleRadioGroup.findViewById(selectedRadioButtonId);
+                        String selectedRadioButtonText = "";
+
+                        // Vérifier si le RadioButton est trouvé
+                        if (radioButton != null && radioButton instanceof RadioButton) {
+                            // Récupérer le texte de la vue RadioButton
+                            selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
+                        }
+
 
 
                         infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
@@ -75,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                         intent.putExtra("radiobutton_id", selectedRadioButtonId);
                         intent.putExtra("FULL_NAMES", nom);
+                        intent.putExtra("Filiere Selectionnee", filiere);
+                        intent.putExtra("Semester",selectedRadioButtonText);
                         goToProfil();
                         startActivity(intent);
 

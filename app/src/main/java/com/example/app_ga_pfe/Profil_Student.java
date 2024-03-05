@@ -17,6 +17,7 @@ public class Profil_Student extends AppCompatActivity {
     TextView fullNameSTxt ;
     TextView FiliereS , semester ;
     ImageView profilImg2 , editProfil2;
+    EditText editTextGmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,10 @@ public class Profil_Student extends AppCompatActivity {
         FiliereS.setText(filiereSelectionne);
         String selectedSemester = getIntent().getStringExtra("Semester");
         semester.setText(selectedSemester);
+        editTextGmail=findViewById(R.id.gmail);
+        String gmail = editTextGmail.getText().toString().trim();
+        Intent intent = new Intent(Profil_Student.this, MenuEmploi.class);
+        intent.putExtra("Gmail", gmail);
         editProfil2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

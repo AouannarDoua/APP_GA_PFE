@@ -11,6 +11,7 @@
     tools:context=".nav_header">
 
     <ImageView
+        android:id="@+id/imageView_profile"
         android:layout_width="87dp"
         android:layout_height="96dp"
         android:src="@drawable/student_icon" />
@@ -25,6 +26,7 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/gmail1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
