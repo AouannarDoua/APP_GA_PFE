@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Emploi_TempsBD  extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "EmploiDB.db";
+    private static final String DATABASE_NAME = "Emp.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "EmploiTemps";
     private static final String COLUMN_ID = "idEmploi";
@@ -44,11 +44,11 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + COLUMN_FILIERE_ID + ") REFERENCES Filieres(idFilieres));";
         db.execSQL(createTableQuery);
 
-        insererEmploiTemps(db,1,2131296634, "JAVA", "J2ee", "droit", "sql");
-        insererEmploiTemps(db,1, 2131296635,"RO", "LINUX", "doua", "reseau");
-        insererEmploiTemps(db,3, 2131296636,"J2ee", "jhh", "droit", "securite");
-        insererEmploiTemps(db,1, 2131296637,"JA", "2ee", "sece", "s");
-        insererEmploiTemps(db,2, 2131296635,"JAV", "Jee", "oit", "s");
+        insererEmploiTemps(db,1,2131296657, "JAVA", "J2ee", "droit", "sql");
+        insererEmploiTemps(db,1, 2131296658,"RO", "LINUX", "doua", "reseau");
+        insererEmploiTemps(db,3, 2131296659,"J2ee", "jhh", "droit", "securite");
+        insererEmploiTemps(db,1, 2131296660,"JA", "2ee", "sece", "s");
+        insererEmploiTemps(db,2, 2131296658,"JAV", "Jee", "oit", "s");
     }
 
     @Override

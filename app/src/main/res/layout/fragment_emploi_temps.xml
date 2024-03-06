@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back_color"
+    android:background="@color/white"
     tools:context=".EmploiTempsFragment">
 
     <TextView
@@ -32,7 +32,7 @@
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
-            android:layout_height="330dp">
+            android:layout_height="340dp">
 
 
             <TableRow
@@ -45,7 +45,7 @@
                     android:layout_width="52dp"
                     android:layout_height="match_parent"
                     android:padding="10sp"
-                    android:background="@color/back_color"
+                    android:background="@color/white"
                     android:textColor="@color/app_color"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -115,7 +115,7 @@
                 >
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="135dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll1"
@@ -131,10 +131,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead" />
+                    android:background="@drawable/border" />
 
                 <TextView
                     android:id="@+id/t2"
@@ -142,10 +142,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
                 <TextView
                     android:id="@+id/t3"
@@ -153,10 +153,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
                 <TextView
 
@@ -165,10 +165,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
 
             </TableRow>
@@ -177,7 +177,7 @@
                 >
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="135dp"
                     android:layout_height="48dp"
                     android:background="@drawable/borderleft"
                     android:gravity="center"
@@ -193,10 +193,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
                 <TextView
                     android:id="@+id/t6"
@@ -204,10 +204,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
                 <TextView
                     android:id="@+id/t7"
@@ -215,10 +215,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
                 <TextView
                     android:id="@+id/t8"
@@ -226,10 +226,10 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll2"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"/>
+                    android:background="@drawable/border"/>
 
 
             </TableRow>
@@ -238,7 +238,7 @@
                 >
 
                 <TextView
-                    android:layout_width="125dp"
+                    android:layout_width="135dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/coll3"
@@ -255,7 +255,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23dp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -267,7 +267,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"
@@ -280,7 +280,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -292,7 +292,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -305,7 +305,7 @@
 
                 <TextView
 
-                    android:layout_width="50dp"
+                    android:layout_width="135dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll4"
@@ -322,7 +322,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"
@@ -335,7 +335,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -347,7 +347,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -359,7 +359,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -371,7 +371,7 @@
                 >
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="135dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll5"
@@ -388,7 +388,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -400,7 +400,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -412,7 +412,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -424,7 +424,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -435,8 +435,8 @@
 
             <TableRow>
                 <TextView
-                    android:layout_width="115dp"
-                    android:layout_height="40dp"
+                    android:layout_width="135dp"
+                    android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/coll6"
                     android:textAlignment="center"
@@ -448,12 +448,12 @@
                 <TextView
                     android:id="@+id/t21"
                     android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_margin="1dp"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -461,11 +461,11 @@
                 <TextView
                     android:id="@+id/t22"
                     android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -473,11 +473,11 @@
                 <TextView
                     android:id="@+id/t23"
                     android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>
@@ -485,11 +485,11 @@
                 <TextView
                     android:id="@+id/t24"
                     android:layout_width="50dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
-                    android:textColor="@color/app_color"
+                    android:textColor="@color/button_color"
                     android:textSize="23sp"
                     android:textStyle="bold"
                     android:background="@drawable/border"/>

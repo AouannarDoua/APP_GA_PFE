@@ -23,7 +23,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".choix_du_profil"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".FringerPrintFaceid"
@@ -35,7 +35,7 @@
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".choix_du_profil"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

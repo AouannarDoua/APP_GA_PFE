@@ -1,8 +1,6 @@
 package com.example.app_ga_pfe;
 
 public class EmploiTempsClass {
-    private int id;
-    private int RadioButton;
     private String Matiere1;
     private String Matiere2;
     private String Matiere3;
@@ -13,9 +11,6 @@ public class EmploiTempsClass {
         this.Matiere2 = Matiere2;
         this.Matiere3 = Matiere3;
         this.Matiere4 = Matiere4;
-    }
-    public int getId() {
-        return id;
     }
 
     public String getMatiere1() {
