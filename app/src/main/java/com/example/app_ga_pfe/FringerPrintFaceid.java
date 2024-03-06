@@ -96,7 +96,6 @@ public class FringerPrintFaceid extends AppCompatActivity {
                 emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);
                 emploiTempsIntent.putExtra("Filiere Selectionnee", filiere);
                 emploiTempsIntent.putExtra("Semester", selectedRadioButtonText);
-                startActivity(intent);
                 startActivity(emploiTempsIntent);
                 finish();
             }

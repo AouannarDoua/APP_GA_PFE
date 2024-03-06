@@ -31,7 +31,16 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         String filiere = getIntent().getStringExtra("Filiere Selectionnee");
         String selectedRadioButtonText = getIntent().getStringExtra("Semester");
         String gmail = intent.getStringExtra("Gmail");
+        long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
+        int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
+        EmploiTempsFragment emploiTempsFragment = new EmploiTempsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("idFilieres", selectedFiliereId);
+        bundle.putInt("radiobutton_id", selectedRadioButtonId);
+        emploiTempsFragment.setArguments(bundle);
 
+// Ajouter le fragment à la vue
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, emploiTempsFragment).commit();
 
 
 
