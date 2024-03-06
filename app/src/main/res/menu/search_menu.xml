@@ -8,9 +8,6 @@
         android:icon="@drawable/nav_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"
-
-
-
         >
     </item>
 

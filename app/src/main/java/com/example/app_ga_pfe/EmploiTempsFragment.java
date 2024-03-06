@@ -72,6 +72,9 @@ public class EmploiTempsFragment extends Fragment {
         // Vérifier les conditions pour activer ou désactiver les TextView
         if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
             t1.setEnabled(true);
+            t1.setBackgroundResource(R.color.app_color);
+            t1.setTextColor(Color.WHITE);
+
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -97,12 +100,8 @@ public class EmploiTempsFragment extends Fragment {
             t24.setAlpha(0.5f);
         } else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
             t5.setEnabled(true);
-            t5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), Profil_Student.class));
-                }
-            });
+            t15.setBackgroundResource(R.color.app_color);
+            t15.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -128,12 +127,8 @@ public class EmploiTempsFragment extends Fragment {
             t24.setAlpha(0.5f);
         } else if (((currentHour == 12 && currentMinute >= 0) || (currentHour == 13 && currentMinute <= 30)) && (currentDay == Calendar.WEDNESDAY)) {
             t9.setEnabled(true);
-            t9.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), Profil_Student.class));
-                }
-            });
+            t9.setBackgroundResource(R.color.app_color);
+            t9.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -159,6 +154,8 @@ public class EmploiTempsFragment extends Fragment {
             t24.setAlpha(0.5f);
         } else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.THURSDAY)) {
             t13.setEnabled(true);
+            t13.setBackgroundResource(R.color.app_color);
+            t13.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -185,6 +182,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.FRIDAY)) {
             t17.setEnabled(true);
+            t17.setBackgroundResource(R.color.app_color);
+            t17.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -211,6 +210,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.SATURDAY)) {
             t21.setEnabled(true);
+            t21.setBackgroundResource(R.color.app_color);
+            t21.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -237,6 +238,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 10 && currentMinute >= 45) ||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.MONDAY)) {
             t2.setEnabled(true);
+            t2.setBackgroundResource(R.color.app_color);
+            t2.setTextColor(Color.WHITE);
             t1.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -263,6 +266,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.TUESDAY)) {
             t6.setEnabled(true);
+            t6.setBackgroundResource(R.color.app_color);
+            t6.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -289,6 +294,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.WEDNESDAY)) {
             t10.setEnabled(true);
+            t10.setBackgroundResource(R.color.app_color);
+            t10.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -315,6 +322,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
             t14.setEnabled(true);
+            t14.setBackgroundResource(R.color.app_color);
+            t14.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -341,6 +350,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.FRIDAY)) {
             t18.setEnabled(true);
+            t18.setBackgroundResource(R.color.app_color);
+            t18.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -367,6 +378,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.SATURDAY)) {
             t22.setEnabled(true);
+            t22.setBackgroundResource(R.color.app_color);
+            t22.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -393,6 +406,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
             t3.setEnabled(true);
+            t3.setBackgroundResource(R.color.app_color);
+            t3.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t1.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -419,6 +434,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
             t7.setEnabled(true);
+            t7.setBackgroundResource(R.color.app_color);
+            t7.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -445,6 +462,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.WEDNESDAY)) {
             t11.setEnabled(true);
+            t11.setBackgroundResource(R.color.app_color);
+            t11.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -471,6 +490,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.THURSDAY)) {
             t15.setEnabled(true);
+            t15.setBackgroundResource(R.color.app_color);
+            t15.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -497,6 +518,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.FRIDAY)) {
             t19.setEnabled(true);
+            t19.setBackgroundResource(R.color.app_color);
+            t19.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -523,6 +546,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.SATURDAY)) {
             t23.setEnabled(true);
+            t23.setBackgroundResource(R.color.app_color);
+            t23.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -549,6 +574,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.MONDAY)) {
             t4.setEnabled(true);
+            t4.setBackgroundResource(R.color.app_color);
+            t4.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t1.setAlpha(0.5f);
@@ -575,6 +602,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.TUESDAY)) {
             t8.setEnabled(true);
+            t8.setBackgroundResource(R.color.app_color);
+            t8.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -599,7 +628,7 @@ public class EmploiTempsFragment extends Fragment {
             t23.setAlpha(0.5f);
             t24.setAlpha(0.5f);
         }
-        else if (((currentHour == 17 && currentMinute >= 0)||(currentHour == 17) || (currentHour == 18 && currentMinute <= 59)) && (currentDay == Calendar.WEDNESDAY)) {
+        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.WEDNESDAY)) {
             t12.setEnabled(true);
             t12.setBackgroundResource(R.color.app_color);
             t12.setTextColor(Color.WHITE);
@@ -629,6 +658,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
             t16.setEnabled(true);
+            t16.setBackgroundResource(R.color.app_color);
+            t16.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -655,6 +686,8 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.FRIDAY)) {
             t20.setEnabled(true);
+            t20.setBackgroundResource(R.color.app_color);
+            t20.setTextColor(Color.WHITE);
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
@@ -681,6 +714,9 @@ public class EmploiTempsFragment extends Fragment {
         }
         else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.SATURDAY)) {
             t24.setEnabled(true);
+            t24.setBackgroundResource(R.color.app_color);
+            t24.setTextColor(Color.WHITE);
+
             t2.setAlpha(0.5f);
             t3.setAlpha(0.5f);
             t4.setAlpha(0.5f);
