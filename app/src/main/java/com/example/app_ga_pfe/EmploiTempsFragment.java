@@ -794,7 +794,7 @@ public class EmploiTempsFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             long selectedFiliereId = bundle.getLong("idFilieres", -1);
-            int selectedRadioButtonId = bundle.getInt("radiobutton_id", -1);
+            String selectedRadioButtonId = bundle.getString("Semester");
 
             // Utilisez ces données pour afficher dans le tableau
             getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
@@ -802,11 +802,10 @@ public class EmploiTempsFragment extends Fragment {
             Toast.makeText(getActivity(), ", selectedRadioButtonId : " + String.valueOf(selectedRadioButtonId), Toast.LENGTH_SHORT).show();
         }
 
-
         Intent intent = getActivity().getIntent();
         if (intent != null) {
             long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
-            int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
+            String selectedRadioButtonId = intent.getStringExtra("Semester");
 
             // Récupérer les données de la base de données en fonction des sélections de l'utilisateur
             getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
@@ -815,7 +814,7 @@ public class EmploiTempsFragment extends Fragment {
 
         return view;
     }
-    private void getDataFromDatabase(long filiereId, int radio) {
+    private void getDataFromDatabase(long filiereId, String radio) {
         Emploi_TempsBD emploiTempsBD = new Emploi_TempsBD(getActivity());
         List<EmploiTempsClass> emploiDataList = emploiTempsBD.getEmploiData(filiereId, radio);
 
