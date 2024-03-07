@@ -205,7 +205,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="program"
+                    android:hint="programs"
                     android:inputType="text"
                     android:textColor="@color/white"
                     android:textSize="18sp" />

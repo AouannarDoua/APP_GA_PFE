@@ -3,13 +3,16 @@ package com.example.app_ga_pfe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -21,14 +24,14 @@ import java.util.List;
 
 public class profil_teacher extends AppCompatActivity {
     TextView fullNameTxt ;
-    private filiereDataHelper dbHelper , profildb;
+    private filiereDataHelper dbHelper  ;
     private Spinner filiereSpinner;
     private ListView listview ;
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> adapter;
     private static int RESULT_LOAD_IMAGE = 1;
     ImageView  profilImg ;
-
+    EditText gmail,leaderOf ;
     Button Save ;
 
 
@@ -43,11 +46,12 @@ public class profil_teacher extends AppCompatActivity {
         profilImg = findViewById(R.id.profil_img);
         dbHelper = new filiereDataHelper(this);
         listview = findViewById(R.id.listFil);
+        gmail = findViewById(R.id.gmail);
+        leaderOf = findViewById(R.id.leaderOf);
         Save = findViewById(R.id.save);
         arrayList = new ArrayList<>();
         adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
         listview.setAdapter(adapter);
-        profildb = new filiereDataHelper(this);
         String fullName = getIntent().getStringExtra("FULL_NAME");
         fullNameTxt.setText(fullName);
         chargerFilieres();
@@ -57,18 +61,11 @@ public class profil_teacher extends AppCompatActivity {
                 openGallery();
             }
         });
-        Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveData();
-            }
-        });
+
 
     }
 
-    private void saveData(){
-        
-    }
+
     private void chargerFilieres() {
         List<String> filieres = dbHelper.getAllFilieres();
 
