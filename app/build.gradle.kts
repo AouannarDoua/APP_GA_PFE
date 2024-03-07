@@ -42,6 +42,7 @@ dependencies {
     implementation("com.readystatesoftware.sqliteasset:sqliteassethelper:+")
     implementation("androidx.biometric:biometric:1.1.0")
     implementation("de.hdodenhof:circleimageview:3.0.0")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
 
 }

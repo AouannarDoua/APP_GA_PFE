@@ -36,7 +36,7 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
         String createTableQuery = "CREATE TABLE " + TABLE_NAME + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FILIERE_ID + " INTEGER, " +
-                radioButton_ID + " INTEGER, " +
+                radioButton_ID + " TEXT, " +
                 COLUMN_Text1 + " TEXT, " +
                 COLUMN_Text2 + " TEXT, " +
                 COLUMN_Text3 + " TEXT, " +
@@ -44,11 +44,11 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + COLUMN_FILIERE_ID + ") REFERENCES Filieres(idFilieres));";
         db.execSQL(createTableQuery);
 
-        insererEmploiTemps(db,1,2131296657, "JAVA", "J2ee", "droit", "sql");
-        insererEmploiTemps(db,1, 2131296658,"RO", "LINUX", "doua", "reseau");
-        insererEmploiTemps(db,3, 2131296659,"J2ee", "jhh", "droit", "securite");
-        insererEmploiTemps(db,1, 2131296660,"JA", "2ee", "sece", "s");
-        insererEmploiTemps(db,2, 2131296658,"JAV", "Jee", "oit", "s");
+        insererEmploiTemps(db,1,"s1", "JAVA", "J2ee", "droit", "sql");
+        insererEmploiTemps(db,1, "s2","RO", "LINUX", "doua", "reseau");
+        insererEmploiTemps(db,3, "s3","J2ee", "jhh", "droit", "securite");
+        insererEmploiTemps(db,1, "s4","JA", "2ee", "sece", "s");
+        insererEmploiTemps(db,2, "s1","JAV", "Jee", "oit", "s");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
 
 
     }
-    private void insererEmploiTemps(SQLiteDatabase db, long filiereId,int Radio, String matiere1, String matiere2, String matiere3, String matiere4) {
+    private void insererEmploiTemps(SQLiteDatabase db, long filiereId,String Radio, String matiere1, String matiere2, String matiere3, String matiere4) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_FILIERE_ID, filiereId);
         values.put(radioButton_ID, Radio);
@@ -68,7 +68,7 @@ public class Emploi_TempsBD  extends SQLiteOpenHelper {
         values.put(COLUMN_Text4, matiere4);
         db.insert(TABLE_NAME, null, values);
     }
-    public List<EmploiTempsClass> getEmploiData(Long filiereId,int Radio) {
+    public List<EmploiTempsClass> getEmploiData(Long filiereId,String Radio) {
         List<EmploiTempsClass> emploiDataList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 

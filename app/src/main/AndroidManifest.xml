@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,15 +18,22 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
+            android:name=".choix_du_profil"
+            android:exported="false"
+            />
+        <activity
+            android:name=".Emploi_Temps_Teacher"
+            android:exported="false" />
+        <activity
             android:name=".nav_header"
             android:exported="false" />
         <activity
             android:name=".Profil_Student"
             android:exported="false" />
         <activity
-            android:name=".MenuEmploi"
+            android:name=".Scanne_Code_Student"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+           />
         <activity
             android:name=".profil_teacher"
             android:exported="false" />
@@ -35,13 +47,21 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".choix_du_profil"
-            android:exported="true">
+            android:name=".MenuEmploi"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".CaptureAct"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme">
+
         </activity>
     </application>
 </manifest>

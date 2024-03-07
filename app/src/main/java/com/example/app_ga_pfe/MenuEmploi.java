@@ -3,12 +3,14 @@ package com.example.app_ga_pfe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,7 +38,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         EmploiTempsFragment emploiTempsFragment = new EmploiTempsFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("idFilieres", selectedFiliereId);
-        bundle.putInt("radiobutton_id", selectedRadioButtonId);
+        bundle.putString("Semester", selectedRadioButtonText);
         emploiTempsFragment.setArguments(bundle);
 
 // Ajouter le fragment à la vue
@@ -81,7 +83,31 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
 
+        // Récupérer l'élément de recherche du menu
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        // Configurer un écouteur de recherche
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Action à effectuer lors de la soumission de la recherche
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Action à effectuer lorsque le texte de recherche change
+                // Vous pouvez utiliser newText pour filtrer les données
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -98,6 +124,9 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void notification(MenuItem item) {
+        startActivity(new Intent(MenuEmploi.this, choix_du_profil.class));
     }
     @Override
     public void onBackPressed() {
