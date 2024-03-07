@@ -5,6 +5,7 @@
     <color name="button_color">#A65A49</color>
     <color name="app_color">#5A82A6</color>
     <color name="back_color">#F2E0DC</color>
-    <color name="vert1">#DAF7A6</color>
+    <color name="grey">#808080</color>
+
 
 </resources>

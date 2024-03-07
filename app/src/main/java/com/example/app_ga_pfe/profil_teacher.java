@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -20,13 +21,15 @@ import java.util.List;
 
 public class profil_teacher extends AppCompatActivity {
     TextView fullNameTxt ;
-    private filiereDataHelper dbHelper;
+    private filiereDataHelper dbHelper , profildb;
     private Spinner filiereSpinner;
     private ListView listview ;
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> adapter;
     private static int RESULT_LOAD_IMAGE = 1;
-    ImageView editProfilImg , profilImg ;
+    ImageView  profilImg ;
+
+    Button Save ;
 
 
 
@@ -37,23 +40,24 @@ public class profil_teacher extends AppCompatActivity {
         setContentView(R.layout.activity_profil_teacher);
         fullNameTxt = findViewById(R.id.fullName);
         filiereSpinner = findViewById(R.id.filSpinner);
-        editProfilImg= findViewById(R.id.edit_profil_img);
         profilImg = findViewById(R.id.profil_img);
         dbHelper = new filiereDataHelper(this);
         listview = findViewById(R.id.listFil);
+        Save = findViewById(R.id.save);
         arrayList = new ArrayList<>();
         adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
         listview.setAdapter(adapter);
-
+        profildb = new filiereDataHelper(this);
         String fullName = getIntent().getStringExtra("FULL_NAME");
         fullNameTxt.setText(fullName);
         chargerFilieres();
-        editProfilImg.setOnClickListener(new View.OnClickListener() {
+        profilImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
             }
         });
+
 
     }
     private void chargerFilieres() {
@@ -67,7 +71,7 @@ public class profil_teacher extends AppCompatActivity {
         // Trouver l'index de "DUT - Finance,Comptabilité et Fiscalité (FCF)" dans la liste des filières
         int index = filieres.indexOf("DUT - Finance,Comptabilité et Fiscalité (FCF)");
 
-// Définir cet index comme l'élément sélectionné par défaut dans le Spinner
+        // Définir cet index comme l'élément sélectionné par défaut dans le Spinner
         filiereSpinner.setSelection(index);
 
 
@@ -90,6 +94,9 @@ public class profil_teacher extends AppCompatActivity {
     public void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+    }
+    public void pageconnecter(View view) {
+        startActivity(new Intent(profil_teacher.this, MainActivity2.class));
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

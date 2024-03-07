@@ -16,7 +16,7 @@ public class Profil_Student extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
     TextView fullNameSTxt ;
     TextView FiliereS , semester ;
-    ImageView profilImg2 , editProfil2;
+    ImageView profilImg2;
     EditText editTextGmail;
 
     @Override
@@ -27,7 +27,6 @@ public class Profil_Student extends AppCompatActivity {
         FiliereS = findViewById(R.id.program);
         semester = findViewById(R.id.semester);
         profilImg2=findViewById(R.id.profil_img2);
-        editProfil2 = findViewById(R.id.edit_profil_img2);
         String fullNameS = getIntent().getStringExtra("FULL_NAMES");
         fullNameSTxt.setText(fullNameS);
         String filiereSelectionne = getIntent().getStringExtra("Filiere Selectionnee");
@@ -38,7 +37,7 @@ public class Profil_Student extends AppCompatActivity {
         String gmail = editTextGmail.getText().toString().trim();
         Intent intent = new Intent(Profil_Student.this, MenuEmploi.class);
         intent.putExtra("Gmail", gmail);
-        editProfil2.setOnClickListener(new View.OnClickListener() {
+        profilImg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery2();
@@ -53,6 +52,9 @@ public class Profil_Student extends AppCompatActivity {
     public void openGallery2() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+    }
+    public void pageconnecter(View view) {
+        startActivity(new Intent(Profil_Student.this, MainActivity.class));
     }
 
     @Override
