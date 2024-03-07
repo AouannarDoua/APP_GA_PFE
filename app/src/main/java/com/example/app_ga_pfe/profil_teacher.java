@@ -57,8 +57,17 @@ public class profil_teacher extends AppCompatActivity {
                 openGallery();
             }
         });
+        Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveData();
+            }
+        });
 
+    }
 
+    private void saveData(){
+        
     }
     private void chargerFilieres() {
         List<String> filieres = dbHelper.getAllFilieres();
