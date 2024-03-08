@@ -7,13 +7,17 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".EmploiTempsFragment">
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginRight="30dp"
         android:text="Date"
         android:textSize="25sp"
         app:layout_constraintRight_toRightOf="parent"
@@ -22,11 +26,11 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/text_view_date"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Votre contenu à l'intérieur de HorizontalScrollView -->
         <TableLayout
@@ -45,10 +49,9 @@
                     android:layout_width="52dp"
                     android:layout_height="match_parent"
                     android:padding="10sp"
-                    android:background="@color/white"
-                    android:textColor="@color/app_color"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:background="#FFE9E4"
 
                     />
 
@@ -56,13 +59,13 @@
                     android:id="@+id/second"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:background="@drawable/borderhead"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:text="@string/rows1"
                     android:textColor="@color/app_color"
                     android:textSize="21sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"
 
                     />
 
@@ -70,13 +73,13 @@
                     android:id="@+id/third"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:background="@drawable/borderhead"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:text="@string/rows2"
                     android:textColor="@color/app_color"
                     android:textSize="21sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"
 
                     />
 
@@ -84,13 +87,13 @@
                     android:id="@+id/forth"
                     android:layout_width="wrap_content"
                     android:layout_height="49dp"
+                    android:background="@drawable/borderhead"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:text="@string/rows3"
                     android:textColor="@color/app_color"
                     android:textSize="21sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"
 
                     />
 
@@ -98,83 +101,81 @@
                     android:id="@+id/fifth"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:background="@drawable/borderhead"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:text="@string/rows4"
                     android:textColor="@color/app_color"
                     android:textSize="21sp"
                     android:textStyle="bold"
-                    android:background="@drawable/borderhead"
 
                     />
 
 
             </TableRow>
 
-            <TableRow
-                >
+            <TableRow>
 
                 <TextView
                     android:layout_width="135dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/borderleft"
                     android:gravity="center"
                     android:text="@string/coll1"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/borderleft" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t1"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t2"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t3"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
 
                     android:id="@+id/t4"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
-            <TableRow
-                >
+            <TableRow>
 
                 <TextView
                     android:layout_width="135dp"
@@ -191,59 +192,58 @@
                     android:id="@+id/t5"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t6"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t7"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t8"
                     android:layout_width="196dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:gravity="center"
                     android:text="@string/coll2"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
-            <TableRow
-                >
+            <TableRow>
 
                 <TextView
                     android:layout_width="135dp"
                     android:layout_height="match_parent"
+                    android:background="@color/app_color"
                     android:gravity="center"
                     android:text="@string/coll3"
                     android:textAlignment="center"
-                    android:background="@color/app_color"
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:textStyle="bold" />
@@ -252,65 +252,63 @@
                     android:id="@+id/t9"
                     android:layout_width="124dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23dp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t10"
                     android:layout_width="124dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t11"
                     android:layout_width="124dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t12"
                     android:layout_width="124dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
-            <TableRow
-                >
+            <TableRow>
 
                 <TextView
 
                     android:layout_width="135dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/borderleft"
                     android:gravity="center"
                     android:text="@string/coll4"
                     android:textAlignment="center"
-                    android:background="@drawable/borderleft"
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:textStyle="bold" />
@@ -319,64 +317,62 @@
                     android:id="@+id/t13"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t14"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t15"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t16"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
-            <TableRow
-                >
+            <TableRow>
 
                 <TextView
                     android:layout_width="135dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/borderleft"
                     android:gravity="center"
                     android:text="@string/coll5"
                     android:textAlignment="center"
-                    android:background="@drawable/borderleft"
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:textStyle="bold" />
@@ -385,62 +381,63 @@
                     android:id="@+id/t17"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t18"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t19"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t20"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
 
             </TableRow>
 
 
             <TableRow>
+
                 <TextView
                     android:layout_width="135dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/borderleft"
                     android:gravity="center"
                     android:text="@string/coll6"
                     android:textAlignment="center"
-                    android:background="@drawable/borderleft"
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:textStyle="bold" />
@@ -450,52 +447,50 @@
                     android:layout_width="50dp"
                     android:layout_height="48dp"
                     android:layout_margin="1dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t22"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t23"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/t24"
                     android:layout_width="50dp"
                     android:layout_height="48dp"
+                    android:background="@drawable/border"
                     android:clickable="true"
                     android:gravity="center"
                     android:text="JAVA"
                     android:textColor="@color/button_color"
                     android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/border"/>
+                    android:textStyle="bold" />
             </TableRow>
-
-
 
 
         </TableLayout>

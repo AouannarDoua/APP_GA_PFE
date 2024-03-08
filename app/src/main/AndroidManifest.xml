@@ -35,9 +35,9 @@
             android:exported="false"
            />
         <activity
-            android:name=".MenuEmploi"
+            android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+           />
         <activity
             android:name=".FringerPrintFaceid"
             android:exported="false" />
@@ -48,8 +48,9 @@
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MenuEmploi"
             android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

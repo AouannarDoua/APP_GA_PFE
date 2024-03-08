@@ -2,10 +2,13 @@ package com.example.app_ga_pfe;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import android.content.Intent;
@@ -22,13 +26,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
 
 import java.util.List;
 public class EmploiTempsFragment extends Fragment {
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, textViewDate;
-
+    private VideoView videoView;
+    private Handler handler = new Handler();
+    private final int INTERVAL = 30000; // Mettre à jour chaque minute
+    private Runnable updateTask = new Runnable() {
+        @Override
+        public void run() {
+            updateTextViews();
+            handler.postDelayed(this, INTERVAL);
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +73,19 @@ public class EmploiTempsFragment extends Fragment {
         t23 = view.findViewById(R.id.t23);
         t24 = view.findViewById(R.id.t24);
 
+        videoView = view.findViewById(R.id.videoView);
+        // Chemin vers la vidéo dans le répertoire res/raw
+        String videoPath = "android.resource://" + getContext().getPackageName() + "/" + R.raw.back_emploiii;
+        // Convertir le chemin en URI
+        Uri uri = Uri.parse(videoPath);
+        // Définir l'URI de la vidéo pour la VideoView
+        videoView.setVideoURI(uri);
+        // Lancer la lecture de la vidéo en boucle
+        videoView.setOnPreparedListener(mp -> {
+            mp.setLooping(true);
+            videoView.start();
+        });
+
         textViewDate = view.findViewById(R.id.text_view_date);
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -66,680 +93,124 @@ public class EmploiTempsFragment extends Fragment {
         textViewDate.setText(currentDate);
 
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            long selectedFiliereId = bundle.getLong("idFilieres", -1);
+            String selectedRadioButtonId = bundle.getString("Semester");
+
+            // Utilisez ces données pour afficher dans le tableau
+            getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
+
+            Toast.makeText(getActivity(), ", selectedRadioButtonId : " + String.valueOf(selectedRadioButtonId), Toast.LENGTH_SHORT).show();
+        }
+
+        Intent intent = getActivity().getIntent();
+        if (intent != null) {
+            long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
+            String selectedRadioButtonId = intent.getStringExtra("Semester");
+
+            // Récupérer les données de la base de données en fonction des sélections de l'utilisateur
+            getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
+        }
+
+        updateTextViews();
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.postDelayed(updateTask, INTERVAL);
+        updateTextViews();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(updateTask);
+    }
+
+    private void updateTextViews() {
+        Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
         int currentMinute = calendar.get(Calendar.MINUTE);
+        TextView[] textViews = {t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24};
+        boolean[] enabledStates = new boolean[24];
+        Arrays.fill(enabledStates, false);
         // Vérifier les conditions pour activer ou désactiver les TextView
-        if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
-            t1.setEnabled(true);
-            t1.setBackgroundResource(R.color.app_color);
-            t1.setTextColor(Color.WHITE);
+        if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
+            enabledStates[0] = true;
+        } else if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
+            enabledStates[4] = true;
 
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        } else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
-            t5.setEnabled(true);
-            t15.setBackgroundResource(R.color.app_color);
-            t15.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        } else if (((currentHour == 12 && currentMinute >= 0) || (currentHour == 13 && currentMinute <= 30)) && (currentDay == Calendar.WEDNESDAY)) {
-            t9.setEnabled(true);
-            t9.setBackgroundResource(R.color.app_color);
-            t9.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        } else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.THURSDAY)) {
-            t13.setEnabled(true);
-            t13.setBackgroundResource(R.color.app_color);
-            t13.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.FRIDAY)) {
-            t17.setEnabled(true);
-            t17.setBackgroundResource(R.color.app_color);
-            t17.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 9 && currentMinute >= 0) || (currentHour == 10 && currentMinute <= 30)) && (currentDay == Calendar.SATURDAY)) {
-            t21.setEnabled(true);
-            t21.setBackgroundResource(R.color.app_color);
-            t21.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 10 && currentMinute >= 45) ||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.MONDAY)) {
-            t2.setEnabled(true);
-            t2.setBackgroundResource(R.color.app_color);
-            t2.setTextColor(Color.WHITE);
-            t1.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.TUESDAY)) {
-            t6.setEnabled(true);
-            t6.setBackgroundResource(R.color.app_color);
-            t6.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.WEDNESDAY)) {
-            t10.setEnabled(true);
-            t10.setBackgroundResource(R.color.app_color);
-            t10.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
-            t14.setEnabled(true);
-            t14.setBackgroundResource(R.color.app_color);
-            t14.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.FRIDAY)) {
-            t18.setEnabled(true);
-            t18.setBackgroundResource(R.color.app_color);
-            t18.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 10 && currentMinute >= 45)||(currentHour == 11) || (currentHour == 12 && currentMinute <= 15)) && (currentDay == Calendar.SATURDAY)) {
-            t22.setEnabled(true);
-            t22.setBackgroundResource(R.color.app_color);
-            t22.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
-            t3.setEnabled(true);
-            t3.setBackgroundResource(R.color.app_color);
-            t3.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
-            t7.setEnabled(true);
-            t7.setBackgroundResource(R.color.app_color);
-            t7.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.WEDNESDAY)) {
-            t11.setEnabled(true);
-            t11.setBackgroundResource(R.color.app_color);
-            t11.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.THURSDAY)) {
-            t15.setEnabled(true);
-            t15.setBackgroundResource(R.color.app_color);
-            t15.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.FRIDAY)) {
-            t19.setEnabled(true);
-            t19.setBackgroundResource(R.color.app_color);
-            t19.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 14 && currentMinute >= 0) || (currentHour == 15 && currentMinute <= 30)) && (currentDay == Calendar.SATURDAY)) {
-            t23.setEnabled(true);
-            t23.setBackgroundResource(R.color.app_color);
-            t23.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.MONDAY)) {
-            t4.setEnabled(true);
-            t4.setBackgroundResource(R.color.app_color);
-            t4.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.TUESDAY)) {
-            t8.setEnabled(true);
-            t8.setBackgroundResource(R.color.app_color);
-            t8.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.WEDNESDAY)) {
-            t12.setEnabled(true);
-            t12.setBackgroundResource(R.color.app_color);
-            t12.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
-            t16.setEnabled(true);
-            t16.setBackgroundResource(R.color.app_color);
-            t16.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.FRIDAY)) {
-            t20.setEnabled(true);
-            t20.setBackgroundResource(R.color.app_color);
-            t20.setTextColor(Color.WHITE);
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t24.setAlpha(0.5f);
-        }
-        else if (((currentHour == 15 && currentMinute >= 45)||(currentHour == 16) || (currentHour == 17 && currentMinute <= 15)) && (currentDay == Calendar.SATURDAY)) {
-            t24.setEnabled(true);
-            t24.setBackgroundResource(R.color.app_color);
-            t24.setTextColor(Color.WHITE);
+        } else if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.WEDNESDAY)) {
+            enabledStates[8] = true;
 
-            t2.setAlpha(0.5f);
-            t3.setAlpha(0.5f);
-            t4.setAlpha(0.5f);
-            t5.setAlpha(0.5f);
-            t6.setAlpha(0.5f);
-            t7.setAlpha(0.5f);
-            t8.setAlpha(0.5f);
-            t9.setAlpha(0.5f);
-            t10.setAlpha(0.5f);
-            t11.setAlpha(0.5f);
-            t12.setAlpha(0.5f);
-            t13.setAlpha(0.5f);
-            t14.setAlpha(0.5f);
-            t15.setAlpha(0.5f);
-            t16.setAlpha(0.5f);
-            t17.setAlpha(0.5f);
-            t18.setAlpha(0.5f);
-            t19.setAlpha(0.5f);
-            t20.setAlpha(0.5f);
-            t21.setAlpha(0.5f);
-            t22.setAlpha(0.5f);
-            t23.setAlpha(0.5f);
-            t1.setAlpha(0.5f);
+        } else if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.THURSDAY)) {
+            enabledStates[12] = true;
+        }
+        else if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.FRIDAY)) {
+            enabledStates[16] = true;
+
+        }
+        else if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.SATURDAY)) {
+            enabledStates[20] = true;
+        }
+        else if (((currentHour == 10 && currentMinute >= 45 &&currentMinute<=59) ||(currentHour == 11) || (currentHour == 12 && currentMinute >= 0 &&    currentMinute <= 15)) && (currentDay == Calendar.MONDAY)) {
+            enabledStates[1] = true;
+        }
+        else if (((currentHour == 10 && currentMinute >= 45 &&currentMinute<=59) ||(currentHour == 11) || (currentHour == 12 && currentMinute >= 0 &&    currentMinute <= 15)) && (currentDay == Calendar.TUESDAY)) {
+            enabledStates[5] = true;
+        }
+        else if (((currentHour == 10 && currentMinute >= 45 &&currentMinute<=59) ||(currentHour == 11) || (currentHour == 12 && currentMinute >= 0 &&    currentMinute <= 15)) && (currentDay == Calendar.WEDNESDAY)) {
+            enabledStates[9] = true;
+        }
+        else if (((currentHour == 10 && currentMinute >= 45 &&currentMinute<=59) ||(currentHour == 11) || (currentHour == 12 && currentMinute >= 0 &&    currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
+            enabledStates[13] = true;
+        }
+        else if (((currentHour == 10 && currentMinute >= 45 &&currentMinute<=59) ||(currentHour == 11) || (currentHour == 12 && currentMinute >= 0 &&    currentMinute <= 15)) && (currentDay == Calendar.FRIDAY)) {
+            enabledStates[17] = true;
+        }
+        else if (((currentHour == 10 && currentMinute >= 45 &&currentMinute<=59) ||(currentHour == 11) || (currentHour == 12 && currentMinute >= 0 &&    currentMinute <= 15)) && (currentDay == Calendar.SATURDAY)) {
+            enabledStates[21] = true;
+        }
+
+        else if (((currentHour == 14 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 15 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
+            enabledStates[2] = true;
+        }
+        else if (((currentHour == 14 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 15 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
+            enabledStates[6] = true;
+        }
+        else if (((currentHour == 14 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 15 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.WEDNESDAY)) {
+            enabledStates[10] = true;
+        }
+        else if (((currentHour == 14 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 15 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.THURSDAY)) {
+            enabledStates[14] = true;
+        }
+        else if (((currentHour == 14 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 15 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.FRIDAY)) {
+            enabledStates[18] = true;
+        }
+        else if (((currentHour == 14 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 15 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.SATURDAY)) {
+            enabledStates[22] = true;
+        }
+        else if (((currentHour == 15 && currentMinute >= 45 && currentMinute >= 59)||(currentHour == 16) || (currentHour == 17 && currentMinute >=0 &&currentMinute <= 15)) && (currentDay == Calendar.MONDAY)) {
+            enabledStates[3] = true;
+        }
+        else if (((currentHour == 15 && currentMinute >= 45 && currentMinute >= 59)||(currentHour == 16) || (currentHour == 17 && currentMinute >=0 &&currentMinute <= 15)) && (currentDay == Calendar.TUESDAY)) {
+            enabledStates[7] = true;
+        }
+        else if (((currentHour == 15 && currentMinute >= 45 && currentMinute >= 59)||(currentHour == 16) || (currentHour == 17 && currentMinute >=0 &&currentMinute <= 15)) && (currentDay == Calendar.WEDNESDAY)) {
+            enabledStates[11] = true;
+        }
+        else if (((currentHour == 15 && currentMinute >= 45 && currentMinute >= 59)||(currentHour == 16) || (currentHour == 17 && currentMinute >=0 &&currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
+            enabledStates[15] = true;
+        }
+        else if (((currentHour == 15 && currentMinute >= 45 && currentMinute >= 59)||(currentHour == 16) || (currentHour == 17 && currentMinute >=0 &&currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
+            enabledStates[19] = true;
+        }
+        else if (((currentHour == 15 && currentMinute >= 45 && currentMinute >= 59)||(currentHour == 16) || (currentHour == 17 && currentMinute >=0 &&currentMinute <= 15)) && (currentDay == Calendar.THURSDAY)) {
+            enabledStates[23] = true;
         }
         else {
             t1.setEnabled(false);
@@ -791,28 +262,23 @@ public class EmploiTempsFragment extends Fragment {
             t24.setEnabled(false);
             t24.setAlpha(0.5f);
         }
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            long selectedFiliereId = bundle.getLong("idFilieres", -1);
-            String selectedRadioButtonId = bundle.getString("Semester");
-
-            // Utilisez ces données pour afficher dans le tableau
-            getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
-
-            Toast.makeText(getActivity(), ", selectedRadioButtonId : " + String.valueOf(selectedRadioButtonId), Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < textViews.length; i++) {
+            textViews[i].setEnabled(enabledStates[i]);
+            if (enabledStates[i]) {
+                textViews[i].setBackgroundResource(R.color.app_color);
+                textViews[i].setTextColor(Color.WHITE);
+                textViews[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(getActivity(),Scanne_Code_Student.class));
+                    }
+                });
+            } else {
+                textViews[i].setBackgroundResource(R.color.back_color);
+                textViews[i].setTextColor(ContextCompat.getColor(getContext(), R.color.button_color));
+            }
+            textViews[i].setAlpha(enabledStates[i] ? 1.0f : 0.5f);
         }
-
-        Intent intent = getActivity().getIntent();
-        if (intent != null) {
-            long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
-            String selectedRadioButtonId = intent.getStringExtra("Semester");
-
-            // Récupérer les données de la base de données en fonction des sélections de l'utilisateur
-            getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
-        }
-
-
-        return view;
     }
     private void getDataFromDatabase(long filiereId, String radio) {
         Emploi_TempsBD emploiTempsBD = new Emploi_TempsBD(getActivity());
