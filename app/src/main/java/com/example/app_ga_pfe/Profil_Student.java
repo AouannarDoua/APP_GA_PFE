@@ -4,13 +4,17 @@ package com.example.app_ga_pfe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Profil_Student extends AppCompatActivity {
     private static final int RESULT_LOAD_IMAGE = 1;
@@ -18,6 +22,7 @@ public class Profil_Student extends AppCompatActivity {
     TextView FiliereS , semester ;
     ImageView profilImg2;
     EditText editTextGmail;
+    Button save ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,8 @@ public class Profil_Student extends AppCompatActivity {
         FiliereS.setText(filiereSelectionne);
         String selectedSemester = getIntent().getStringExtra("Semester");
         semester.setText(selectedSemester);
-        editTextGmail=findViewById(R.id.gmail);
+        editTextGmail=findViewById(R.id.gmailS);
+        save= findViewById(R.id.Save);
         String gmail = editTextGmail.getText().toString().trim();
         Intent intent = new Intent(Profil_Student.this, MenuEmploi.class);
         intent.putExtra("Gmail", gmail);
@@ -43,10 +49,14 @@ public class Profil_Student extends AppCompatActivity {
                 openGallery2();
             }
         });
-
-
-
-
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProfile();
+                Toast.makeText(Profil_Student.this, "Profile  saved successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+        loadProfile();
 
     }
     public void openGallery2() {
@@ -65,6 +75,17 @@ public class Profil_Student extends AppCompatActivity {
             Uri selectedImage = data.getData();
             profilImg2.setImageURI(selectedImage);
         }
+    }
+    private void saveProfile() {
+        SharedPreferences sharedPreferences = getSharedPreferences("student_profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("gmail", editTextGmail.getText().toString());
+        editor.apply();
+    }
+    private void loadProfile() {
+        SharedPreferences sharedPreferences = getSharedPreferences("student_profile", Context.MODE_PRIVATE);
+        String gmail = sharedPreferences.getString("gmail", "");
+        editTextGmail.setText(gmail);
     }
 
 

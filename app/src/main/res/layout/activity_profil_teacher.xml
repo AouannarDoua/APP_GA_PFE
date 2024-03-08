@@ -10,18 +10,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/back_color">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="235dp"
-            android:background="@drawable/top_background">
+            android:background="@color/back_color">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profil_img"
-                android:layout_width="169dp"
-                android:layout_height="175dp"
+                android:layout_width="135dp"
+                android:layout_height="128dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/circular"
                 android:clickable="true"
@@ -30,9 +31,10 @@
                 android:src="@drawable/profilstudent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.659" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -43,12 +45,13 @@
                 app:layout_constraintHorizontal_bias="0.157"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.031">
+                app:layout_constraintVertical_bias="0.031"
+                android:background="@drawable/mini_back">
 
                 <ImageView
                     android:id="@+id/back"
-                    android:layout_width="34dp"
-                    android:layout_height="42dp"
+                    android:layout_width="45dp"
+                    android:layout_height="33dp"
                     android:layout_gravity="start"
                     android:contentDescription="@string/app_name"
                     android:onClick="pageconnecter"
@@ -67,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Profil"
-                    android:textColor="@color/white"
+                    android:textColor="@color/back_color"
                     android:textSize="30dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -89,8 +92,16 @@
             android:textColor="@color/button_color"
             android:textSize="22sp"
             android:textStyle="bold"
-
             />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="#466E92"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:layout_marginTop="100dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text=" leader of:"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -126,7 +137,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:hint="write the program you lead"
                     android:inputType="text" />
 
@@ -152,7 +163,7 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:text="Gmail"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -162,7 +173,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:hint="enter your email"
                     android:inputType="text" />
 
@@ -198,7 +209,7 @@
                     android:layout_height="38dp"
                     android:layout_weight="1"
                     android:text="Programs taught:"
-                    android:textColor="@color/white"
+                    android:textColor="@color/button_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -220,7 +231,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <View
                 android:id="@+id/view"
@@ -235,6 +247,7 @@
                 app:layout_constraintVertical_bias="0.344" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/save"

@@ -3,9 +3,13 @@ package com.example.app_ga_pfe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,14 +29,17 @@ import java.util.List;
 public class profil_teacher extends AppCompatActivity {
     TextView fullNameTxt ;
     private filiereDataHelper dbHelper  ;
+    private ProfilTeacherHelper profilHelper;
+
     private Spinner filiereSpinner;
     private ListView listview ;
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> adapter;
     private static int RESULT_LOAD_IMAGE = 1;
     ImageView  profilImg ;
-    EditText gmail,leaderOf ;
+    EditText gmailTxt,leaderOfTxt ;
     Button Save ;
+    ListView list ;
 
 
 
@@ -45,9 +52,10 @@ public class profil_teacher extends AppCompatActivity {
         filiereSpinner = findViewById(R.id.filSpinner);
         profilImg = findViewById(R.id.profil_img);
         dbHelper = new filiereDataHelper(this);
+        profilHelper = new ProfilTeacherHelper(this);
         listview = findViewById(R.id.listFil);
-        gmail = findViewById(R.id.gmail);
-        leaderOf = findViewById(R.id.leaderOf);
+        gmailTxt = findViewById(R.id.gmail);
+        leaderOfTxt = findViewById(R.id.leaderOf);
         Save = findViewById(R.id.save);
         arrayList = new ArrayList<>();
         adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
@@ -61,8 +69,27 @@ public class profil_teacher extends AppCompatActivity {
                 openGallery();
             }
         });
+        Save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProfile();
+                saveListViewItems();
+                Toast.makeText(profil_teacher.this, "Profile and ListView items saved successfully", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        loadProfile();
+        loadListViewItems();
+
+    }
 
 
+
+
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 
 
@@ -111,6 +138,45 @@ public class profil_teacher extends AppCompatActivity {
             // Get the selected image URI and set it to the ImageView
             Uri selectedImage = data.getData();
             profilImg.setImageURI(selectedImage);
+        }
+    }
+    private void saveProfile() {
+        SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("fullName", fullNameTxt.getText().toString());
+        editor.putString("leaderOf", leaderOfTxt.getText().toString());
+        editor.putString("gmail", gmailTxt.getText().toString());
+        editor.apply();
+    }
+    private void loadProfile() {
+        SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("fullName", "");
+        String leaderOf = sharedPreferences.getString("leaderOf", "");
+        String gmail = sharedPreferences.getString("gmail", "");
+        fullNameTxt.setText(fullName);
+        leaderOfTxt.setText(leaderOf);
+        gmailTxt.setText(gmail);
+    }
+    private void saveListViewItems() {
+        SQLiteDatabase db = profilHelper.getWritableDatabase();
+        db.delete(ProfilTeacherHelper.TABLE_LISTVIEW_ITEMS, null, null);
+        for (String item : arrayList) {
+            ContentValues values = new ContentValues();
+            values.put(ProfilTeacherHelper.COLUMN_ITEM, item);
+            db.insert(ProfilTeacherHelper.TABLE_LISTVIEW_ITEMS, null, values);
+        }
+    }
+    private void loadListViewItems() {
+        SQLiteDatabase db =profilHelper.getReadableDatabase();
+        Cursor cursor = db.query(ProfilTeacherHelper.TABLE_LISTVIEW_ITEMS, null, null, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int itemIndex = cursor.getColumnIndex(ProfilTeacherHelper.COLUMN_ITEM);
+            do {
+                String item = cursor.getString(itemIndex);
+                arrayList.add(item);
+            } while (cursor.moveToNext());
+            adapter.notifyDataSetChanged();
+            cursor.close();
         }
     }
 

@@ -4,6 +4,6 @@
     <solid android:color="@android:color/transparent" />
     <stroke
         android:width="2dp"
-        android:color="@color/white" />
+        android:color="@color/app_color" />
     <!-- Utilisez une valeur suffisamment grande pour obtenir un cercle -->
 </shape>
