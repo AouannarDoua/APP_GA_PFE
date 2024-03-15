@@ -51,7 +51,6 @@ public class Scanne_Code_Student extends AppCompatActivity  {
             }
 
             } else {
-            Toast.makeText(Scanne_Code_Student.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
 
 
         }

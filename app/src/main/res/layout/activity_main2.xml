@@ -32,13 +32,14 @@
                 android:textColor="@color/black"
                 android:textSize="22sp"/>
         </LinearLayout>
+
         <ImageView
             android:id="@+id/topImage"
-            android:layout_width="230dp"
-            android:layout_height="210dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/teacher_icon"
+            android:layout_width="184dp"
+            android:layout_height="212dp"
             android:layout_marginLeft="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/teachericon"
 
             />
 

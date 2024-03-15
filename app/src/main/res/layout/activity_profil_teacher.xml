@@ -21,8 +21,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profil_img"
-                android:layout_width="135dp"
-                android:layout_height="128dp"
+                android:layout_width="138dp"
+                android:layout_height="132dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/circular"
                 android:clickable="true"
@@ -91,8 +91,7 @@
             android:text="Full Name"
             android:textColor="@color/button_color"
             android:textSize="22sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -256,6 +255,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/app_color"
             android:gravity="center"
-            android:text="Save" />
+            android:text="Save"
+            />
     </LinearLayout>
 </ScrollView>

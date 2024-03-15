@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class QrGeneration extends AppCompatActivity {
     Button generate ;
-    ImageView codeQR ;
+    ImageView codeQR , scandes;
     static String generatedText ;
     TextView generatedCodeTextView ;
 
@@ -30,10 +30,11 @@ public class QrGeneration extends AppCompatActivity {
         setContentView(R.layout.activity_qr_generation);
         generate = findViewById(R.id.generate);
         codeQR =findViewById(R.id.codeQr);
-        generatedCodeTextView = findViewById(R.id.textQr);
+        scandes = findViewById(R.id.design);
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                scandes.setVisibility(View.VISIBLE);
                 generateCode();
             }
         });
@@ -42,14 +43,16 @@ public class QrGeneration extends AppCompatActivity {
     public void generateCode()  {
         generatedText = "AbscenceEase";
 
-        MultiFormatWriter writer = new MultiFormatWriter();
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix matrix = writer.encode(generatedText , BarcodeFormat.QR_CODE , 400 ,400);
-            BarcodeEncoder encoder = new BarcodeEncoder();
-            Bitmap bitmap = encoder.createBitmap(matrix);
+            // Encode le contenu du code QR en utilisant le format QR_CODE avec une taille de 300x300 pixels
+            BitMatrix bitMatrix = multiFormatWriter.encode(generatedText , BarcodeFormat.QR_CODE ,300 , 300);
+            // Crée une instance de BarcodeEncoder pour convertir le BitMatrix en un objet Bitmap
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder() ;
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             codeQR.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            throw new RuntimeException(e);
+        }catch(WriterException e){
+            throw new RuntimeException();
         }
 
     }
