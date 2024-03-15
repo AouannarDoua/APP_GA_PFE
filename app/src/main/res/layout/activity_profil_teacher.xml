@@ -28,7 +28,7 @@
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:onClick="openGallery"
-                android:src="@drawable/profilstudent"
+                android:src="@drawable/teacher_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"

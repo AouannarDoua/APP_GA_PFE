@@ -7,6 +7,8 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -35,7 +37,7 @@
             android:name=".Profil_Student"
             android:exported="false" />
         <activity
-            android:name=".QrGeneration"
+            android:name=".Scanne_Code_Student"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -50,7 +52,7 @@
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".Scanne_Code_Student"
+            android:name=".QrGeneration"
             android:exported="true"
             >
             <intent-filter>

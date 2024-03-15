@@ -59,7 +59,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             @Override
             public void onClick(View v) {
                 // Rediriger vers la page de profil
-                Intent Profile = new Intent(MenuEmploi.this, profil_teacher.class);
+                Intent Profile = new Intent(MenuEmploi.this, Profil_Student.class);
                 Profile.putExtra("Filiere Selectionnee", filiere);
                 Profile.putExtra("Semester", selectedRadioButtonText);
                 Profile.putExtra("FULL_NAMES", fullName);

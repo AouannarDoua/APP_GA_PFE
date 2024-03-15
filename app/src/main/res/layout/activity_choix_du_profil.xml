@@ -10,18 +10,18 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/teacher"
-        android:layout_width="210dp"
-        android:layout_height="190dp"
+        android:layout_width="329dp"
+        android:layout_height="228dp"
         android:clickable="true"
         android:contentDescription="@string/image_description1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112"
+        app:layout_constraintVertical_bias="0.078"
         app:shapeAppearanceOverlay="@style/circular"
-        app:srcCompat="@drawable/teacher_icon" />
+        app:srcCompat="@drawable/teachericon" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/student"

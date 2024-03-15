@@ -2,11 +2,13 @@ package com.example.app_ga_pfe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -20,12 +22,15 @@ public class QrGeneration extends AppCompatActivity {
     Button generate ;
     ImageView codeQR ;
     static String generatedText ;
+    TextView generatedCodeTextView ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_generation);
         generate = findViewById(R.id.generate);
         codeQR =findViewById(R.id.codeQr);
+        generatedCodeTextView = findViewById(R.id.textQr);
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +40,8 @@ public class QrGeneration extends AppCompatActivity {
     }
 
     public void generateCode()  {
-        generatedText = generateRandomText(); // Générer un texte aléatoire
+        generatedText = "AbscenceEase";
+
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix matrix = writer.encode(generatedText , BarcodeFormat.QR_CODE , 400 ,400);
@@ -47,6 +53,7 @@ public class QrGeneration extends AppCompatActivity {
         }
 
     }
+
     private String generateRandomText() {
         // Générer un texte aléatoire en utilisant des caractères alphanumériques
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

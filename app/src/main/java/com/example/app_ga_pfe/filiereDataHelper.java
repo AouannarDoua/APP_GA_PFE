@@ -33,6 +33,8 @@ public class filiereDataHelper extends SQLiteOpenHelper {
         ajouterFiliere(db, "DUT- Développeur d’Applications Web & Mobile (DAWM)");
         ajouterFiliere(db, "DUT - Génie civil (GC)");
         ajouterFiliere(db, "DUT - Intelligence Artificielle et Ingénierie des Données (IAID)");
+        ajouterFiliere(db, "");
+
     }
 
     public void ajouterFiliere(SQLiteDatabase db, String nomFiliere) {

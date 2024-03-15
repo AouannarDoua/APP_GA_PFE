@@ -1,5 +1,8 @@
 package com.example.app_ga_pfe;
 
+import static android.opengl.ETC1.decodeImage;
+import static android.opengl.ETC1.encodeImage;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +13,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +110,7 @@ public class profil_teacher extends AppCompatActivity {
         filiereSpinner.setAdapter(adapter1);
 
         // Trouver l'index de "DUT - Finance,Comptabilité et Fiscalité (FCF)" dans la liste des filières
-        int index = filieres.indexOf("DUT - Finance,Comptabilité et Fiscalité (FCF)");
+        int index = filieres.indexOf("");
 
         // Définir cet index comme l'élément sélectionné par défaut dans le Spinner
         filiereSpinner.setSelection(index);
@@ -146,8 +154,20 @@ public class profil_teacher extends AppCompatActivity {
         editor.putString("fullName", fullNameTxt.getText().toString());
         editor.putString("leaderOf", leaderOfTxt.getText().toString());
         editor.putString("gmail", gmailTxt.getText().toString());
+        // Enregistrer l'image de profil dans les préférences partagées
+        BitmapDrawable drawable = (BitmapDrawable) profilImg.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        String encodedImage = encodeImage(bitmap);
+        editor.putString("profileImage", encodedImage);
         editor.apply();
     }
+    private String encodeImage(Bitmap imageBitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] byteArray = baos.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
     private void loadProfile() {
         SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
         String fullName = sharedPreferences.getString("fullName", "");
@@ -156,6 +176,17 @@ public class profil_teacher extends AppCompatActivity {
         fullNameTxt.setText(fullName);
         leaderOfTxt.setText(leaderOf);
         gmailTxt.setText(gmail);
+
+        // Charger et afficher l'image de profil
+        String encodedImage = sharedPreferences.getString("profileImage", "");
+        if (!encodedImage.isEmpty()) {
+            Bitmap bitmap = decodeImage(encodedImage);
+            profilImg.setImageBitmap(bitmap);
+        }
+    }
+    private Bitmap decodeImage(String encodedImage) {
+        byte[] decodedByteArray = Base64.decode(encodedImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
     private void saveListViewItems() {
         SQLiteDatabase db = profilHelper.getWritableDatabase();

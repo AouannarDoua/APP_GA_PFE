@@ -4,8 +4,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -35,16 +37,25 @@ public class Scanne_Code_Student extends AppCompatActivity  {
     }
     ActivityResultLauncher<ScanOptions> barLaucher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
+            // Récupérer le texte scanné depuis SharedPreferences
             String scannedText = result.getContents();
+            String generatedText = "AbscenceEase";
+
             // Compare the scanned text with the generated text
-            if (scannedText.equals(QrGeneration.generatedText)) {
-                // If the texts match, show a success message
-                showResultDialog("Success", "The scanned QR code matches the generated QR code.");
+            if (scannedText.equals(generatedText)) {
+                // Si les textes correspondent, affichez un message de succès
+                showResultDialog("Succès", "Le code QR scanné correspond au code QR généré.");
             } else {
-                // If the texts do not match, show an error message
-                showResultDialog("Error", "The scanned QR code does not match the generated QR code.");
+                // Si les textes ne correspondent pas, affichez un message d'erreur
+                showResultDialog("Erreur", "Le code QR scanné ne correspond pas au code QR généré.");
             }
+
+            } else {
+            Toast.makeText(Scanne_Code_Student.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
+
+
         }
+
     });
 
 
