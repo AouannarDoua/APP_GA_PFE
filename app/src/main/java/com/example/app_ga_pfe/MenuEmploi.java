@@ -118,7 +118,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         } else if (id == R.id.nav_share) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
         } else if (id == R.id.nav_about) {
-            startActivity(new Intent(this, profil_teacher.class));
+            startActivity(new Intent(this, Attendance_List.class));
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
         }

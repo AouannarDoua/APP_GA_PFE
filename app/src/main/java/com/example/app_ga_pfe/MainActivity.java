@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Switch faceIdSwitch;
     RadioGroup scheduleRadioGroup;
     boolean isFaceIdActivated;
+    private Attendance_List attendanceListActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nom = editTextNom.getText().toString().trim();
                 String apogee = editTextApogee.getText().toString().trim();
+
+                attendanceListActivity = new Attendance_List();
+                attendanceListActivity.ajouterNouvelleLigne(nom, apogee);
 
                 // Vérifier si les informations saisies par l'utilisateur existent dans la base de données
                 boolean utilisateurExiste = database.verificationDonnees(nom, apogee);
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("FULL_NAMES", nom);
                         intent.putExtra("Filiere Selectionnee", filiere);
                         intent.putExtra("Semester",selectedRadioButtonText);
+                        intent.putExtra("N_Apoogee", apogee);
                         goToProfil();
                         startActivity(intent);
 
@@ -103,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
     private void chargerFilieres() {
         List<String> filieres = dbHelper.getAllFilieres();
 

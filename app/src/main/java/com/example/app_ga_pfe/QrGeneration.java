@@ -28,6 +28,7 @@ public class QrGeneration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_generation);
+
         generate = findViewById(R.id.generate);
         codeQR =findViewById(R.id.codeQr);
         scandes = findViewById(R.id.design);
@@ -70,5 +71,5 @@ public class QrGeneration extends AppCompatActivity {
             sb.append(characters.charAt(index));
         }
         return sb.toString();
-    }
+}
 }

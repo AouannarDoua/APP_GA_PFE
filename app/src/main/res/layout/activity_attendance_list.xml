@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".Attendance_List">
+
+
+    <include
+        layout="@layout/activity_nav_header"
+        />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border"
+                    android:divider="@color/black"
+                    android:orientation="horizontal"
+                    android:showDividers="beginning|middle|end"
+                    android:stretchColumns="*">
+
+
+                    <TableRow>
+                        <!-- Première colonne fusionnée sur deux colonnes -->
+                        <TextView
+                            android:text="Mois"
+                            android:layout_height="30dp"
+                            android:background="@drawable/borderleft"
+                            android:layout_column="2"
+                            android:gravity="center"
+                            android:layout_span="5"/>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="40dp"
+                            android:text="Nom &amp; Prénom" />
+
+                        <TextView
+                            android:layout_width="103dp"
+                            android:layout_height="match_parent"
+                            android:text="N° Apogée" />
+
+                        <TextView
+                            android:layout_width="72dp"
+                            android:layout_height="match_parent"
+                            android:text="Jour 1" />
+
+                        <TextView
+                            android:layout_width="72dp"
+                            android:layout_height="match_parent"
+                            android:text="Jour 2" />
+
+                        <TextView
+                            android:layout_width="72dp"
+                            android:layout_height="match_parent"
+                            android:text="Jour 3" />
+
+                        <TextView
+                            android:layout_width="72dp"
+                            android:layout_height="match_parent"
+                            android:text="Jour 4" />
+
+                        <TextView
+                            android:layout_width="74dp"
+                            android:layout_height="match_parent"
+                            android:text="Jour 5" />
+
+                        <TextView
+                            android:layout_width="76dp"
+                            android:layout_height="match_parent"
+                            android:text="Total" />
+                    </TableRow>
+
+                    <!-- Lignes de données du tableau -->
+                    <!-- Vous pouvez ajouter dynamiquement des lignes à partir de votre code Java -->
+                </TableLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+</LinearLayout>

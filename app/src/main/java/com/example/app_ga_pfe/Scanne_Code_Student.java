@@ -1,13 +1,17 @@
 package com.example.app_ga_pfe;
 
+import static java.security.AccessController.getContext;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -15,6 +19,7 @@ import com.journeyapps.barcodescanner.ScanOptions;
 
 public class Scanne_Code_Student extends AppCompatActivity  {
     Button btn_scan;
+    private VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,20 @@ public class Scanne_Code_Student extends AppCompatActivity  {
         {
             scanCode();
         });
+
+        videoView =findViewById(R.id.video);
+        // Chemin vers la vidéo dans le répertoire res/raw
+        String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.scanback3;
+        // Convertir le chemin en URI
+        Uri uri = Uri.parse(videoPath);
+        // Définir l'URI de la vidéo pour la VideoView
+        videoView.setVideoURI(uri);
+        // Lancer la lecture de la vidéo en boucle
+        videoView.setOnPreparedListener(mp -> {
+            mp.setLooping(true);
+            videoView.start();
+        });
+
     }
 
     private void scanCode() {
@@ -50,7 +69,7 @@ public class Scanne_Code_Student extends AppCompatActivity  {
                 showResultDialog("Erreur", "Le code QR scanné ne correspond pas au code QR généré.");
             }
 
-            } else {
+        } else {
 
 
         }
@@ -64,6 +83,6 @@ public class Scanne_Code_Student extends AppCompatActivity  {
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.dismiss()).show();
-    }
+}
 
 }
