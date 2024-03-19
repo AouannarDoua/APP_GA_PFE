@@ -35,7 +35,7 @@ public class EmploiTempsFragment extends Fragment {
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, textViewDate;
     private VideoView videoView;
     private Handler handler = new Handler();
-    private final int INTERVAL = 30000; // Mettre à jour chaque minute
+    private final int INTERVAL = 30000;
     private Runnable updateTask = new Runnable() {
         @Override
         public void run() {

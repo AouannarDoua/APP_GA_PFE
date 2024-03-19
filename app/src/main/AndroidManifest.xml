@@ -20,6 +20,9 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
+            android:name=".CHoix_Filiere_Semestre"
+            android:exported="false" />
+        <activity
             android:name=".QrGeneration"
             android:exported="false" />
         <activity
@@ -39,7 +42,7 @@
             android:name=".Profil_Student"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Scanne_Code_Student"
             android:exported="false" />
         <activity
             android:name=".Attendance_List"
@@ -48,13 +51,13 @@
             android:name=".FringerPrintFaceid"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".Scanne_Code_Student"
+            android:name=".MainActivity2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,7 +2,9 @@ package com.example.app_ga_pfe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.number.FractionPrecision;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,8 @@ public class MainActivity2 extends AppCompatActivity {
     Button Connect;
     private Techeardb techeardb;
     Switch faceIdSwitch;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
         Connect = findViewById(R.id.connect);
         techeardb = new Techeardb(this);
         faceIdSwitch = findViewById(R.id.faceIdSwitch);
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         Connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,10 +48,13 @@ public class MainActivity2 extends AppCompatActivity {
 
                 if (utilisateurExiste) {
                     Toast.makeText(MainActivity2.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity2.this, FringerPrintFaceid.class);
+                    // Stocker le numéro d'apogée dans SharedPreferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("APOGEE", code);
+                    editor.apply();
+                    Intent intent = new Intent(MainActivity2.this, MenuEmploi.class);
                     intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                     startActivity(intent);
-                    goToProfil();
 
                 } else {
                     Toast.makeText(MainActivity2.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();

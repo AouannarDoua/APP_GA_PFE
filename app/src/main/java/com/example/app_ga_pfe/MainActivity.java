@@ -48,66 +48,17 @@ public class MainActivity extends AppCompatActivity {
         chargerFilieres(); // Appel à la méthode pour charger les filières
 
 
+        boolean isFirstLogin = checkFirstLogin();
 
-
-        buttonConnecter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nom = editTextNom.getText().toString().trim();
-                String apogee = editTextApogee.getText().toString().trim();
-
-                attendanceListActivity = new Attendance_List();
-                attendanceListActivity.ajouterNouvelleLigne(nom, apogee);
-
-                // Vérifier si les informations saisies par l'utilisateur existent dans la base de données
-                boolean utilisateurExiste = database.verificationDonnees(nom, apogee);
-
-                if (utilisateurExiste) {
-                    if (validateInputs()) {
-                        int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
-                        long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
-                        int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
-
-                        String filiere = filiereSpinner.getSelectedItem().toString();
-                        // Trouver la vue RadioButton correspondante à cet ID
-                        View radioButton = scheduleRadioGroup.findViewById(selectedRadioButtonId);
-                        String selectedRadioButtonText = "";
-
-                        // Vérifier si le RadioButton est trouvé
-                        if (radioButton != null && radioButton instanceof RadioButton) {
-                            // Récupérer le texte de la vue RadioButton
-                            selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
-                        }
-
-
-
-                        infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
-                        // Afficher un message de bienvenue
-                        Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, FringerPrintFaceid.class);
-
-                        intent.putExtra("idFilieres", selectedFiliereId);
-                        intent.putExtra("isFaceIdActivated", isFaceIdActivated);
-                        intent.putExtra("radiobutton_id", selectedRadioButtonId);
-                        intent.putExtra("FULL_NAMES", nom);
-                        intent.putExtra("Filiere Selectionnee", filiere);
-                        intent.putExtra("Semester",selectedRadioButtonText);
-                        intent.putExtra("N_Apoogee", apogee);
-                        goToProfil();
-                        startActivity(intent);
-
-
-                    }
-
-                } else {
-                    // Afficher un message d'erreur
-                    Toast.makeText(MainActivity.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-        });
+        if (isFirstLogin) {
+            // Si c'est la première connexion, restez sur la page actuelle et configurez le bouton de connexion
+            setupLogin();
+        } else {
+            // Sinon, passez à la deuxième activité
+            goToSecondActivity();
+        }
     }
+
 
     private void chargerFilieres() {
         List<String> filieres = dbHelper.getAllFilieres();
@@ -176,7 +127,94 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void goToSecondActivity() {
+        // Fonction pour passer à la deuxième activité
+        Intent intent = new Intent(this, FringerPrintFaceid.class);
+        startActivity(intent);
+        finish(); // Terminer l'activité actuelle
+    }
 
+    private boolean checkFirstLogin() {
+        // Vérifier si c'est la première connexion en vérifiant les préférences partagées
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isFirstLogin", true);
+    }
+
+    private void setFirstLogin() {
+        // Mettre à jour les préférences partagées pour indiquer que l'utilisateur s'est connecté une fois
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isFirstLogin", false);
+        editor.apply();
+    }
+
+    private void setupLogin() {
+        buttonConnecter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nom = editTextNom.getText().toString().trim();
+                String apogee = editTextApogee.getText().toString().trim();
+
+
+                // Vérifier si les informations saisies par l'utilisateur existent dans la base de données
+                boolean utilisateurExiste = database.verificationDonnees(nom, apogee);
+
+                if (utilisateurExiste) {
+                    if (validateInputs()) {
+                        setFirstLogin();
+                        int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
+                        long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
+                        int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
+
+                        String filiere = filiereSpinner.getSelectedItem().toString();
+                        // Trouver la vue RadioButton correspondante à cet ID
+                        View radioButton = scheduleRadioGroup.findViewById(selectedRadioButtonId);
+                        String selectedRadioButtonText = "";
+
+                        // Vérifier si le RadioButton est trouvé
+                        if (radioButton != null && radioButton instanceof RadioButton) {
+                            // Récupérer le texte de la vue RadioButton
+                            selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
+                        }
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        // Enregistrer les informations de l'utilisateur
+                        editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
+                        editor.putString("NOM_UTILISATEUR", nom);
+                        editor.putString("APOGEE_UTILISATEUR", apogee);
+                        editor.putBoolean("isStudent", true);
+                        // Appliquer les modifications
+                        editor.apply();
+
+                        infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
+                        // Afficher un message de bienvenue
+                        Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this,FringerPrintFaceid.class);
+
+                        intent.putExtra("idFilieres", selectedFiliereId);
+                        intent.putExtra("isFaceIdActivated", isFaceIdActivated);
+                        intent.putExtra("radiobutton_id", selectedRadioButtonId);
+                        intent.putExtra("FULL_NAMES", nom);
+                        intent.putExtra("Filiere Selectionnee", filiere);
+                        intent.putExtra("Semester", selectedRadioButtonText);
+                        intent.putExtra("N_Apoogee", apogee);
+                        goToProfil();
+                        startActivity(intent);
+
+
+                    }
+
+                } else {
+                    // Afficher un message d'erreur
+                    Toast.makeText(MainActivity.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        });
+    }
 
 
 }

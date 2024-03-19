@@ -126,7 +126,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         return true;
     }
     public void notification(MenuItem item) {
-        startActivity(new Intent(MenuEmploi.this, choix_du_profil.class));
+        startActivity(new Intent(MenuEmploi.this, CHoix_Filiere_Semestre.class));
     }
     @Override
     public void onBackPressed() {

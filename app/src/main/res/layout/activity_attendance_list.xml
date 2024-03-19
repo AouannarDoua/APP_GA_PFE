@@ -3,13 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Attendance_List">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="pageconnecter"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:background="@color/app_color"
+            android:layout_marginBottom="30dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:padding="10dp"
+                app:tint="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="list of students"
+                android:textColor="@color/black"
+                android:textSize="22sp"/>
+        </LinearLayout>
 
-
-    <include
-        layout="@layout/activity_nav_header"
-        />
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scrollbars="none">
-            
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -97,4 +120,5 @@
             </LinearLayout>
         </HorizontalScrollView>
     </ScrollView>
+</LinearLayout>
 </LinearLayout>
