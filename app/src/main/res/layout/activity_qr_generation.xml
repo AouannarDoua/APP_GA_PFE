@@ -46,8 +46,8 @@
 
         <ImageView
             android:id="@+id/codeQr"
-            android:layout_width="273dp"
-            android:layout_height="220dp"
+            android:layout_width="320dp"
+            android:layout_height="272dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.427"
@@ -56,17 +56,6 @@
             app:layout_constraintVertical_bias="0.466"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/design"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:src="@drawable/scan"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

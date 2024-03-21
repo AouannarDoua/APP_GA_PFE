@@ -13,24 +13,29 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class Scanne_Code_Student extends AppCompatActivity  {
     Button btn_scan;
     private VideoView videoView;
+    private DatabaseReference qrCodesRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanne_code_student);
-        btn_scan=findViewById(R.id.btn_scan);
-        btn_scan.setOnClickListener(v->
-        {
-            scanCode();
-        });
+        btn_scan = findViewById(R.id.btn_scan);
+        // Initialiser la référence à la base de données Firebase
+        qrCodesRef = FirebaseDatabase.getInstance().getReference("qr_codes");
 
+        btn_scan.setOnClickListener(v -> scanCode());
         videoView =findViewById(R.id.video);
         // Chemin vers la vidéo dans le répertoire res/raw
         String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.scanback3;
@@ -46,43 +51,61 @@ public class Scanne_Code_Student extends AppCompatActivity  {
 
     }
 
+
     private void scanCode() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume Up To Flash on");
         options.setBeepEnabled(true);
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureAct.class);
-        barLaucher.launch(options);
+        barLauncher.launch(options);
     }
-    ActivityResultLauncher<ScanOptions> barLaucher = registerForActivityResult(new ScanContract(), result -> {
+
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
-            // Récupérer le texte scanné depuis SharedPreferences
             String scannedText = result.getContents();
-            String generatedText = "AbscenceEase";
 
-            // Compare the scanned text with the generated text
-            if (scannedText.equals(generatedText)) {
-                // Si les textes correspondent, affichez un message de succès
-                showResultDialog("Succès", "Le code QR scanné correspond au code QR généré.");
-            } else {
-                // Si les textes ne correspondent pas, affichez un message d'erreur
-                showResultDialog("Erreur", "Le code QR scanné ne correspond pas au code QR généré.");
-            }
-
-        } else {
-
-
+            // Vérifie si le code QR scanné correspond à un code QR généré précédemment
+            checkScannedCode(scannedText);
         }
-
     });
 
+    private void checkScannedCode(String scannedText) {
+        // Lire le code QR généré à partir de Firebase Realtime Database
+        qrCodesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean found = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String generatedCode = snapshot.getValue(String.class);
+                    if (generatedCode != null && generatedCode.equals(scannedText)) {
+                        found = true;
+                        break;
+                    }
+                }
 
-    // Method to show the result dialog
+                if (found) {
+                    // Afficher un message de succès si le code QR scanné correspond à un code QR généré
+                    showResultDialog("Success", "The scanned QR code matches the generated QR code.");
+                } else {
+                    // Afficher un message d'erreur si le code QR scanné ne correspond à aucun code QR généré
+                    showResultDialog("Error", "The scanned QR code does not match any generated QR code.");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Gérer les erreurs de lecture de la base de données Firebase
+                Toast.makeText(Scanne_Code_Student.this, "Failed to read QR codes from Firebase.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void showResultDialog(String title, String message) {
+        // Affiche un dialogue avec le résultat de la comparaison
         AlertDialog.Builder builder = new AlertDialog.Builder(Scanne_Code_Student.this);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.dismiss()).show();
-}
-
+    }
 }

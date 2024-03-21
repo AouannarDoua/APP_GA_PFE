@@ -41,17 +41,17 @@
     </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_scan"
-            android:layout_width="165dp"
-            android:layout_height="55dp"
-            android:layout_marginLeft="110dp"
-            android:layout_marginTop="410dp"
-            android:backgroundTint="@color/app_color"
-            android:padding="10dp"
-            android:text="Scan"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_width="165dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="410dp"
+        android:backgroundTint="@color/app_color"
+        android:padding="10dp"
+        android:text="Scan"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
 </RelativeLayout>

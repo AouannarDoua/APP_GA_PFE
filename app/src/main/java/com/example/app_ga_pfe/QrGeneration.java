@@ -17,10 +17,11 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Random;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 public class QrGeneration extends AppCompatActivity {
     Button generate ;
-    ImageView codeQR , scandes;
+    ImageView codeQR ;
     static String generatedText ;
     TextView generatedCodeTextView ;
 
@@ -30,46 +31,45 @@ public class QrGeneration extends AppCompatActivity {
         setContentView(R.layout.activity_qr_generation);
 
         generate = findViewById(R.id.generate);
-        codeQR =findViewById(R.id.codeQr);
-        scandes = findViewById(R.id.design);
+        codeQR = findViewById(R.id.codeQr);
+
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scandes.setVisibility(View.VISIBLE);
                 generateCode();
             }
         });
     }
 
-    public void generateCode()  {
-        generatedText = "AbscenceEase";
+    public void generateCode() {
+        String generatedText = generateRandomText();
 
-        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        // Initialize Firebase Database reference
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("qr_codes");
+
+        // Store the generated text in Firebase
+        databaseReference.push().setValue(generatedText);
+
+        MultiFormatWriter writer = new MultiFormatWriter();
         try {
-            // Encode le contenu du code QR en utilisant le format QR_CODE avec une taille de 300x300 pixels
-            BitMatrix bitMatrix = multiFormatWriter.encode(generatedText , BarcodeFormat.QR_CODE ,300 , 300);
-            // Crée une instance de BarcodeEncoder pour convertir le BitMatrix en un objet Bitmap
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder() ;
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            BitMatrix matrix = writer.encode(generatedText, BarcodeFormat.QR_CODE, 400, 400);
+            BarcodeEncoder encoder = new BarcodeEncoder();
+            Bitmap bitmap = encoder.createBitmap(matrix);
             codeQR.setImageBitmap(bitmap);
-        }catch(WriterException e){
-            throw new RuntimeException();
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
         }
-
     }
 
     private String generateRandomText() {
-        // Générer un texte aléatoire en utilisant des caractères alphanumériques
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        int length = 10; // Longueur du texte aléatoire
-
+        int length = 10;
         for (int i = 0; i < length; i++) {
-            // Sélectionner un caractère aléatoire de la chaîne de caractères
             int index = random.nextInt(characters.length());
             sb.append(characters.charAt(index));
         }
         return sb.toString();
-}
+    }
 }
