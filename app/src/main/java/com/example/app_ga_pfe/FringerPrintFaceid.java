@@ -34,15 +34,15 @@ public class FringerPrintFaceid extends AppCompatActivity {
         setContentView(R.layout.activity_fringer_print_faceid);
         mMainLayout = findViewById(R.id.FringerFace);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        boolean isFaceIdActivated = sharedPreferences.getBoolean("isFaceIdActivated", false);
+       // boolean isFaceIdActivated = sharedPreferences.getBoolean("isFaceIdActivated", false);
 
         // Utiliser les valeurs récupérées comme nécessaire
-        if (isFaceIdActivated) {
+        //if (isFaceIdActivated) {
             initializeBiometricPrompt();
-        } else {
+        // } else {
             // Si le Face ID n'est pas activé, afficher un message à l'utilisateur
-            Toast.makeText(this, "Veuillez activer le Face ID ou l'empreinte digitale", Toast.LENGTH_SHORT).show();
-        }
+         //   Toast.makeText(this, "Veuillez activer le Face ID ou l'empreinte digitale", Toast.LENGTH_SHORT).show();
+       // }
     }
 
     private void initializeBiometricPrompt() {
@@ -129,7 +129,7 @@ public class FringerPrintFaceid extends AppCompatActivity {
         String selectedRadioButtonText = getIntent().getStringExtra("Semester");
 
         // Passer à l'activité Emploi_Temps
-        Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, MainActivity2.class);
+        Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, EmploiTempsFragment.class);
         emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
         emploiTempsIntent.putExtra("radiobutton_id", selectedRadioButtonId);
         emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "639534909482",
+    "project_id": "absenteease",
+    "storage_bucket": "absenteease.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639534909482:android:c64fe4b929486899965b53",
+        "android_client_info": {
+          "package_name": "com.example.app_ga_pfe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhu2QvnniraWRzCJdd0VfyNv-ne1uhu0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

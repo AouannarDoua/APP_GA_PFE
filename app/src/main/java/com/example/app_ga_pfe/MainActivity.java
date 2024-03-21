@@ -1,5 +1,6 @@
 package com.example.app_ga_pfe;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +17,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Switch faceIdSwitch;
     RadioGroup scheduleRadioGroup;
     boolean isFaceIdActivated;
-    private Attendance_List attendanceListActivity;
+    private DatabaseReference databaseReference;
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,19 +52,18 @@ public class MainActivity extends AppCompatActivity {
         database = new databasemain(this);
         dbHelper = new filiereDataHelper(this);
         infodata = new infoStudentDB(this);
-
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         chargerFilieres(); // Appel à la méthode pour charger les filières
 
+      //  boolean isFirstLogin = checkFirstLogin();
 
-        boolean isFirstLogin = checkFirstLogin();
-
-        if (isFirstLogin) {
+        // if (isFirstLogin) {
             // Si c'est la première connexion, restez sur la page actuelle et configurez le bouton de connexion
             setupLogin();
-        } else {
+       // } else {
             // Sinon, passez à la deuxième activité
-            goToSecondActivity();
-        }
+          //  goToSecondActivity();
+       // }
     }
 
 
@@ -127,14 +134,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-    public void goToSecondActivity() {
+   /*public void goToSecondActivity() {
         // Fonction pour passer à la deuxième activité
         Intent intent = new Intent(this, FringerPrintFaceid.class);
         startActivity(intent);
         finish(); // Terminer l'activité actuelle
-    }
+    }*/
 
-    private boolean checkFirstLogin() {
+ /*   private boolean checkFirstLogin() {
         // Vérifier si c'est la première connexion en vérifiant les préférences partagées
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isFirstLogin", true);
@@ -146,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isFirstLogin", false);
         editor.apply();
-    }
+    }*/
 
     private void setupLogin() {
         buttonConnecter.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (utilisateurExiste) {
                     if (validateInputs()) {
-                        setFirstLogin();
+                       // setFirstLogin();
                         int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
                         long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
                         int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
@@ -176,12 +183,11 @@ public class MainActivity extends AppCompatActivity {
                             // Récupérer le texte de la vue RadioButton
                             selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
                         }
-
+                        writeDataToFirebase(nom, apogee);
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-
                         // Enregistrer les informations de l'utilisateur
-                        editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
+                       // editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
                         editor.putString("NOM_UTILISATEUR", nom);
                         editor.putString("APOGEE_UTILISATEUR", apogee);
                         editor.putBoolean("isStudent", true);
@@ -216,6 +222,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void writeDataToFirebase(String nom, String code) {
+        // Initialize Firebase Database reference
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("students");
+
+        // Check if the student already exists in the database
+        databaseReference.child(nom).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    // If the student does not exist, write the data to Firebase
+                    databaseReference.child(nom).child("CodeApogee").setValue(code);
+                    Toast.makeText(MainActivity.this, "Données enregistrées dans Firebase", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "L'étudiant existe déjà dans Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
 
 }
-
