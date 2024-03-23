@@ -26,9 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    EditText editTextNom;
-    EditText editTextApogee;
-    Button buttonConnecter;
+    private EditText editTextNom;
+    private EditText editTextApogee;
+    private Button buttonConnecter;
     private databasemain database;
     private infoStudentDB infodata;
     private filiereDataHelper dbHelper;
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                         // Appliquer les modifications
                         editor.apply();
 
-                        infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonId, nom, apogee);
+                        infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonText, nom, apogee);
                         // Afficher un message de bienvenue
                         Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this,FringerPrintFaceid.class);

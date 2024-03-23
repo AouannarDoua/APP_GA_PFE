@@ -4,9 +4,11 @@ package com.example.app_ga_pfe;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -81,6 +83,14 @@ public class Profil_Student extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("gmail", editTextGmail.getText().toString());
         editor.apply();
+
+
+        // Récupérer les autres informations du profil
+        String fullName = fullNameSTxt.getText().toString();
+        String filiere = FiliereS.getText().toString();
+        String semesterText = semester.getText().toString();
+
+
     }
     private void loadProfile() {
         SharedPreferences sharedPreferences = getSharedPreferences("student_profile", Context.MODE_PRIVATE);

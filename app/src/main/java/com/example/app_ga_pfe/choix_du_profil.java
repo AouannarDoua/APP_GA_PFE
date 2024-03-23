@@ -38,7 +38,7 @@ public class choix_du_profil extends AppCompatActivity {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(choix_du_profil.this , MainActivity.class);
+                Intent intent = new Intent(choix_du_profil.this , MainActivity3.class);
                 startActivity(intent);
             }
         });

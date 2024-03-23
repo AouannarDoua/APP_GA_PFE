@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1"
+    android:background="@drawable/back1"
     tools:context=".MainActivity">
 
 
@@ -38,11 +38,11 @@
 
         <ImageView
             android:id="@+id/topImage"
-            android:layout_width="184dp"
-            android:layout_height="212dp"
+            android:layout_width="186dp"
+            android:layout_height="184dp"
             android:layout_marginLeft="110dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/student_icon"
+            android:src="@drawable/img"
 
             />
 
@@ -76,7 +76,8 @@
                     android:drawableStart="@drawable/baseline_person_24"
                     android:drawablePadding="5dp"
                     android:inputType="text"
-                    app:drawableTint="@color/button_color" />
+                    app:drawableTint="@color/button_color"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

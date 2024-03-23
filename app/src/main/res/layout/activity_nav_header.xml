@@ -14,7 +14,7 @@
         android:id="@+id/imageView_profile"
         android:layout_width="87dp"
         android:layout_height="96dp"
-        android:src="@drawable/student_icon" />
+        android:src="@drawable/img_1" />
 
     <TextView
         android:id="@+id/name"

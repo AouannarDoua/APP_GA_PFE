@@ -21,19 +21,16 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
-            android:name=".FingerPrintFaceidT"
-            android:exported="false" />
-        <activity
             android:name=".Fire2"
             android:exported="false" />
         <activity
-            android:name=".Scanne_Code_Student"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".CHoix_Filiere_Semestre"
             android:exported="false" />
         <activity
-            android:name=".Attendance_List"
+            android:name=".QrGenerations"
             android:exported="false" />
         <activity
             android:name=".MenuEmploi"
@@ -52,13 +49,16 @@
             android:name=".Profil_Student"
             android:exported="false" />
         <activity
-            android:name=".QrGenerations"
+            android:name=".Scanne_Code_Student"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Attendance_List"
             android:exported="false" />
         <activity
             android:name=".FringerPrintFaceid"
+            android:exported="false" />
+        <activity
+            android:name=".FingerPrintFaceidT"
             android:exported="false" />
         <activity
             android:name=".testfire"

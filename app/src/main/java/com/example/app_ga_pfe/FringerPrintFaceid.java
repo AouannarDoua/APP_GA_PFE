@@ -27,7 +27,6 @@ public class FringerPrintFaceid extends AppCompatActivity {
     private BiometricPrompt.PromptInfo promptInfo;
     ConstraintLayout mMainLayout;
     private Executor executor;
-    private boolean isFaceIdActivated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".choix_du_profil"
-    android:background="@drawable/background1">
+    android:background="@drawable/back1">
 
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/teacher"
-        android:layout_width="329dp"
-        android:layout_height="228dp"
+        android:layout_width="246dp"
+        android:layout_height="199dp"
         android:clickable="true"
         android:contentDescription="@string/image_description1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,9 +19,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078"
+        app:layout_constraintVertical_bias="0.15"
         app:shapeAppearanceOverlay="@style/circular"
-        app:srcCompat="@drawable/teachericon" />
+        app:srcCompat="@drawable/img_1" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/student"
@@ -34,9 +34,9 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.504"
+        app:layout_constraintVertical_bias="0.559"
         app:shapeAppearanceOverlay="@style/circular"
-        app:srcCompat="@drawable/student_icon" />
+        app:srcCompat="@drawable/img" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/admin"
@@ -46,27 +46,27 @@
         android:contentDescription="@string/image_description3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914"
+        app:layout_constraintVertical_bias="0.92"
         app:shapeAppearanceOverlay="@style/circular"
         app:srcCompat="@drawable/administration_icon" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="267dp"
-        android:layout_height="45dp"
-        android:text="Select Your Profile Type:"
+        android:layout_width="327dp"
+        android:layout_height="83dp"
+        android:text=" Please select your profile type to continue:"
         android:textColor="@color/app_color"
         android:textSize="10pt"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.005" />
 
     <TextView
         android:id="@+id/textView2"

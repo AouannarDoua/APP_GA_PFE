@@ -70,7 +70,7 @@
     android:clickable="true"
     android:contentDescription="@string/app_name"
     android:onClick="openGallery"
-    android:src="@drawable/profilstudent"
+    android:src="@drawable/student"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.503"
@@ -89,6 +89,7 @@
             android:textColor="@color/button_color"
             android:textSize="22sp"
             android:textStyle="bold" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="50dp">
@@ -99,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="#466E92"
+            app:cardBackgroundColor="@color/app_color"
             app:cardCornerRadius="16dp"
             app:cardElevation="8dp"
             android:layout_marginTop="100dp">
@@ -228,7 +229,7 @@
 
                     <TextView
                         android:id="@+id/taught"
-                        android:layout_width="wrap_content"
+                        android:layout_width="52dp"
                         android:layout_height="38dp"
                         android:layout_marginLeft="4dp"
                         android:layout_weight="1"
@@ -261,7 +262,7 @@
             android:layout_width="142dp"
             android:layout_height="58dp"
             android:layout_gravity="center"
-            android:backgroundTint="#466E92"
+            android:backgroundTint="@color/button_color"
             android:gravity="center"
             android:text="Save" />
 

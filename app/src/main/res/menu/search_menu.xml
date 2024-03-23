@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/search"
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/action_notification"
         android:icon="@drawable/nav_notification"
@@ -14,10 +15,4 @@
         android:title="Notifications"
         android:onClick="notification"
         app:showAsAction="always"/>
-
-
-
-
-
-
 </menu>

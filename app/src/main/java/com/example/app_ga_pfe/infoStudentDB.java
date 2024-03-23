@@ -26,7 +26,7 @@ public class infoStudentDB extends SQLiteOpenHelper {
         String createTableQuery = "CREATE TABLE " + TABLE_NAME + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FILIERE_ID + " INTEGER, " +
-                COLUMN_RADIOBUTTON_ID + " INTEGER, " +
+                COLUMN_RADIOBUTTON_ID + " TEXT, " +
                 COLUMN_NOM + " TEXT, " +
                 COLUMN_APOGEE + " TEXT)";
         db.execSQL(createTableQuery);
@@ -40,7 +40,7 @@ public class infoStudentDB extends SQLiteOpenHelper {
     }
 
     // Méthode pour insérer les données dans la base de données
-    public long insererDonnees(int filiereId, int nomRadioButton, String nom, String apogee) {
+    public long insererDonnees(int filiereId, String nomRadioButton, String nom, String apogee) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_FILIERE_ID, filiereId);
@@ -51,26 +51,8 @@ public class infoStudentDB extends SQLiteOpenHelper {
         db.close();
         return result;
     }
-    public Cursor getDonneesUtilisateur() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_NOM, COLUMN_APOGEE}; // Les colonnes à récupérer
-        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
-        return cursor;
-    }
-    public Cursor insérerDonnéesEtRécupérerInformations(String nom, String apogee) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NOM, nom);
-        values.put(COLUMN_APOGEE, apogee);
-        long result = db.insert(TABLE_NAME, null, values);
 
-        // Après l'insertion, récupérez les informations de l'utilisateur
-        Cursor cursor = null;
-        if (result != -1) {
-            cursor = getDonneesUtilisateur();
-        }
-        return cursor;
-    }
+
 
 }
 

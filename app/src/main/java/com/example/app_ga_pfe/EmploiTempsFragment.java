@@ -280,7 +280,6 @@ public class EmploiTempsFragment extends Fragment {
             t4.setText(emploiData.getMatiere4());
         }
 
-}
-
     }
 
+}

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class ProfilTeacherHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "profil_database";
+    public static final String DATABASE_NAME = "profildbTeacher.db";
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_PROFILE = "profile";
     public static final String TABLE_LISTVIEW_ITEMS = "listview_items";

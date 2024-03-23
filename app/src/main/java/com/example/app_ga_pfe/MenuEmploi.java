@@ -13,38 +13,59 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
-    ImageView imageViewProfile;
+    private ImageView imageViewProfile;
 
-
+    ListView list ;
+    String[] profiles ={"Lemkadem Fatima Zahraa" , "Aouannar Doua"};
+    ArrayAdapter<String> arrayAdapter ;
+    SearchView searchView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_emploi);
+
+        // Initialisation de votre helper de base de données
+
         Intent intent = getIntent();
         String fullName = intent.getStringExtra("FULL_NAMES");
         String filiere = getIntent().getStringExtra("Filiere Selectionnee");
         String selectedRadioButtonText = getIntent().getStringExtra("Semester");
         String gmail = intent.getStringExtra("Gmail");
         long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
-        int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
         EmploiTempsFragment emploiTempsFragment = new EmploiTempsFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("idFilieres", selectedFiliereId);
         bundle.putString("Semester", selectedRadioButtonText);
         emploiTempsFragment.setArguments(bundle);
+        list = findViewById(R.id.list);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, profiles);
+        list.setAdapter(arrayAdapter);
 
-// Ajouter le fragment à la vue
+        // Rendre la ListView invisible au démarrage de l'activité
+        list.setVisibility(View.GONE);
+
+        // Récupérer le SearchView depuis le menu
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Ajouter le fragment à la vue
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, emploiTempsFragment).commit();
-
-
 
         // Récupérer le NavigationView
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -52,10 +73,12 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         // Récupérer le HeaderView du NavigationView
         View headerView = navigationView.getHeaderView(0);
 
-        // Récupérer le TextView à l'intérieur du HeaderView
+        // Récupérer les TextView à l'intérieur du HeaderView
         TextView textViewName = headerView.findViewById(R.id.name);
         TextView textViewgmail = headerView.findViewById(R.id.gmail1);
-        imageViewProfile = headerView.findViewById(R.id.imageView_profile);imageViewProfile.setOnClickListener(new View.OnClickListener() {
+
+        imageViewProfile = headerView.findViewById(R.id.imageView_profile);
+        imageViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Rediriger vers la page de profil
@@ -70,8 +93,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         textViewgmail.setText(gmail);
         // Mettre à jour le TextView avec le nom de l'utilisateur
         textViewName.setText(fullName);
-        Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
-        setSupportActionBar(toolbar);
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
@@ -82,32 +104,94 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             // Si Emploi_Temps est une activité, démarrez-la ici
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
-        }}
+        }
+
+
+    }
+
+    private void writeDataToFirebase(String nom, String code) {
+        // Initialize Firebase Database reference
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("profils");
+
+        // Check if the student already exists in the database
+        databaseReference.child(nom).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    // If the student does not exist, write the data to Firebase
+                    databaseReference.child(nom).child("CodeApogee").setValue(code);
+                } else {
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
+    }
+
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.setVisibility(View.VISIBLE); // Rendre la liste visible lorsque le SearchView est cliqué
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                list.setVisibility(View.GONE); // Rendre la liste invisible lorsque le SearchView est fermé
+                return false; // Retourne false pour indiquer que vous ne souhaitez pas consommer l'événement de fermeture
+            }
+        });
 
-        // Récupérer l'élément de recherche du menu
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        MenuItem.OnActionExpandListener OnActionExpandListener = new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(@NonNull MenuItem item) {
 
-        // Configurer un écouteur de recherche
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(@NonNull MenuItem item) {
+
+                return true;
+            }
+        };
+
+        menu.findItem(R.id.search).setOnActionExpandListener(OnActionExpandListener);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setQueryHint("Search Students here ...");
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Action à effectuer lors de la soumission de la recherche
-                return false;
+
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Action à effectuer lorsque le texte de recherche change
-                // Vous pouvez utiliser newText pour filtrer les données
-                return false;
+               arrayAdapter.getFilter().filter(newText);
+                return true;
             }
+
         });
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
+
+
     }
+
+
+
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -125,9 +209,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void notification(MenuItem item) {
-        startActivity(new Intent(MenuEmploi.this, CHoix_Filiere_Semestre.class));
-    }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -136,4 +218,11 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             super.onBackPressed();
         }
     }
+
+    public void notification(MenuItem item) {
+        // Votre logique de gestion de la notification ici
+    }
+
+
+
 }
