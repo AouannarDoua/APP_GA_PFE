@@ -17,6 +17,6 @@ public class testfire extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
-       // myRef.setValue("salma");
+        //myRef.setValue("hhhh");
     }
 }

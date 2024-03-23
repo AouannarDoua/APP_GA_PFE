@@ -26,19 +26,20 @@ public class Scanne_Code_Student extends AppCompatActivity  {
     Button btn_scan;
     private VideoView videoView;
     private DatabaseReference qrCodesRef;
-
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanne_code_student);
         btn_scan = findViewById(R.id.btn_scan);
         // Initialiser la référence à la base de données Firebase
-        qrCodesRef = FirebaseDatabase.getInstance().getReference("qr_codes");
+        qrCodesRef = FirebaseDatabase.getInstance().getReference("Les Qr");
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
         btn_scan.setOnClickListener(v -> scanCode());
         videoView =findViewById(R.id.video);
         // Chemin vers la vidéo dans le répertoire res/raw
-        String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.scanback3;
+        String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.scanback;
         // Convertir le chemin en URI
         Uri uri = Uri.parse(videoPath);
         // Définir l'URI de la vidéo pour la VideoView
@@ -71,7 +72,8 @@ public class Scanne_Code_Student extends AppCompatActivity  {
     });
 
     private void checkScannedCode(String scannedText) {
-        // Lire le code QR généré à partir de Firebase Realtime Database
+        String nom = sharedPreferences.getString("NOM_UTILISATEUR", "");
+        String apogee = sharedPreferences.getString("APOGEE_UTILISATEUR", "");
         qrCodesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,7 +87,7 @@ public class Scanne_Code_Student extends AppCompatActivity  {
                 }
 
                 if (found) {
-                    // Afficher un message de succès si le code QR scanné correspond à un code QR généré
+                    markAttendance(nom , apogee);
                     showResultDialog("Success", "The scanned QR code matches the generated QR code.");
                 } else {
                     // Afficher un message d'erreur si le code QR scanné ne correspond à aucun code QR généré
@@ -99,6 +101,16 @@ public class Scanne_Code_Student extends AppCompatActivity  {
                 Toast.makeText(Scanne_Code_Student.this, "Failed to read QR codes from Firebase.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void markAttendance(String nom, String apogee) {
+        DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("attendance");
+        String key = attendanceRef.push().getKey(); // generate unique key for each attendance record
+
+        // Save attendance record to Firebase
+        attendanceRef.child(key).child("nom").setValue(nom);
+        attendanceRef.child(key).child("apogee").setValue(apogee);
+        attendanceRef.child(key).child("status").setValue("P"); // Mark as present
     }
 
     private void showResultDialog(String title, String message) {

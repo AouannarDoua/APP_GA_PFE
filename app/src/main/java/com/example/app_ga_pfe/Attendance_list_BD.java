@@ -13,12 +13,12 @@ import java.util.List;
 
 public class Attendance_list_BD extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "AttendanceET.db";
+    private static final String DATABASE_NAME = "listEtudiant.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "Attendance";
+    public static final String TABLE_NAME = "Attendance";
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_NOM_PRENOM = "NomPrenom";
-    private static final String COLUMN_APOGEE = "Apogee";
+    public static final String COLUMN_NOM_PRENOM = "NomPrenom";
+    public static final String COLUMN_APOGEE = "Apogee";
     private static final String COLUMN_JOUR_1 = "Jour1";
     private static final String COLUMN_JOUR_2 = "Jour2";
     private static final String COLUMN_JOUR_3 = "Jour3";
@@ -43,22 +43,44 @@ public class Attendance_list_BD extends SQLiteOpenHelper {
                 COLUMN_JOUR_4 + " TEXT DEFAULT '', " +
                 COLUMN_JOUR_5 + " TEXT DEFAULT '');";
         db.execSQL(createTableQuery);
-        insertData(db, "DAWM S1", "AOUANNAR DOUA", "2218535");
+        insertData(db, "DAWM S1", "ACHARKI MAHDI", "2215792");
         insertData(db, "DAWM S1", "AIT LAHMOUS", "2215824");
+        insertData(db, "DAWM S1", "AKACHAR GHIZLAN", "2201292");
+        insertData(db, "DAWM S1", "AKOUAOU MOSTAFA", "2215860");
+        insertData(db, "DAWM S1", "AOUANNAR DOUA", "2218535");
         insertData(db, "DAWM S1", "AZOU ANASS", "2100176");
+        insertData(db, "DAWM S1", "BARADI YOUSSEF", "2215832");
         insertData(db, "DAWM S1", "BELBACHIR WISSAL", "2112402");
+        insertData(db, "DAWM S1", "BELLAI YOUSSEF", "2215796");
         insertData(db, "DAWM S1", "BERRADA IMANE", "2215796");
+        insertData(db, "DAWM S1", "BORAK MOHAMED DYAE", "2215841)");
+        insertData(db, "DAWM S1", "BOUTOB HASNAE", "2204659");
+        insertData(db, "DAWM S1", "CHAFIK WIDAD", "2215856");
         insertData(db, "DAWM S1", "CHAHLAL AYOUB", "2215830");
-        insertData(db, "DAWM S1", "ELFADLI AHLAM", "2215778");
-        insertData(db, "DAWM S1", "ELMOSLIH SALMA", "2215853");
+        insertData(db, "DAWM S1", "CHIRAGE ABDERRAHMAN", "2215776");
+        insertData(db, "DAWM S1", "EL ANSSARI MANAR", "2215851");
+        insertData(db, "DAWM S1", "EL BOUTAYBI ILYASS", "2100626");
+        insertData(db, "DAWM S1", "EL FADLI AHLAM", "2215778");
+        insertData(db, "DAWM S1", "EL FANKARI MOHAMED", "2215773");
+        insertData(db, "DAWM S1", "EL HAIDOURY RAJAE", "2215810");
+        insertData(db, "DAWM S1", "EL MOSLIH SALMA", "2215853");
+        insertData(db, "DAWM S1", "EL KAZDARI AMINE", "2215766");
+        insertData(db, "DAWM S1", "EZZRIOULI MALAK", "2215829");
+        insertData(db, "DAWM S1", "HABOUSSI NAJI", "2215857");
         insertData(db, "DAWM S1", "IDHMAD ANIR", "2215858");
+        insertData(db, "DAWM S1", "KAOUKAB ZAKARIARE", "2215772");
         insertData(db, "DAWM S1", "LEMKADEM FATIMA ZAHRAA", "2215790");
         insertData(db, "DAWM S1", "MAKRANI MOHAMED", "2215826");
         insertData(db, "DAWM S1", "NACHIT TAHA", "2215828");
         insertData(db, "DAWM S1", "SADIK ABDELALI", "2215780");
         insertData(db, "DAWM S1", "ZIANE SOUHAYL", "2201446");
-        insertData(db, "AI S2", "ACHARKI MAHDI", "2215792");
+
+        insertData(db, "GBA S1", "ACHARKI MAHDI", "2215792");
+        insertData(db, "GBA S1", "AIT LAHMOUS", "2215824");
+        insertData(db, "GBA S1", "AKACHAR GHIZLAN", "2201292");
+        insertData(db, "GBA S1", "AKOUAOU MOSTAFA", "2215860");
         insertData(db, "GBA S1", "AOUANNAR DOUA", "2218535");
+
     }
 
     public void insertData(SQLiteDatabase db, String filiere, String nomPrenom, String apogee) {

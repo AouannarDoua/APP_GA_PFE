@@ -5,6 +5,8 @@
         <item name="colorControlActivated">@color/app_color</item>
     </style>
 
+
+
     <string name="image_description1">image of teacher</string>
     <string name="image_description2">image of student</string>
     <string name="image_description3">image of admin</string>

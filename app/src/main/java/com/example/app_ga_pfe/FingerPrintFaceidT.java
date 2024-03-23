@@ -13,38 +13,26 @@ import androidx.core.content.ContextCompat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.concurrent.Executor;
 
-public class FringerPrintFaceid extends AppCompatActivity {
+public class FingerPrintFaceidT extends AppCompatActivity {
     private static final int REQUEST_CODE = 101010;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
     ConstraintLayout mMainLayout;
     private Executor executor;
-    private boolean isFaceIdActivated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fringer_print_faceid);
-        mMainLayout = findViewById(R.id.FringerFace);
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-       // boolean isFaceIdActivated = sharedPreferences.getBoolean("isFaceIdActivated", false);
+        setContentView(R.layout.activity_finger_print_faceid_t);
+        mMainLayout = findViewById(R.id.FingerFacet);
+        initializeBiometricPrompt();
 
-        // Utiliser les valeurs récupérées comme nécessaire
-        //if (isFaceIdActivated) {
-            initializeBiometricPrompt();
-        // } else {
-            // Si le Face ID n'est pas activé, afficher un message à l'utilisateur
-         //   Toast.makeText(this, "Veuillez activer le Face ID ou l'empreinte digitale", Toast.LENGTH_SHORT).show();
-       // }
     }
-
     private void initializeBiometricPrompt() {
         BiometricManager biometricManager = BiometricManager.from(this);
         int authenticators = BIOMETRIC_STRONG | DEVICE_CREDENTIAL;
@@ -63,7 +51,7 @@ public class FringerPrintFaceid extends AppCompatActivity {
         }
 
         executor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(FringerPrintFaceid.this, executor, new BiometricPrompt.AuthenticationCallback() {
+        biometricPrompt = new BiometricPrompt(FingerPrintFaceidT.this, executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
@@ -122,19 +110,12 @@ public class FringerPrintFaceid extends AppCompatActivity {
     private void goToNextPage() {
         // Récupérer les données nécessaires transmises depuis l'activité précédente
         Intent intent = getIntent();
-        long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
-        int selectedRadioButtonId = intent.getIntExtra("radiobutton_id", -1);
-        String fullNameS = getIntent().getStringExtra("FULL_NAMES");
-        String filiere = getIntent().getStringExtra("Filiere Selectionnee");
-        String selectedRadioButtonText = getIntent().getStringExtra("Semester");
+               String fullNameS = getIntent().getStringExtra("FULL_NAMES");
+
 
         // Passer à l'activité Emploi_Temps
-        Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, Scanne_Code_Student.class);
-        emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
-        emploiTempsIntent.putExtra("radiobutton_id", selectedRadioButtonId);
+        Intent emploiTempsIntent = new Intent(FingerPrintFaceidT.this,MenuEmploi.class);
         emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);
-        emploiTempsIntent.putExtra("Filiere Selectionnee", filiere);
-        emploiTempsIntent.putExtra("Semester", selectedRadioButtonText);
         startActivity(emploiTempsIntent);
         finish();
     }

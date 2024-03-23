@@ -5,12 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/backemploi2"
     tools:context=".EmploiTempsFragment">
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
     <TextView
         android:id="@+id/text_view_date"
@@ -52,8 +49,7 @@
                     android:padding="10sp"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    android:background="#FFE9E4"
-
+                    android:background="@color/white"
                     />
 
                 <TextView

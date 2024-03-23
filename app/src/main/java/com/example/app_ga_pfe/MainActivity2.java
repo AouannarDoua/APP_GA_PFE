@@ -52,7 +52,7 @@ public class MainActivity2 extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("APOGEE", code);
                     editor.apply();
-                    Intent intent = new Intent(MainActivity2.this, MenuEmploi.class);
+                    Intent intent = new Intent(MainActivity2.this, FingerPrintFaceidT.class);
                     intent.putExtra("isFaceIdActivated", isFaceIdActivated);
                     startActivity(intent);
 
@@ -67,7 +67,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void page(View view) {
-        startActivity(new Intent(MainActivity2.this, profil_teacher.class));
+        startActivity(new Intent(MainActivity2.this, choix_du_profil.class));
     }
     public void goToProfil() {
         String fullName = TeacherName.getText().toString();

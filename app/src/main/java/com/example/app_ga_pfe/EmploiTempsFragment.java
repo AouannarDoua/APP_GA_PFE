@@ -33,7 +33,6 @@ import androidx.fragment.app.Fragment;
 import java.util.List;
 public class EmploiTempsFragment extends Fragment {
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, textViewDate;
-    private VideoView videoView;
     private Handler handler = new Handler();
     private final int INTERVAL = 30000;
     private Runnable updateTask = new Runnable() {
@@ -73,18 +72,6 @@ public class EmploiTempsFragment extends Fragment {
         t23 = view.findViewById(R.id.t23);
         t24 = view.findViewById(R.id.t24);
 
-        videoView = view.findViewById(R.id.videoView);
-        // Chemin vers la vidéo dans le répertoire res/raw
-        String videoPath = "android.resource://" + getContext().getPackageName() + "/" + R.raw.back_emploiii;
-        // Convertir le chemin en URI
-        Uri uri = Uri.parse(videoPath);
-        // Définir l'URI de la vidéo pour la VideoView
-        videoView.setVideoURI(uri);
-        // Lancer la lecture de la vidéo en boucle
-        videoView.setOnPreparedListener(mp -> {
-            mp.setLooping(true);
-            videoView.start();
-        });
 
         textViewDate = view.findViewById(R.id.text_view_date);
         Calendar calendar = Calendar.getInstance();

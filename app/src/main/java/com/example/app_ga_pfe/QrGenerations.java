@@ -1,15 +1,20 @@
 package com.example.app_ga_pfe;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -17,19 +22,14 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Random;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-public class QrGeneration extends AppCompatActivity {
-    Button generate ;
-    ImageView codeQR ;
-    static String generatedText ;
-    TextView generatedCodeTextView ;
 
+public class QrGenerations extends AppCompatActivity {
+    Button generate;
+    ImageView codeQR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr_generation);
-
+        setContentView(R.layout.activity_qr_generations);
         generate = findViewById(R.id.generate);
         codeQR = findViewById(R.id.codeQr);
 
@@ -43,13 +43,28 @@ public class QrGeneration extends AppCompatActivity {
 
     public void generateCode() {
         String generatedText = generateRandomText();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Les Qr");
 
-        // Initialize Firebase Database reference
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("qr_codes");
+        // Check if the code already exists in the database
+        databaseReference.child(generatedText).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    // If the code does not exist, store the data in Firebase
+                    databaseReference.push().setValue(generatedText);
+                    Toast.makeText(QrGenerations.this, "Data stored in Firebase", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(QrGenerations.this, "Code already exists in Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        // Store the generated text in Firebase
-        databaseReference.push().setValue(generatedText);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error
+            }
+        });
 
+        // Generate QR Code
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix matrix = writer.encode(generatedText, BarcodeFormat.QR_CODE, 400, 400);

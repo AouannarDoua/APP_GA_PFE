@@ -114,7 +114,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         if (id == R.id.nav_home) {
             startActivity(new Intent(this, MenuEmploi.class));
         } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(this, Profil_Student.class));
+            startActivity(new Intent(this, QrGenerations.class));
         } else if (id == R.id.nav_share) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
         } else if (id == R.id.nav_about) {
