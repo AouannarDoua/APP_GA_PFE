@@ -7,8 +7,12 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -21,10 +25,26 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
-            android:name=".Fire2"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Details_filieres"
+            android:exported="false" />
+        <activity
+            android:name=".MenuEmploiTeacher"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".nav_header_teacher"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationST"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".testnot"
             android:exported="false" />
         <activity
             android:name=".CHoix_Filiere_Semestre"
@@ -61,13 +81,10 @@
             android:name=".FingerPrintFaceidT"
             android:exported="false" />
         <activity
-            android:name=".testfire"
-            android:exported="false" />
-        <activity
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".First_page"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,6 +92,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".FCMNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".CaptureAct"
             android:screenOrientation="portrait"

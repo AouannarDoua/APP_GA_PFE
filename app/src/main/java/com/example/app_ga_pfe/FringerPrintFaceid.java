@@ -16,8 +16,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.Executor;
 
@@ -42,6 +49,7 @@ public class FringerPrintFaceid extends AppCompatActivity {
             // Si le Face ID n'est pas activé, afficher un message à l'utilisateur
          //   Toast.makeText(this, "Veuillez activer le Face ID ou l'empreinte digitale", Toast.LENGTH_SHORT).show();
        // }
+
     }
 
     private void initializeBiometricPrompt() {
@@ -117,6 +125,34 @@ public class FringerPrintFaceid extends AppCompatActivity {
         builder.setCancelable(false);
         builder.show();
     }
+    private void derigevers(){
+        if(getIntent().getExtras() != null) {
+            // Depuis la notification
+            String userId = getIntent().getExtras().getString("CodeApogee");
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("students").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Passer à MainActivity (ou votre activité principale) sans animation
+                        Intent mainIntent = new Intent(FringerPrintFaceid.this, NotificationST.class);
+                        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(mainIntent);
+
+                        // Terminer l'activité actuelle
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Gérer les erreurs
+                }
+            });
+        }
+
+    }
+
 
     private void goToNextPage() {
         // Récupérer les données nécessaires transmises depuis l'activité précédente
@@ -126,15 +162,19 @@ public class FringerPrintFaceid extends AppCompatActivity {
         String fullNameS = getIntent().getStringExtra("FULL_NAMES");
         String filiere = getIntent().getStringExtra("Filiere Selectionnee");
         String selectedRadioButtonText = getIntent().getStringExtra("Semester");
+        String apogee = getIntent().getStringExtra("N_Apoogee");
 
         // Passer à l'activité Emploi_Temps
-        Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, Scanne_Code_Student.class);
+        Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, MenuEmploi.class);
+        derigevers();
         emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
         emploiTempsIntent.putExtra("radiobutton_id", selectedRadioButtonId);
         emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);
         emploiTempsIntent.putExtra("Filiere Selectionnee", filiere);
         emploiTempsIntent.putExtra("Semester", selectedRadioButtonText);
+        emploiTempsIntent.putExtra("N_Apoogee", apogee);
         startActivity(emploiTempsIntent);
         finish();
     }
+
 }

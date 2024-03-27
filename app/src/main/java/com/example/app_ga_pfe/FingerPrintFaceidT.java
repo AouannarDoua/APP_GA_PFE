@@ -112,9 +112,8 @@ public class FingerPrintFaceidT extends AppCompatActivity {
         Intent intent = getIntent();
                String fullNameS = getIntent().getStringExtra("FULL_NAMES");
 
-
         // Passer à l'activité Emploi_Temps
-        Intent emploiTempsIntent = new Intent(FingerPrintFaceidT.this,MenuEmploi.class);
+        Intent emploiTempsIntent = new Intent(FingerPrintFaceidT.this,CHoix_Filiere_Semestre.class);
         emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);
         startActivity(emploiTempsIntent);
         finish();

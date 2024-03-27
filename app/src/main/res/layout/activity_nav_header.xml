@@ -10,11 +10,11 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     tools:context=".nav_header">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView_profile"
         android:layout_width="87dp"
         android:layout_height="96dp"
-        android:src="@drawable/img_1" />
+        android:src="@drawable/img" />
 
     <TextView
         android:id="@+id/name"

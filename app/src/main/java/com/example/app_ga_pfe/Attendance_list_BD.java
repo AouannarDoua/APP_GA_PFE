@@ -74,7 +74,6 @@ public class Attendance_list_BD extends SQLiteOpenHelper {
         insertData(db, "DAWM S1", "NACHIT TAHA", "2215828");
         insertData(db, "DAWM S1", "SADIK ABDELALI", "2215780");
         insertData(db, "DAWM S1", "ZIANE SOUHAYL", "2201446");
-
         insertData(db, "GBA S1", "ACHARKI MAHDI", "2215792");
         insertData(db, "GBA S1", "AIT LAHMOUS", "2215824");
         insertData(db, "GBA S1", "AKACHAR GHIZLAN", "2201292");

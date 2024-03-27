@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "639534909482",
+    "firebase_url": "https://absenteease-default-rtdb.firebaseio.com",
     "project_id": "absenteease",
     "storage_bucket": "absenteease.appspot.com"
   },

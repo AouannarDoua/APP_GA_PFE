@@ -13,6 +13,6 @@
         android:icon="@drawable/nav_notification"
         android:iconTint="@color/white"
         android:title="Notifications"
-        android:onClick="notification"
+        app:actionLayout="@layout/custom_action_notification"
         app:showAsAction="always"/>
 </menu>

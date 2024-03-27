@@ -56,7 +56,10 @@ public class CHoix_Filiere_Semestre extends AppCompatActivity {
                 editor.apply();
 
                 // Naviguer vers l'activité Attendance_List
-                Intent intent = new Intent(CHoix_Filiere_Semestre.this, Attendance_List.class);
+                Intent intent = new Intent(CHoix_Filiere_Semestre.this, MenuEmploiTeacher.class);
+
+                intent.putExtra("SELECTED_FILIERE", selectedFiliere);
+                Toast.makeText(this, selectedFiliere, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             });
         }

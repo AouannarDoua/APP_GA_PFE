@@ -257,7 +257,7 @@ public class EmploiTempsFragment extends Fragment {
                 textViews[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getActivity(),Scanne_Code_Student.class));
+                        startActivity(new Intent(getActivity(),QrGenerations.class));
                     }
                 });
             } else {
@@ -278,8 +278,28 @@ public class EmploiTempsFragment extends Fragment {
             t2.setText(emploiData.getMatiere2());
             t3.setText(emploiData.getMatiere3());
             t4.setText(emploiData.getMatiere4());
+            t5.setText(emploiData.getMatiere5());
+            t6.setText(emploiData.getMatiere6());
+            t7.setText(emploiData.getMatiere7());
+            t8.setText(emploiData.getMatiere8());
+            t9.setText(emploiData.getMatiere9());
+            t10.setText(emploiData.getMatiere10());
+            t11.setText(emploiData.getMatiere11());
+            t12.setText(emploiData.getMatiere12());
+            t13.setText(emploiData.getMatiere13());
+            t14.setText(emploiData.getMatiere14());
+            t15.setText(emploiData.getMatiere15());
+            t16.setText(emploiData.getMatiere16());
+            t17.setText(emploiData.getMatiere17());
+            t18.setText(emploiData.getMatiere18());
+            t19.setText(emploiData.getMatiere19());
+            t20.setText(emploiData.getMatiere20());
+            t21.setText(emploiData.getMatiere21());
+            t22.setText(emploiData.getMatiere22());
+            t23.setText(emploiData.getMatiere23());
+            t24.setText(emploiData.getMatiere24());
         }
-
     }
+
 
 }

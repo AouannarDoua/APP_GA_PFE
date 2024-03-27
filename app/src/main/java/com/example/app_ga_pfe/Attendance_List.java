@@ -1,8 +1,13 @@
 package com.example.app_ga_pfe;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
+import com.google.firebase.database.Query;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -16,6 +21,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +43,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +54,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Attendance_List extends AppCompatActivity {
     private TableLayout tableLayout;
@@ -76,14 +94,10 @@ public class Attendance_List extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         firebaseRef = FirebaseDatabase.getInstance().getReference("modifications");
         // Récupérer la filière sélectionnée depuis SharedPreferences
-        String selectedFiliere = sharedPreferences.getString("SELECTED_FILIERE", "");
-
-
         TextView monthTextView = findViewById(R.id.monthTextView);
         String currentMonth = getCurrentMonth();
         monthTextView.setText(currentMonth);
-
-
+        String selectedFiliere = sharedPreferences.getString("SELECTED_FILIERE", "");
         if (!selectedFiliere.isEmpty()) {
             Toast.makeText(this, "Filière sélectionnée : " + selectedFiliere, Toast.LENGTH_SHORT).show();
             // Récupérer les données de présence depuis la base de données en fonction de la filière choisie par l'utilisateur
@@ -92,6 +106,7 @@ public class Attendance_List extends AppCompatActivity {
             displayAttendanceData(attendanceList);
             updateStudentColorsFromFirebase();
             AddPresence();
+            sendNotification();
             retrieveAndSetLocalDates();
         } else {
             Toast.makeText(this, "Filière non sélectionnée", Toast.LENGTH_SHORT).show();
@@ -309,24 +324,38 @@ public class Attendance_List extends AppCompatActivity {
 
     // Méthode pour mettre à jour le total de présences dans la dernière colonne
     private void updateTotalPresences(String nom, String apogee, int scanCount) {
-        for (int i = 1; i < tableLayout.getChildCount(); i++) {
-            TableRow row = (TableRow) tableLayout.getChildAt(i);
-            if (row != null && row.getChildCount() >= 2) {
-                TextView nomTextView = (TextView) row.getChildAt(0);
-                TextView apogeeTextView = (TextView) row.getChildAt(1);
-                if (nomTextView != null && apogeeTextView != null) {
-                    String nomRow = nomTextView.getText().toString();
-                    String apogeeRow = apogeeTextView.getText().toString();
-                    if (nomRow.equals(nom) && apogeeRow.equals(apogee)) {
-                        // Trouver la colonne du total de présences
-                        TextView totalTextView = (TextView) row.getChildAt(row.getChildCount() - 1);
-                        if (totalTextView != null) {
-                            totalTextView.setText(String.valueOf(scanCount));
+        DatabaseReference professorRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
+        professorRef.child("totalAttendance").setValue(scanCount)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Mettre à jour le nombre total de présences dans la vue de tableau
+                        for (int i = 1; i < tableLayout.getChildCount(); i++) {
+                            TableRow row = (TableRow) tableLayout.getChildAt(i);
+                            if (row != null && row.getChildCount() >= 2) {
+                                TextView nomTextView = (TextView) row.getChildAt(0);
+                                TextView apogeeTextView = (TextView) row.getChildAt(1);
+                                if (nomTextView != null && apogeeTextView != null) {
+                                    String nomRow = nomTextView.getText().toString();
+                                    String apogeeRow = apogeeTextView.getText().toString();
+                                    if (nomRow.equals(nom) && apogeeRow.equals(apogee)) {
+                                        // Trouver la colonne pour le total de présences
+                                        TextView totalTextView = (TextView) row.getChildAt(row.getChildCount() - 1);
+                                        if (totalTextView != null) {
+                                            totalTextView.setText(String.valueOf(scanCount));
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-        }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Gérer l'échec
+                    }
+                });
     }
 
     private void displayAttendanceData(List<Attendance_Class> attendanceList) {
@@ -383,7 +412,7 @@ public class Attendance_List extends AppCompatActivity {
                 int scanCount = scanCounts.containsKey(nom + apogee) ? scanCounts.get(nom + apogee) : 0;
                 scanCounts.put(nom + apogee, scanCount + adjustment);
 
-                updateTotalPresences(nom, apogee, scanCount + adjustment);
+                updateTotalPresences(nom, apogee, scanCount+adjustment);
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Une erreur s'est produite lors de la modification de l'état de présence.", Toast.LENGTH_SHORT).show();
@@ -399,13 +428,43 @@ public class Attendance_List extends AppCompatActivity {
         String nom = nomTextView.getText().toString();
         String apogee = apogeeTextView.getText().toString();
 
-        // Construire la référence Firebase pour ajouter les données de présence
-        DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("attendance").push();
+        // Construire la référence Firebase pour l'étudiant spécifique
+        DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
 
-        // Ajouter les informations de l'étudiant à la base de données Firebase
-        attendanceRef.child("nom").setValue(nom);
-        attendanceRef.child("apogee").setValue(apogee);
-        attendanceRef.child("status").setValue("P"); // Définir le statut comme "P" (Présent)
+        // Obtenir le nombre total de présences actuel pour cet étudiant
+        studentRef.child("totalAttendance").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int currentTotalAttendance = dataSnapshot.getValue(Integer.class);
+                int newTotalAttendance = currentTotalAttendance; // Incrémenter le nombre total de présences
+
+                // Mettre à jour le nombre total de présences pour cet étudiant dans Firebase
+                studentRef.child("totalAttendance").setValue(newTotalAttendance)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Succès de la mise à jour
+                                // Maintenant, ajoutez les données de présence de l'étudiant
+                                DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("attendance").push();
+                                attendanceRef.child("nom").setValue(nom);
+                                attendanceRef.child("apogee").setValue(apogee);
+                                attendanceRef.child("status").setValue("P"); // Définir le statut comme "P" (Présent)
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Échec de la mise à jour
+                                // Gérer l'erreur
+                            }
+                        });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors
+            }
+        });
     }
 
     private void deleteAttendanceFromFirebase(TextView textView) {
@@ -416,18 +475,51 @@ public class Attendance_List extends AppCompatActivity {
         String nom = nomTextView.getText().toString();
         String apogee = apogeeTextView.getText().toString();
 
-        // Rechercher et supprimer les données de l'étudiant dans la base de données Firebase
-        DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("attendance");
-        attendanceRef.orderByChild("nom").equalTo(nom).addListenerForSingleValueEvent(new ValueEventListener() {
+        // Construire la référence Firebase pour l'étudiant spécifique
+        DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
+
+        // Obtenir le nombre total de présences actuel pour cet étudiant
+        studentRef.child("totalAttendance").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    String childApogee = childSnapshot.child("apogee").getValue(String.class);
-                    if (childApogee != null && childApogee.equals(apogee)) {
-                        childSnapshot.getRef().removeValue(); // Supprimer les données de l'étudiant de la base de données Firebase
-                        break; // Sortir de la boucle après la suppression
-                    }
-                }
+                int currentTotalAttendance = dataSnapshot.exists() ? dataSnapshot.getValue(Integer.class) : 0;
+                int newTotalAttendance = currentTotalAttendance; // Décrémenter le nombre total de présences
+                newTotalAttendance = Math.max(0, newTotalAttendance); // Assurez-vous que le total des présences ne devient pas négatif
+
+                // Mettre à jour le nombre total de présences pour cet étudiant dans Firebase
+                studentRef.child("totalAttendance").setValue(newTotalAttendance)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Succès de la mise à jour
+                                // Maintenant, supprimez les données de présence de l'étudiant
+                                DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("attendance");
+                                attendanceRef.orderByChild("nom").equalTo(nom).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                            String childApogee = childSnapshot.child("apogee").getValue(String.class);
+                                            if (childApogee != null && childApogee.equals(apogee)) {
+                                                childSnapshot.getRef().removeValue(); // Supprimer les données de l'étudiant de la base de données Firebase
+                                                break; // Sortir de la boucle après la suppression
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Handle errors
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Échec de la mise à jour
+                                // Gérer l'erreur
+                            }
+                        });
             }
 
             @Override
@@ -600,10 +692,128 @@ public class Attendance_List extends AppCompatActivity {
             }
         }
     }
-
-
     public void goBack(View view) {
-        startActivity(new Intent(Attendance_List.this, QrGenerations.class));
+        startActivity(new Intent(Attendance_List.this, MenuEmploiTeacher.class));
+    }
+
+    void sendNotification() {
+        // Récupérer tous les étudiants depuis Firebase Realtime Database
+        DatabaseReference studentsRef = FirebaseDatabase.getInstance().getReference("students");
+        studentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Parcourir tous les étudiants
+                for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
+                    String apogee = studentSnapshot.getKey(); // Obtenir le code Apogée de l'étudiant
+                    Integer totalAttendance = studentSnapshot.child("totalAttendance").getValue(Integer.class); // Récupérer le nombre total de présences de l'étudiant
+                    if (totalAttendance != null && totalAttendance < 3) {
+                        // Si le nombre total de présences est inférieur à 3, envoyer une notification à l'étudiant
+                        sendNotificationToStudent(apogee);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Gérer les erreurs de base de données
+            }
+        });
+    }
+
+    void sendNotificationToStudent(String apogee) {
+        DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
+        studentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String fcmToken = dataSnapshot.child("FCMToken").getValue(String.class);
+
+                if (fcmToken != null) {
+                    Log.d(TAG, "FCM Token retrieved for student with code Apogee " + apogee + ": " + fcmToken);
+                            try {
+                                JSONObject jsonObject = new JSONObject();
+
+                                JSONObject notificationObj = new JSONObject();
+                                notificationObj.put("title", "Warning:");
+                                notificationObj.put("body", "Your total absence is more than 3 !");
+
+                                JSONObject dataObj = new JSONObject();
+                                dataObj.put("CodeApogee", apogee);
+
+                                jsonObject.put("notification", notificationObj);
+                                jsonObject.put("data", dataObj);
+                                jsonObject.put("to",  fcmToken);
+                                callApi(jsonObject);
+                        saveNotificationToFirebase(new Notification("Warning:", "Justify Your Absence", apogee));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.d(TAG, "FCM Token not found for student with code Apogee " + apogee);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database errors
+            }
+        });
+    }
+    void saveNotificationToFirebase(Notification notification) {
+        DatabaseReference notificationsRef = FirebaseDatabase.getInstance().getReference("notifications");
+        String notificationId = notificationsRef.push().getKey();
+        notificationsRef.child(notificationId).setValue(notification)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Notification enregistrée avec succès dans Firebase Realtime Database
+                        // Mettre à jour le compteur de notifications pour cet étudiant
+                        DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("students").child(notification.getCodeApogee());
+                        studentRef.child("notificationCount").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Integer count = dataSnapshot.getValue(Integer.class);
+                                if (count == null) {
+                                    count = 0;
+                                }
+                                count++; // Incrémenter le compteur
+                                studentRef.child("notificationCount").setValue(count);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Handle database errors
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Échec de l'enregistrement de la notification dans Firebase Realtime Database
+                    }
+                });
+    }
+    void callApi(JSONObject jsonObject){
+       MediaType JSON = MediaType.get("application/json");
+       OkHttpClient client = new OkHttpClient();
+       String url = "https://fcm.googleapis.com/fcm/send";
+        RequestBody body = RequestBody.create(jsonObject.toString(),JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization","Bearer AAAAlOdASCo:APA91bE-yG2kc6b4eZBKznkQrLdGs7TRMfKLlAJY4vgENLL57YQn6348uk5fhVtbQD1yFQDgBRN2PSHZmryrlQKWAjfkMq7ug1AIeBzRXnzjul4X9dvBGWRmWxsdVz_5YGvE-P4G4CF7")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+            }
+        });
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.app_ga_pfe;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,13 +19,17 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editTextNom;
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isFaceIdActivated;
     private DatabaseReference databaseReference;
     private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         infodata = new infoStudentDB(this);
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         chargerFilieres(); // Appel à la méthode pour charger les filières
-
       //  boolean isFirstLogin = checkFirstLogin();
 
         // if (isFirstLogin) {
@@ -177,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                         // Trouver la vue RadioButton correspondante à cet ID
                         View radioButton = scheduleRadioGroup.findViewById(selectedRadioButtonId);
                         String selectedRadioButtonText = "";
-
                         // Vérifier si le RadioButton est trouvé
                         if (radioButton != null && radioButton instanceof RadioButton) {
                             // Récupérer le texte de la vue RadioButton
@@ -195,6 +200,17 @@ public class MainActivity extends AppCompatActivity {
                         editor.apply();
 
                         infodata.insererDonnees(selectedFilierePosition, selectedRadioButtonText, nom, apogee);
+
+                        FirebaseMessaging.getInstance().getToken()
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        String token = task.getResult();
+                                        Log.d(TAG, "Token FCM : " + token);
+                                        saveFCMTokenToFirebase(apogee,token);
+                                    } else {
+                                        Log.e(TAG, "Impossible d'obtenir le jeton FCM : " + task.getException().getMessage());
+                                    }
+                                });
                         // Afficher un message de bienvenue
                         Toast.makeText(MainActivity.this, "Bienvenue " + nom, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this,FringerPrintFaceid.class);
@@ -206,10 +222,11 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("Filiere Selectionnee", filiere);
                         intent.putExtra("Semester", selectedRadioButtonText);
                         intent.putExtra("N_Apoogee", apogee);
+
                         goToProfil();
                         startActivity(intent);
 
-
+                        derigevers();
                     }
 
                 } else {
@@ -245,5 +262,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+      private void saveFCMTokenToFirebase(String apogee, String token) {
+          DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("students");
+          databaseReference.child(apogee).child("FCMToken").setValue(token);
+      }
+    private void derigevers(){
+      if(getIntent().getExtras() != null) {
+        // Depuis la notification
+        String userId = getIntent().getExtras().getString("CodeApogee");
+          DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("students").child(userId);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Passer à MainActivity (ou votre activité principale) sans animation
+                    Intent mainIntent = new Intent(MainActivity.this, NotificationST.class);
+                    mainIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(mainIntent);
 
+                    // Terminer l'activité actuelle
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Gérer les erreurs
+            }
+        });
+    }
+
+}
 }

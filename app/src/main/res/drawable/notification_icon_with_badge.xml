@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Icône de notification -->
+    <item android:drawable="@drawable/nav_notification" />
+
+    <!-- Badge de notification (cercle rouge) -->
+    <item
+        android:id="@+id/badge"
+        android:drawable="@drawable/badge_circle"
+        android:gravity="end|top"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp" />
+</layer-list>

@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,10 +32,14 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
     private DrawerLayout drawerLayout;
     private ImageView imageViewProfile;
 
+
     ListView list ;
     String[] profiles ={"Lemkadem Fatima Zahraa" , "Aouannar Doua"};
     ArrayAdapter<String> arrayAdapter ;
     SearchView searchView ;
+    private int notificationCount = 0; // Variable pour suivre le nombre de notifications
+    private MenuItem notificationItem; // Référence à l'élément de menu de notification
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         String filiere = getIntent().getStringExtra("Filiere Selectionnee");
         String selectedRadioButtonText = getIntent().getStringExtra("Semester");
         String gmail = intent.getStringExtra("Gmail");
+        String apogee1 = getIntent().getStringExtra("N_Apoogee");
         long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
         EmploiTempsFragment emploiTempsFragment = new EmploiTempsFragment();
         Bundle bundle = new Bundle();
@@ -56,7 +62,8 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         list = findViewById(R.id.list);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, profiles);
         list.setAdapter(arrayAdapter);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String apogee = sharedPreferences.getString("APOGEE_UTILISATEUR", "");
         // Rendre la ListView invisible au démarrage de l'activité
         list.setVisibility(View.GONE);
 
@@ -66,7 +73,6 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
 
         // Ajouter le fragment à la vue
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, emploiTempsFragment).commit();
-
         // Récupérer le NavigationView
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -104,6 +110,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             // Si Emploi_Temps est une activité, démarrez-la ici
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
+
         }
 
 
@@ -177,7 +184,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
 
             @Override
             public boolean onQueryTextChange(String newText) {
-               arrayAdapter.getFilter().filter(newText);
+                arrayAdapter.getFilter().filter(newText);
                 return true;
             }
 
@@ -187,23 +194,17 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
 
 
     }
-
-
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_home) {
             startActivity(new Intent(this, MenuEmploi.class));
-        } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(this, QrGenerations.class));
-        } else if (id == R.id.nav_share) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
-        } else if (id == R.id.nav_about) {
-            startActivity(new Intent(this, Attendance_List.class));
+        } else if(id==R.id.nav_notification){
+            startActivity(new Intent(this, NotificationST.class));
+        }else if (id == R.id.program) {
+            startActivity(new Intent(this, Details_filieres.class));
         } else if (id == R.id.nav_logout) {
+            startActivity(new Intent(this, FringerPrintFaceid.class));
             Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -219,10 +220,37 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         }
     }
 
-    public void notification(MenuItem item) {
-        // Votre logique de gestion de la notification ici
+    public void notification(View view) {
+        startActivity(new Intent(this, NotificationST.class));
+        updateNotificationBadge(0);
+    }
+    void fetchNotificationCountForStudent(String apogee) {
+        DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
+        studentRef.child("notificationCount").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer count = dataSnapshot.getValue(Integer.class);
+                if (count != null) {
+                    updateNotificationBadge(count);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle database errors
+            }
+        });
     }
 
+    public void updateNotificationBadge(int count) {
+        TextView badgeCounter = findViewById(R.id.notification_badge);
+        if (count > 0) {
+            badgeCounter.setVisibility(View.VISIBLE);
+            badgeCounter.setText(String.valueOf(count));
+        } else {
+            badgeCounter.setVisibility(View.GONE);
+        }
+    }
 
 
 }
