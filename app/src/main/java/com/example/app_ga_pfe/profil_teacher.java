@@ -30,6 +30,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,8 @@ public class profil_teacher extends AppCompatActivity {
     EditText gmailTxt,leaderOfTxt ;
     Button Save ;
     ListView list ;
+    DatabaseReference databaseRef;
+
 
 
 
@@ -68,9 +73,16 @@ public class profil_teacher extends AppCompatActivity {
         arrayList = new ArrayList<>();
         adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
         listview.setAdapter(adapter);
-        String fullName = getIntent().getStringExtra("FULL_NAME");
-        fullNameTxt.setText(fullName);
         chargerFilieres();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs2", MODE_PRIVATE);
+        String fullNameT = sharedPreferences.getString("FULL_NAME", "");
+        fullNameTxt.setText(fullNameT);
+        String gmail = gmailTxt.getText().toString().trim();
+
+        // Initialize Firebase database reference
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("profileStudents");
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Students").child(gmail);
         profilImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +92,8 @@ public class profil_teacher extends AppCompatActivity {
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                databaseRef.child("gmail").setValue(gmail);
+                databaseRef.child("full Name").setValue(fullNameT);
                 saveProfile();
                 saveListViewItems();
                 Toast.makeText(profil_teacher.this, "Profile and ListView items saved successfully", Toast.LENGTH_SHORT).show();
@@ -151,7 +165,6 @@ public class profil_teacher extends AppCompatActivity {
     private void saveProfile() {
         SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("fullName", fullNameTxt.getText().toString());
         editor.putString("leaderOf", leaderOfTxt.getText().toString());
         editor.putString("gmail", gmailTxt.getText().toString());
         // Enregistrer l'image de profil dans les préférences partagées
@@ -170,12 +183,15 @@ public class profil_teacher extends AppCompatActivity {
 
     private void loadProfile() {
         SharedPreferences sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE);
-        String fullName = sharedPreferences.getString("fullName", "");
         String leaderOf = sharedPreferences.getString("leaderOf", "");
         String gmail = sharedPreferences.getString("gmail", "");
-        fullNameTxt.setText(fullName);
         leaderOfTxt.setText(leaderOf);
         gmailTxt.setText(gmail);
+
+        SharedPreferences sharedPreferences2 = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
+        String fullNameT = sharedPreferences2.getString("FULL_NAME", "");
+        fullNameTxt.setText(fullNameT);
+
 
         // Charger et afficher l'image de profil
         String encodedImage = sharedPreferences.getString("profileImage", "");

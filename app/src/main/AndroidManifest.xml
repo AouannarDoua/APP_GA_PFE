@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +27,7 @@
         android:theme="@style/Theme.APP_GA_PFE"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity2"
             android:exported="false" />
         <activity
             android:name=".Details_filieres"
@@ -41,7 +43,7 @@
             android:name=".NotificationST"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".First_page"
             android:exported="false" />
         <activity
             android:name=".testnot"
@@ -84,7 +86,7 @@
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".First_page"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

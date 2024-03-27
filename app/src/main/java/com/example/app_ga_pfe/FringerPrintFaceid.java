@@ -166,7 +166,7 @@ public class FringerPrintFaceid extends AppCompatActivity {
 
         // Passer à l'activité Emploi_Temps
         Intent emploiTempsIntent = new Intent(FringerPrintFaceid.this, MenuEmploi.class);
-        derigevers();
+
         emploiTempsIntent.putExtra("idFilieres", selectedFiliereId);
         emploiTempsIntent.putExtra("radiobutton_id", selectedRadioButtonId);
         emploiTempsIntent.putExtra("FULL_NAMES", fullNameS);

@@ -45,60 +45,84 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_emploi);
 
-        // Initialisation de votre helper de base de données
 
         Intent intent = getIntent();
-        String fullName = intent.getStringExtra("FULL_NAMES");
-        String filiere = getIntent().getStringExtra("Filiere Selectionnee");
         String selectedRadioButtonText = getIntent().getStringExtra("Semester");
-        String gmail = intent.getStringExtra("Gmail");
-        String apogee1 = getIntent().getStringExtra("N_Apoogee");
         long selectedFiliereId = intent.getLongExtra("idFilieres", -1);
         EmploiTempsFragment emploiTempsFragment = new EmploiTempsFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("idFilieres", selectedFiliereId);
         bundle.putString("Semester", selectedRadioButtonText);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("FULL_NAME", "");
+        String gmail = sharedPreferences.getString("GMAIL", "");
+        String imageUri = sharedPreferences.getString("IMAGE_URI", "");
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView textViewName = headerView.findViewById(R.id.name);
+        TextView textViewgmail = headerView.findViewById(R.id.gmail1);
+        ImageView imgPro = headerView.findViewById(R.id.imageView_profile);
+        textViewName.setText(fullName);
+
+
+        // Utiliser une image par défaut pour le profil
+        imgPro.setImageResource(R.drawable.img_1);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(fullName);
+
+// Ajoutez un écouteur de valeur à cette référence
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Vérifiez si les données existent
+                if (dataSnapshot.exists()) {
+                    // Récupérez les valeurs des champs Gmail et imag
+                    String gmailFromFirebase = dataSnapshot.child("Gmail").getValue(String.class);
+                    String imageUriFromFirebase = dataSnapshot.child("imag").getValue(String.class);
+                    textViewgmail.setText(gmailFromFirebase);
+
+                } else {
+                    // Les données n'existent pas
+                    Toast.makeText(MenuEmploi.this, "No data found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Gestion des erreurs, si nécessaire
+                Toast.makeText(MenuEmploi.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         emploiTempsFragment.setArguments(bundle);
         list = findViewById(R.id.list);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, profiles);
         list.setAdapter(arrayAdapter);
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String apogee = sharedPreferences.getString("APOGEE_UTILISATEUR", "");
+
         // Rendre la ListView invisible au démarrage de l'activité
         list.setVisibility(View.GONE);
 
-        // Récupérer le SearchView depuis le menu
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         // Ajouter le fragment à la vue
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, emploiTempsFragment).commit();
-        // Récupérer le NavigationView
-        NavigationView navigationView = findViewById(R.id.nav_view);
 
-        // Récupérer le HeaderView du NavigationView
-        View headerView = navigationView.getHeaderView(0);
+        // Définir le contenu de la vue avec les données du profil
 
-        // Récupérer les TextView à l'intérieur du HeaderView
-        TextView textViewName = headerView.findViewById(R.id.name);
-        TextView textViewgmail = headerView.findViewById(R.id.gmail1);
 
-        imageViewProfile = headerView.findViewById(R.id.imageView_profile);
-        imageViewProfile.setOnClickListener(new View.OnClickListener() {
+        imgPro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Rediriger vers la page de profil
                 Intent Profile = new Intent(MenuEmploi.this, Profil_Student.class);
-                Profile.putExtra("Filiere Selectionnee", filiere);
-                Profile.putExtra("Semester", selectedRadioButtonText);
-                Profile.putExtra("FULL_NAMES", fullName);
                 startActivity(Profile);
             }
         });
 
-        textViewgmail.setText(gmail);
-        // Mettre à jour le TextView avec le nom de l'utilisateur
-        textViewName.setText(fullName);
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView.setNavigationItemSelectedListener(this);
@@ -110,33 +134,10 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             // Si Emploi_Temps est une activité, démarrez-la ici
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmploiTempsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
-
         }
-
-
     }
 
-    private void writeDataToFirebase(String nom, String code) {
-        // Initialize Firebase Database reference
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("profils");
 
-        // Check if the student already exists in the database
-        databaseReference.child(nom).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    // If the student does not exist, write the data to Firebase
-                    databaseReference.child(nom).child("CodeApogee").setValue(code);
-                } else {
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error
-            }
-        });
-    }
 
 
     public boolean onCreateOptionsMenu(Menu menu) {

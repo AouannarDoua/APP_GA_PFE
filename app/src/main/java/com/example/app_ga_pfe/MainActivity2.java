@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -65,16 +66,22 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     }
-
-    public void page(View view) {
-        startActivity(new Intent(MainActivity2.this, choix_du_profil.class));
-    }
     public void goToProfil() {
-        String fullName = TeacherName.getText().toString();
-            Intent intent = new Intent(this, profil_teacher.class);
-            intent.putExtra("FULL_NAME", fullName);
-            startActivity(intent);
+        String fullNameTeacher = TeacherName.getText().toString();
+
+
+        // Enregistrer les données dans SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs2", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("FULL_NAME", fullNameTeacher);
+        editor.apply();
+
+        // Démarrer l'activité Profil_teacher
+        Intent intent = new Intent(MainActivity2.this, profil_teacher.class);
+        startActivity(intent);
 
     }
+
+
 
 }

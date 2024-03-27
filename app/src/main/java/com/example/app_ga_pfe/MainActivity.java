@@ -189,13 +189,16 @@ public class MainActivity extends AppCompatActivity {
                             selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
                         }
                         writeDataToFirebase(nom, apogee);
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         // Enregistrer les informations de l'utilisateur
                        // editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
-                        editor.putString("NOM_UTILISATEUR", nom);
+                        editor.putString("FULL_NAME", nom);
                         editor.putString("APOGEE_UTILISATEUR", apogee);
+                        editor.putString("Filiere",filiere);
+                        editor.putString("SEMESTER",selectedRadioButtonText);
                         editor.putBoolean("isStudent", true);
+
                         // Appliquer les modifications
                         editor.apply();
 

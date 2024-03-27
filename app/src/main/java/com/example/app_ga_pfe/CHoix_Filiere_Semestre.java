@@ -6,8 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -44,7 +47,22 @@ public class CHoix_Filiere_Semestre extends AppCompatActivity {
             Toast.makeText(this, "Aucune filière trouvée pour cet utilisateur", Toast.LENGTH_SHORT).show();
         } else {
             // Créer un adaptateur pour afficher la liste des filières dans le ListView
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filieres);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, filieres) {
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    TextView textView = (TextView) super.getView(position, convertView, parent);
+
+                    // Définir la couleur du texte
+                    textView.setTextColor(getResources().getColor(R.color.app_color)); // Remplacez R.color.black par votre couleur souhaitée
+
+                    // Définir la hauteur de l'élément de liste
+                    ViewGroup.LayoutParams layoutParams = textView.getLayoutParams();
+                    layoutParams.height = 200; // Hauteur en pixels
+                    textView.setLayoutParams(layoutParams);
+
+                    return textView;
+                }
+            };
+
             listView.setAdapter(adapter);
             listView.setOnItemClickListener((parent, view, position, id) -> {
                 // Récupérer la filière sélectionnée
