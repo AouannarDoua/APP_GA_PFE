@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.APP_GA_PFE" parent="Base.Theme.APP_GA_PFE" />
+    <style name="DialogueTheme" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorAccent">@color/app_color</item>
+    </style>
 </resources>

@@ -18,10 +18,6 @@
             android:id="@+id/nav_history"
             android:icon="@drawable/baseline_history_24"
             android:title="History"/>
-        <item
-            android:id="@+id/nav_program"
-            android:icon="@drawable/baseline_data_saver_off_24"
-            android:title="Program details"/>
 
     </group>
     <item

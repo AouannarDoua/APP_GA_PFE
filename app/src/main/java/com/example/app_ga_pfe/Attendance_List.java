@@ -68,14 +68,9 @@ public class Attendance_List extends AppCompatActivity {
     private Attendance_list_BD attendanceData;
     private SharedPreferences sharedPreferences;
     private Handler handler = new Handler();
-    private Runnable mRunnable;
     private DatabaseReference attendanceRef;
-    private List<String> coloredUsers;
-    // Ajouter une variable pour suivre le nombre de scans par étudiant
     private Map<String, Integer> scanCounts = new HashMap<>();
-    private String currentMonth;
     private boolean isEditing = false;
-
     private boolean isdelete = false;
     Button saveButton;
     Button deleteButton;
@@ -88,7 +83,6 @@ public class Attendance_List extends AppCompatActivity {
         tableLayout = findViewById(R.id.tableLayout);
         attendanceData = new Attendance_list_BD(this);
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        coloredUsers = new ArrayList<>();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -106,6 +100,7 @@ public class Attendance_List extends AppCompatActivity {
             displayAttendanceData(attendanceList);
             updateStudentColorsFromFirebase();
             AddPresence();
+            loadAttendanceDataAndUpdateColors(selectedFiliere);
             sendNotification();
             retrieveAndSetLocalDates();
         } else {
@@ -181,6 +176,7 @@ public class Attendance_List extends AppCompatActivity {
             }
         }
     }
+    // sélectionner ou de désélectionner une ligne du tableau lorsqu'elle est cliquée par l'utilisateur
     private void toggleRowSelection(final TableRow row) {
         row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +188,7 @@ public class Attendance_List extends AppCompatActivity {
         });
 
     }
-
+    //supprime la ligne sélectionnée du tableau et des données de la base de données, puis désactive le mode de suppression.
     private void deleteSelectedRow() {
         for (int i = 1; i < tableLayout.getChildCount(); i++) {
             TableRow row = (TableRow) tableLayout.getChildAt(i);
@@ -226,7 +222,7 @@ public class Attendance_List extends AppCompatActivity {
         return months[currentMonth];
     }
 
-    // Méthode pour mettre à jour les couleurs des étudiants dans la liste
+    // met à jour les couleurs des noms et des apogées des étudiants en fonction des données récupérées depuis Firebase
     private void updateStudentColorsFromFirebase() {
         // Initialize Firebase Database reference
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("students");
@@ -267,9 +263,42 @@ public class Attendance_List extends AppCompatActivity {
             }
         });
     }
+//charge les données de présence depuis la base de données et met à jour les couleurs des cellules "P"
+    private void loadAttendanceDataAndUpdateColors(String selectedFiliere) {
+        // Récupérez les données de présence depuis Firebase
+        List<Attendance_Class> attendanceList = attendanceData.getAllAttendanceForFiliere(selectedFiliere);
 
+        // Affichez les données de présence dans le tableau
+        displayAttendanceData(attendanceList);
 
+        // Mettez à jour les couleurs des cellules "P" et "A"
+        updateAttendanceCellColors();
+    }
+    //met à jour les couleurs des cellules "P" dans le tableau en fonction du statut de présence
+    private void updateAttendanceCellColors() {
+        // Parcourez toutes les cellules du tableau pour mettre à jour les couleurs des cellules "P" et "A"
+        for (int i = 1; i < tableLayout.getChildCount(); i++) {
+            TableRow row = (TableRow) tableLayout.getChildAt(i);//Récupération de la ligne actuelle du tableau à l'indice i
+            if (row != null && row.getChildCount() >= 2) {
+                for (int j = 2; j < row.getChildCount(); j++) { // Commencez à partir de l'indice 2 pour ignorer les deux premières colonnes (Nom et Apogee)
+                    TextView textView = (TextView) row.getChildAt(j);
+                    if (textView != null) {
+                        String attendanceStatus = textView.getText().toString();
+                        if (attendanceStatus.equals("P")) {
+                            textView.setTextColor(getResources().getColor(R.color.button_color));
+                        }
+                    }
+                }
+            }
+        }
+    }
 
+    private void displayAttendanceData(List<Attendance_Class> attendanceList) {
+        // Ajouter les données de présence à chaque ligne du tableau
+        for (Attendance_Class attendance : attendanceList) {
+            addNewRow(attendance);
+        }
+    }
     // Méthode pour ajouter la présence dans les colonnes des jours correspondants
     private void AddPresence() {
         attendanceRef = FirebaseDatabase.getInstance().getReference("attendance");
@@ -284,7 +313,6 @@ public class Attendance_List extends AppCompatActivity {
                     // Obtenir le nombre de scans pour cet étudiant
                     int scanCount = scanCounts.containsKey(nom + apogee) ? scanCounts.get(nom + apogee) : 0;
 
-
                     for (int i = 1; i < tableLayout.getChildCount(); i++) {
                         TableRow row = (TableRow) tableLayout.getChildAt(i);
                         if (row != null && row.getChildCount() >= 2) {
@@ -296,22 +324,25 @@ public class Attendance_List extends AppCompatActivity {
                                 if (nomRow.equals(nom) && apogeeRow.equals(apogee)) {
                                     // Trouver la bonne colonne pour stocker la présence "P"
                                     int columnIndex = Math.min(scanCount + 2, row.getChildCount() - 1);
+                                    //Math.min pour s'assurer que l'indice ne dépasse pas le nombre total de colonnes dans la ligne.
                                     TextView dayTextView = (TextView) row.getChildAt(columnIndex);
                                     if (dayTextView != null) {
                                         dayTextView.setText("P"); // Remplacer "A" par "P" dans la colonne appropriée
-                                        // Mettre à jour le nombre de scans pour cet étudiant
+                                        //Met à jour le nombre de scans pour cet étudiant dans la HashMap
                                         scanCounts.put(nom + apogee, scanCount + 1);
-
-
+                                        break; // Sortir de la boucle après avoir trouvé et mis à jour la cellule
                                     }
                                 }
                             }
                         }
                     }
-                    scanCount++; // Incrémenter le nombre de scans
+                    // Incrémenter le nombre de scans
+                    scanCount++;
                     // Mettre à jour la colonne du total de présences
                     updateTotalPresences(nom, apogee, scanCount);
                 }
+                // Une fois toutes les données traitées, mettre à jour les couleurs des cellules
+                updateAttendanceCellColors();
             }
 
             @Override
@@ -322,7 +353,7 @@ public class Attendance_List extends AppCompatActivity {
         });
     }
 
-    // Méthode pour mettre à jour le total de présences dans la dernière colonne
+        // Méthode pour mettre à jour le total de présences tableau
     private void updateTotalPresences(String nom, String apogee, int scanCount) {
         DatabaseReference professorRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
         professorRef.child("totalAttendance").setValue(scanCount)
@@ -358,12 +389,7 @@ public class Attendance_List extends AppCompatActivity {
                 });
     }
 
-    private void displayAttendanceData(List<Attendance_Class> attendanceList) {
-        // Ajouter les données de présence à chaque ligne du tableau
-        for (Attendance_Class attendance : attendanceList) {
-            addNewRow(attendance);
-        }
-    }
+
 
     // Méthode pour ajouter une nouvelle ligne au tableau
     private void addNewRow(Attendance_Class attendance) {
@@ -383,6 +409,7 @@ public class Attendance_List extends AppCompatActivity {
         addTextViewToRow(row, "0");
         tableLayout.addView(row);
     }
+
     private void toggleAttendance(TextView textView) {
         if (isEditing) {
             try {
@@ -417,8 +444,11 @@ public class Attendance_List extends AppCompatActivity {
                 e.printStackTrace();
                 Toast.makeText(this, "Une erreur s'est produite lors de la modification de l'état de présence.", Toast.LENGTH_SHORT).show();
             }
+        } else {
+
         }
-    }
+        }
+
 
     private void addAttendanceToFirebase(TextView textView) {
         // Récupérer le nom et l'apogée de l'étudiant
@@ -533,7 +563,6 @@ public class Attendance_List extends AppCompatActivity {
         // Créer un nouveau TextView et l'ajouter à la ligne
         TextView textView = new TextView(this);
         textView.setText(text);
-
         // Définir la mise en forme et la mise en page des TextView au besoin
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
@@ -548,6 +577,7 @@ public class Attendance_List extends AppCompatActivity {
         // Retourne le TextView créé
         return textView;
     }
+    //Affiche une boîte de dialogue permettant à l'utilisateur de choisir un jour.
     private void showDaySelectionDialog() {
         // Liste des jours à afficher dans le Spinner
         final String[] days = {"Jour 1", "Jour 2", "Jour 3", "Jour 4", "Jour 5"};
@@ -594,7 +624,7 @@ public class Attendance_List extends AppCompatActivity {
         positiveButton.setTextColor(getResources().getColor(R.color.app_color));
         negativeButton.setTextColor(getResources().getColor(R.color.app_color));
     }
-    // Méthode pour afficher le DatePickerDialog pour choisir la nouvelle date
+    // Affiche un calendrier pour sélectionner une nouvelle date, puis met à jour l'interface utilisateur avec cette date.
     private void showDatePickerDialog(final int selectedDayIndex) {
         // Obtenir la date actuelle
         Calendar calendar = Calendar.getInstance();
@@ -603,7 +633,7 @@ public class Attendance_List extends AppCompatActivity {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         // Créer le DatePickerDialog avec la personnalisation du style
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.CustomDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogueTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 // Mettre à jour le TextView correspondant avec la nouvelle date
@@ -622,6 +652,7 @@ public class Attendance_List extends AppCompatActivity {
         // Afficher le DatePickerDialog
         datePickerDialog.show();
     }
+    //Met à jour visuellement la date sélectionnée dans l'interface utilisateur.
     private void updateSelectedDay(int selectedDayIndex, String newDate) {
 
         // Trouver le TableRow correspondant au contenu des jours dans le tableau
@@ -719,7 +750,7 @@ public class Attendance_List extends AppCompatActivity {
             }
         });
     }
-
+   //Envoie des notifications aux étudiants ayant moins de 3 présences enregistrées.
     void sendNotificationToStudent(String apogee) {
         DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("students").child(apogee);
         studentRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -758,6 +789,7 @@ public class Attendance_List extends AppCompatActivity {
             }
         });
     }
+    // Envoie une notification à un étudiant spécifique identifié par son code Apogee
     void saveNotificationToFirebase(Notification notification) {
         DatabaseReference notificationsRef = FirebaseDatabase.getInstance().getReference("notifications");
         String notificationId = notificationsRef.push().getKey();
@@ -793,6 +825,7 @@ public class Attendance_List extends AppCompatActivity {
                     }
                 });
     }
+    // Appelle une API FCM pour envoyer la notification à l'étudiant.
     void callApi(JSONObject jsonObject){
        MediaType JSON = MediaType.get("application/json");
        OkHttpClient client = new OkHttpClient();

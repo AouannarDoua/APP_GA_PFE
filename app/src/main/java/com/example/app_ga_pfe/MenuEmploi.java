@@ -55,8 +55,6 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         bundle.putString("Semester", selectedRadioButtonText);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
         String fullName = sharedPreferences.getString("FULL_NAME", "");
-        String gmail = sharedPreferences.getString("GMAIL", "");
-        String imageUri = sharedPreferences.getString("IMAGE_URI", "");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -202,7 +200,7 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
             startActivity(new Intent(this, MenuEmploi.class));
         } else if(id==R.id.nav_notification){
             startActivity(new Intent(this, NotificationST.class));
-        }else if (id == R.id.program) {
+        }else if (id == R.id.nav_program) {
             startActivity(new Intent(this, Details_filieres.class));
         } else if (id == R.id.nav_logout) {
             startActivity(new Intent(this, FringerPrintFaceid.class));

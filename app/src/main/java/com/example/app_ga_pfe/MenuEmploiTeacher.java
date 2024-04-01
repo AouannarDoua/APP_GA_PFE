@@ -73,8 +73,6 @@ public class MenuEmploiTeacher extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(this, Attendance_List.class));
         } else if (id == R.id.nav_history) {
             startActivity(new Intent(this, NotificationST.class));
-        } else if (id == R.id.nav_program) {
-            startActivity(new Intent(this, Details_filieres.class));
         } else if (id == R.id.nav_logout) {
             startActivity(new Intent(this, FingerPrintFaceidT.class));
             Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();

@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/notification_icon"
         android:layout_width="33dp"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:src="@drawable/nav_notification"
         android:layout_gravity="center_vertical"
         android:onClick="notification"
@@ -16,7 +16,6 @@
         android:id="@+id/notification_badge"
         android:layout_width="19dp"
         android:layout_height="19dp"
-        android:text="0"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:background="@drawable/badge_circle"

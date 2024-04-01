@@ -25,5 +25,194 @@
     <string name="close_nav">Close AbscentEasy</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="namefiliere1">DAWM</string>
+    <string name="DAW1"><b>hhhh</b></string>
+    <string name="DAWM1">
+    The main objective of this DUT is to train specialized technicians in <b><i>Web &amp; Mobile application development</i></b>, with an emphasis on: \n \n
+    • Programming languages (C/C++, Java, PHP) \n
+    • Information systems and databases \n
+    • Computer architecture, systems, and networks \n
+    • Designing, developing, and deploying Web and Mobile applications \n \n
+    It is also important to note that this program perfectly meets the qualification requirements. Furthermore, it is capable of effectively meeting the qualification needs of development projects installed in Nador. The aim is to train individuals with skills capable of providing scientific and fruitful support to these projects.
+</string>
 
+
+    <string name="DAWM2">
+   The DAWM training program emphasizes practical learning and prepares students to seamlessly enter the workforce.  \n \n
+        Graduates are equipped to take on diverse roles in the fields of computer science and information systems, with the option to further their education at the graduate level.
+    </string>
+
+
+    <string name="s1">
+        Modules Semester 1 \n\n
+        <b><i>M1</i></b>
+        \n\nAlgorithmics and C Programming :\n- Algorithmics\n- C Programming\n\n
+         <b><i>M2</i></b>\n\n
+        Computer Architecture : \n
+        - Logical Circuits\n
+        - Computer Architecture\n\n
+         <b><i>M3</i></b>\n\n
+        Mathematics: Discrete Mathematics, Linear Algebra, Probability and Statistics :\n
+        - Analysis\n
+        - Algebra\n
+        - Probability and Statistics\n\n
+        <b><i>M4</i></b>\n\n
+        Language and Communication Techniques in Computer Science :\n
+        - French\n
+        - Communication Techniques\n
+        - English\n\n
+      </string>
+    <string name="s2">
+        Modules Semester 2 \n\n
+        <b><i>M5</i></b> \n\n
+        Data Structures in C++ :\n
+        - Introduction to C++ language and OOP\n
+        - Data structures.\n\n
+         <b><i>M6</i></b>\n\n
+        Linux Operating System : \n
+        - Internal functioning of a Linux operating system\n
+        - User aspect.\n\n
+         <b><i>M7</i></b>\n\n
+        Information Systems and Databases :\n
+        - Analysis and design of information systems\n
+        - Databases\n\n
+        <b><i>M8</i></b>\n\n
+       Computer Networks and Security:\n
+        - Computer Networks \n
+        - Computer Security \n\n
+      </string>
+    <string name="s3">
+        Modules Semester 3 \n\n
+        <b><i>M9</i></b> \n\n
+       Software Engineering and .NET:\n
+        - Software Engineering\n
+        - .Net \n\n
+         <b><i>M10</i></b>\n\n
+        Java and J2EE Programming : \n
+        - Java\n
+        - J2EE.\n\n
+         <b><i>M11</i></b>\n\n
+        Mathematics: Mathematical Modeling and Operations Research :\n
+        - Mathematical Modeling\n
+        -  Operations Research\n\n
+        <b><i>M12</i></b>\n\n
+       Advanced Databases:\n
+        - Oracle SQL*Plus \n
+        - Databases using Oracle \n\n
+      </string>
+
+    <string name="s4">
+        Modules Semester 4 \n\n
+        <b><i>M13</i></b> \n\n
+       Business Management and Entrepreneurship Workshops (project management and product development):\n
+        - Entrepreneurship\n
+        - Project Management and Product Development \n\n
+         <b><i>M14</i></b>\n\n
+        Web and Mobile Development : \n
+        - Web Development\n
+        - Mobile Development.\n\n
+         <b><i>M15</i></b>\n\n
+       Final Year Project :\n
+        - FYP\n\n
+        <b><i>M16</i></b>\n\n
+      Technical Internship\n
+        - End of Study Internship \n\n
+      </string>
+    <string name="namefiliere2">FCF</string>
+     <string name="FCF1">
+     The curriculum focuses on accounting, finance, taxation, and management information systems. The future graduate is expected to have acquired the following skills:\n\n
+
+      •Ability to master commercial and corporate law regulations.\n
+      •Proficiency in key management tools (such as management control, budgetary control, etc.).\n
+      •Mastery of accounting and financial techniques.\n
+      •Acquiring language skills that enable access to the job market, particularly in English.\n
+     </string>
+     <string name="FCF2">
+         -Accounting Office Manager\n
+       -Management Sector Chief\n
+       -Assistant to the Credit Manager in a Bank\n
+       -Customer Relationship Manager in a Bank\n
+       -Auditor in Accounting Firms\n
+       -Payroll Service Manager\n
+     </string>
+
+    <string name="s1f">
+    Modules Semester 1 \n\n
+    <b><i>M1</i></b> \n\n
+    Algorithmics and C Programming :\n
+    - Algorithmics\n
+    - C Programming\n\n
+    <b><i>M2</i></b>\n\n
+    Computer Architecture : \n
+    - Logical Circuits\n
+    - Computer Architecture\n\n
+    <b><i>M3</i></b>\n\n
+    Mathematics: Discrete Mathematics, Linear Algebra, Probability and Statistics :\n\n
+    - Analysis\n
+    - Algebra\n
+    - Probability and Statistics\n
+    <b><i>M4</i></b>\n\n
+    Language and Communication Techniques in Computer Science :\n\n
+    - French\n
+    - Communication Techniques\n
+    - English\n
+</string>
+
+    <string name="s2f">
+    Modules Semester 2 \n\n
+    <b><i>M5</i></b> \n\n
+    Data Structures in C++ :\n
+    - Introduction to C++ language and OOP\n
+    - Data structures.\n\n
+    <b><i>M6</i></b>\n\n
+    Linux Operating System : \n
+    - Internal functioning of a Linux operating system\n
+    - User aspect.\n\n
+    <b><i>M7</i></b>\n\n
+    Information Systems and Databases :\n
+    - Analysis and design of information systems\n
+    - Databases\n\n
+    <b><i>M8</i></b>\n\n
+    Computer Networks and Security:\n
+    - Computer Networks \n
+    - Computer Security \n\n
+</string>
+
+    <string name="s3f">
+    Modules Semester 3 \n\n
+    <b><i>M9</i></b> \n\n
+    Software Engineering and .NET:\n
+    - Software Engineering\n
+    - .Net \n\n
+    <b><i>M10</i></b>\n\n
+    Java and J2EE Programming : \n
+    - Java\n
+    - J2EE.\n\n
+    <b><i>M11</i></b>\n\n
+    Mathematics: Mathematical Modeling and Operations Research :\n
+    - Mathematical Modeling\n
+    -  Operations Research\n\n
+    <b><i>M12</i></b>\n\n
+    Advanced Databases:\n
+    - Oracle SQL*Plus \n
+    - Databases using Oracle \n\n
+</string>
+
+    <string name="s4f">
+    Modules Semester 4\n\n
+    <b><i>M13</i></b> \n\n
+    Business Management and Entrepreneurship Workshops (project management and product development):\n
+    - Entrepreneurship\n
+    - Project Management and Product Development \n\n
+    <b><i>M14</i></b>\n\n
+    Web and Mobile Development : \n
+    - Web Development\n
+    - Mobile Development.\n\n
+    <b><i>M15</i></b>\n\n
+    Final Year Project :\n
+    - FYP\n\n
+    <b><i>M16</i></b>\n\n
+    Technical Internship\n
+    - End of Study Internship \n\n
+</string>
 </resources>

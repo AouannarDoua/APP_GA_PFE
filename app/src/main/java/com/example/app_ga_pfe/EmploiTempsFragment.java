@@ -1,6 +1,8 @@
 package com.example.app_ga_pfe;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +37,8 @@ public class EmploiTempsFragment extends Fragment {
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, textViewDate;
     private Handler handler = new Handler();
     private final int INTERVAL = 30000;
+    private SharedPreferences sharedPreferences;
+
     private Runnable updateTask = new Runnable() {
         @Override
         public void run() {
@@ -78,13 +82,12 @@ public class EmploiTempsFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(calendar.getTime());
         textViewDate.setText(currentDate);
-
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            long selectedFiliereId = bundle.getLong("idFilieres", -1);
-            String selectedRadioButtonId = bundle.getString("Semester");
-
+            long selectedFiliereId = sharedPreferences.getInt("idFilieres", -1);
+            String selectedRadioButtonId= sharedPreferences.getString("SEMESTER", "");
             // Utilisez ces données pour afficher dans le tableau
             getDataFromDatabase(selectedFiliereId, selectedRadioButtonId);
 
@@ -257,7 +260,7 @@ public class EmploiTempsFragment extends Fragment {
                 textViews[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getActivity(),QrGenerations.class));
+                        startActivity(new Intent(getActivity(),Scanne_Code_Student.class));
                     }
                 });
             } else {

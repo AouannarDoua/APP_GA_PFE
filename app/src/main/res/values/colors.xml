@@ -6,6 +6,6 @@
     <color name="app_color">#5A82A6</color>
     <color name="back_color">#FFFFFF</color>
     <color name="grey">#808080</color>
-
-
+    <color name="gb">#DDE9F4</color>
+    <color name="cb">#FFEEEA</color>
 </resources>

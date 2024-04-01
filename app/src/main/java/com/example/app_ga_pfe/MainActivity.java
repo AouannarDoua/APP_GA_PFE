@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         database = new databasemain(this);
         dbHelper = new filiereDataHelper(this);
         infodata = new infoStudentDB(this);
-        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         chargerFilieres(); // Appel à la méthode pour charger les filières
       //  boolean isFirstLogin = checkFirstLogin();
 
@@ -189,12 +188,13 @@ public class MainActivity extends AppCompatActivity {
                             selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
                         }
                         writeDataToFirebase(nom, apogee);
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         // Enregistrer les informations de l'utilisateur
                        // editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
                         editor.putString("FULL_NAME", nom);
                         editor.putString("APOGEE_UTILISATEUR", apogee);
+                        editor.putLong("idFilieres", selectedFiliereId);
                         editor.putString("Filiere",filiere);
                         editor.putString("SEMESTER",selectedRadioButtonText);
                         editor.putBoolean("isStudent", true);
@@ -226,10 +226,9 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("Semester", selectedRadioButtonText);
                         intent.putExtra("N_Apoogee", apogee);
 
-                        goToProfil();
+                        derigevers();
                         startActivity(intent);
 
-                        derigevers();
                     }
 
                 } else {
