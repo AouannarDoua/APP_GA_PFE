@@ -43,7 +43,7 @@
             android:name=".NotificationST"
             android:exported="false" />
         <activity
-            android:name=".First_page"
+            android:name=".MainActivity2"
             android:exported="false" />
         <activity
             android:name=".testnot"
@@ -86,7 +86,10 @@
             android:name=".profil_teacher"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".First_page"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

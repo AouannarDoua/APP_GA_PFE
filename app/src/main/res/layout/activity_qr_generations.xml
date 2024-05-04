@@ -19,7 +19,7 @@
             android:id="@+id/generate"
             android:layout_width="256dp"
             android:layout_height="60dp"
-            android:backgroundTint="@color/button_color"
+            android:backgroundTint="@color/app_color"
             android:text="Generate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

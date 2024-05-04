@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,8 +34,6 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
     private ImageView imageViewProfile;
 
 
-    ListView list ;
-    String[] profiles ={"Lemkadem Fatima Zahraa" , "Aouannar Doua"};
     ArrayAdapter<String> arrayAdapter ;
     SearchView searchView ;
     private int notificationCount = 0; // Variable pour suivre le nombre de notifications
@@ -55,6 +54,8 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         bundle.putString("Semester", selectedRadioButtonText);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
         String fullName = sharedPreferences.getString("FULL_NAME", "");
+        String gmail = sharedPreferences.getString("GMAIL", "");
+        String imageUri = sharedPreferences.getString("IMAGE_URI", "");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,7 +69,8 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
 
 
         // Utiliser une image par défaut pour le profil
-        imgPro.setImageResource(R.drawable.img_1);
+        imgPro.setImageResource(R.drawable.img);
+
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(fullName);
 
@@ -82,7 +84,10 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
                     String gmailFromFirebase = dataSnapshot.child("Gmail").getValue(String.class);
                     String imageUriFromFirebase = dataSnapshot.child("imag").getValue(String.class);
                     textViewgmail.setText(gmailFromFirebase);
-
+                    if (imageUriFromFirebase != null) {
+                        Uri newImgUri = Uri.parse(imageUriFromFirebase);
+                        imgPro.setImageURI(newImgUri);
+                    }
                 } else {
                     // Les données n'existent pas
                     Toast.makeText(MenuEmploi.this, "No data found", Toast.LENGTH_SHORT).show();
@@ -97,18 +102,11 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
         });
 
 
-        emploiTempsFragment.setArguments(bundle);
-        list = findViewById(R.id.list);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, profiles);
-        list.setAdapter(arrayAdapter);
 
-        // Rendre la ListView invisible au démarrage de l'activité
-        list.setVisibility(View.GONE);
 
         // Ajouter le fragment à la vue
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, emploiTempsFragment).commit();
 
-        // Définir le contenu de la vue avec les données du profil
 
 
         imgPro.setOnClickListener(new View.OnClickListener() {
@@ -138,61 +136,13 @@ public class MenuEmploi extends AppCompatActivity implements NavigationView.OnNa
 
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                list.setVisibility(View.VISIBLE); // Rendre la liste visible lorsque le SearchView est cliqué
-            }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                list.setVisibility(View.GONE); // Rendre la liste invisible lorsque le SearchView est fermé
-                return false; // Retourne false pour indiquer que vous ne souhaitez pas consommer l'événement de fermeture
-            }
-        });
-
-        MenuItem.OnActionExpandListener OnActionExpandListener = new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(@NonNull MenuItem item) {
-
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(@NonNull MenuItem item) {
-
-                return true;
-            }
-        };
-
-        menu.findItem(R.id.search).setOnActionExpandListener(OnActionExpandListener);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setQueryHint("Search Students here ...");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                arrayAdapter.getFilter().filter(newText);
-                return true;
-            }
-
-        });
-
-        return true;
-
-
+    public void nomm(View view) {
+        startActivity(new Intent(MenuEmploi.this, Profil_Student.class));
     }
+
+
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

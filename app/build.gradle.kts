@@ -50,6 +50,8 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.google.firebase:firebase-messaging:23.4.1")
+    implementation ("com.firebaseui:firebase-ui-database:7.2.0")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 
 
 }

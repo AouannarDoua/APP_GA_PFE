@@ -27,7 +27,7 @@ public class Details_filieres extends AppCompatActivity {
         semestre=findViewById(R.id.semestre);
         scheduleRadioGroup = findViewById(R.id.scheduleRadioGroup); // Initialisation du RadioGroup
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
         Long selectedFiliere = sharedPreferences.getLong("idFilieres", -1);
         if (selectedFiliere != -1) {
 

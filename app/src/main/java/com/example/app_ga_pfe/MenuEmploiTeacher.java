@@ -3,7 +3,6 @@ package com.example.app_ga_pfe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -11,35 +10,29 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.android.material.navigation.NavigationView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuEmploiTeacher extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawerLayout;
-    private ImageView imageViewProfile;
+    SharedPreferences sharedPreferences;
 
-    ListView list;
-    String[] profiles = {"Lemkadem Fatima Zahraa", "Aouannar Doua"};
-    ArrayAdapter<String> arrayAdapter;
-    SearchView searchView;
-    private int notificationCount = 0;
-    private MenuItem notificationItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +40,6 @@ public class MenuEmploiTeacher extends AppCompatActivity implements NavigationVi
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-
         drawerLayout = findViewById(R.id.my_drawer_layout);
         NavigationView navigationView = findViewById(R.id.my_navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -60,9 +52,76 @@ public class MenuEmploiTeacher extends AppCompatActivity implements NavigationVi
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
+        sharedPreferences = getSharedPreferences("MyPrefs2", Context.MODE_PRIVATE);
+        String fullName = sharedPreferences.getString("FULL_NAME", "");
+        View headerView = navigationView.getHeaderView(0);
+        ImageView imgPro = headerView.findViewById(R.id.imageView_profile1);
+        TextView textViewName = headerView.findViewById(R.id.name1);
+        TextView textViewgmail = headerView.findViewById(R.id.gmail11);
+        textViewName.setText(fullName);
+        // Utiliser une image par défaut pour le profil
+        imgPro.setImageResource(R.drawable.img_1);
+
+
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Teachers").child(fullName);
+
+
+//      Ajoutez un écouteur de valeur à cette référence
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Vérifiez si les données existent
+                if (dataSnapshot.exists()) {
+                    // Récupérez les valeurs des champs Gmail et imag
+                    String gmailFromFirebase = dataSnapshot.child("gmail").getValue(String.class);
+                    String imageUriFromFirebase = dataSnapshot.child("profileImageUri").getValue(String.class);
+                    textViewgmail.setText(gmailFromFirebase);
+                    if(imageUriFromFirebase != null){
+                        Uri imgUri = Uri.parse(imageUriFromFirebase);
+
+                    }
+
+
+                } else {
+                    Toast.makeText(MenuEmploiTeacher.this, "No data found", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Gestion des erreurs, si nécessaire
+                Toast.makeText(MenuEmploiTeacher.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        imgPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Rediriger vers la page de profil
+                Intent Profile = new Intent(MenuEmploiTeacher.this, profil_teacher.class);
+                startActivity(Profile);
+            }
+        });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu_teacher, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.search) {
+            Intent searchIntent = new Intent(MenuEmploiTeacher.this, SearchActivity.class);
+            startActivity(searchIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

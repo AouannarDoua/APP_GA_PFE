@@ -106,7 +106,7 @@ public class EmploiTempsTeacherfragment extends Fragment {
         boolean[] enabledStates = new boolean[24];
         Arrays.fill(enabledStates, false);
         // Vérifier les conditions pour activer ou désactiver les TextView
-        if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
+        if (((currentHour == 21 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 22 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.MONDAY)) {
             enabledStates[0] = true;
         } else if (((currentHour == 9 && currentMinute >= 0 && currentMinute <= 59) || (currentHour == 10 && currentMinute >= 0 &&currentMinute <= 30)) && (currentDay == Calendar.TUESDAY)) {
             enabledStates[4] = true;

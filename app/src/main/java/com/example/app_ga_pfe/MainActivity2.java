@@ -52,6 +52,7 @@ public class MainActivity2 extends AppCompatActivity {
                     // Stocker le numéro d'apogée dans SharedPreferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("APOGEE", code);
+                    editor.putString("Nom", nom);
                     editor.apply();
                     Intent intent = new Intent(MainActivity2.this, FingerPrintFaceidT.class);
                     intent.putExtra("isFaceIdActivated", isFaceIdActivated);
@@ -60,6 +61,7 @@ public class MainActivity2 extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity2.this, "Nom ou numéro d'apogée incorrect", Toast.LENGTH_SHORT).show();
                 }
+               goToProfil();
             }
         });
 
@@ -76,9 +78,7 @@ public class MainActivity2 extends AppCompatActivity {
         editor.putString("FULL_NAME", fullNameTeacher);
         editor.apply();
 
-        // Démarrer l'activité Profil_teacher
-        Intent intent = new Intent(MainActivity2.this, profil_teacher.class);
-        startActivity(intent);
+
 
     }
 

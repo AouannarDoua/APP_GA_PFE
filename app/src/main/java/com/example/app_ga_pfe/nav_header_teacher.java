@@ -11,7 +11,7 @@ public class nav_header_teacher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_header_teacher);
-        fullNameSTxt=findViewById(R.id.name);
+        fullNameSTxt=findViewById(R.id.name1);
         String fullNameS = getIntent().getStringExtra("FULL_NAMES");
         fullNameSTxt.setText(fullNameS);
     }
