@@ -34,7 +34,7 @@ public class Scanne_Code_Student extends AppCompatActivity  {
         btn_scan = findViewById(R.id.btn_scan);
         // Initialiser la référence à la base de données Firebase
         qrCodesRef = FirebaseDatabase.getInstance().getReference("Les Qr");
-        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
 
         btn_scan.setOnClickListener(v -> scanCode());
         videoView =findViewById(R.id.video);
@@ -72,7 +72,7 @@ public class Scanne_Code_Student extends AppCompatActivity  {
     });
 
     private void checkScannedCode(String scannedText) {
-        String nom = sharedPreferences.getString("NOM_UTILISATEUR", "");
+        String nom = sharedPreferences.getString("FULL_NAME", "");
         String apogee = sharedPreferences.getString("APOGEE_UTILISATEUR", "");
         qrCodesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

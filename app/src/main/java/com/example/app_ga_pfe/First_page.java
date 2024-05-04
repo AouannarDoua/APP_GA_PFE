@@ -25,7 +25,7 @@ public class First_page extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                                startActivity(new Intent(First_page.this,MainActivity.class));
+                                startActivity(new Intent(First_page.this,choix_du_profil.class));
                             finish();
                         }
                     },1000);

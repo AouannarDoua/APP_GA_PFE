@@ -60,15 +60,15 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new filiereDataHelper(this);
         infodata = new infoStudentDB(this);
         chargerFilieres(); // Appel à la méthode pour charger les filières
-      //  boolean isFirstLogin = checkFirstLogin();
+        //  boolean isFirstLogin = checkFirstLogin();
 
         // if (isFirstLogin) {
-            // Si c'est la première connexion, restez sur la page actuelle et configurez le bouton de connexion
-            setupLogin();
-       // } else {
-            // Sinon, passez à la deuxième activité
-          //  goToSecondActivity();
-       // }
+        // Si c'est la première connexion, restez sur la page actuelle et configurez le bouton de connexion
+        setupLogin();
+        // } else {
+        // Sinon, passez à la deuxième activité
+        //  goToSecondActivity();
+        // }
     }
 
 
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (utilisateurExiste) {
                     if (validateInputs()) {
-                       // setFirstLogin();
+                        // setFirstLogin();
                         int selectedFilierePosition = filiereSpinner.getSelectedItemPosition();
                         long selectedFiliereId = dbHelper.getFiliereId(selectedFilierePosition);
                         int selectedRadioButtonId = scheduleRadioGroup.getCheckedRadioButtonId();
@@ -188,14 +188,14 @@ public class MainActivity extends AppCompatActivity {
                             selectedRadioButtonText = ((RadioButton) radioButton).getText().toString();
                         }
                         writeDataToFirebase(nom, apogee);
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         // Enregistrer les informations de l'utilisateur
-                       // editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
+                        // editor.putBoolean("isFaceIdActivated", isFaceIdActivated);
                         editor.putString("FULL_NAME", nom);
                         editor.putString("APOGEE_UTILISATEUR", apogee);
-                        editor.putLong("idFilieres", selectedFiliereId);
                         editor.putString("Filiere",filiere);
+                        editor.putLong("idFilieres",selectedFiliereId);
                         editor.putString("SEMESTER",selectedRadioButtonText);
                         editor.putBoolean("isStudent", true);
 
@@ -226,9 +226,10 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("Semester", selectedRadioButtonText);
                         intent.putExtra("N_Apoogee", apogee);
 
-                        derigevers();
+                        goToProfil();
                         startActivity(intent);
 
+                        derigevers();
                     }
 
                 } else {
@@ -264,35 +265,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-      private void saveFCMTokenToFirebase(String apogee, String token) {
-          DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("students");
-          databaseReference.child(apogee).child("FCMToken").setValue(token);
-      }
-    private void derigevers(){
-      if(getIntent().getExtras() != null) {
-        // Depuis la notification
-        String userId = getIntent().getExtras().getString("CodeApogee");
-          DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("students").child(userId);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    // Passer à MainActivity (ou votre activité principale) sans animation
-                    Intent mainIntent = new Intent(MainActivity.this, NotificationST.class);
-                    mainIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(mainIntent);
-
-                    // Terminer l'activité actuelle
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Gérer les erreurs
-            }
-        });
+    private void saveFCMTokenToFirebase(String apogee, String token) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("students");
+        databaseReference.child(apogee).child("FCMToken").setValue(token);
     }
+    private void derigevers(){
+        if(getIntent().getExtras() != null) {
+            // Depuis la notification
+            String userId = getIntent().getExtras().getString("CodeApogee");
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("students").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Passer à MainActivity (ou votre activité principale) sans animation
+                        Intent mainIntent = new Intent(MainActivity.this, NotificationST.class);
+                        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(mainIntent);
 
-}
+                        // Terminer l'activité actuelle
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Gérer les erreurs
+                }
+            });
+        }
+
+    }
 }

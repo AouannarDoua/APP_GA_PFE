@@ -79,5 +79,3 @@ public class filiereDataHelper extends SQLiteOpenHelper {
         return filiereId;
     }
 }
-
-

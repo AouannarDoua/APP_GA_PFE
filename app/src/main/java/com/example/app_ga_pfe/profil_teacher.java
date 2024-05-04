@@ -74,15 +74,14 @@ public class profil_teacher extends AppCompatActivity {
         adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,arrayList);
         listview.setAdapter(adapter);
         chargerFilieres();
-
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs2", MODE_PRIVATE);
         String fullNameT = sharedPreferences.getString("FULL_NAME", "");
+        Toast.makeText(profil_teacher.this, fullNameT + "prof", Toast.LENGTH_SHORT).show();
         fullNameTxt.setText(fullNameT);
-        String gmail = gmailTxt.getText().toString().trim();
+        String gmail = gmailTxt.getText().toString();
 
         // Initialize Firebase database reference
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("profileStudents");
-        databaseRef = FirebaseDatabase.getInstance().getReference().child("Students").child(gmail);
+        databaseRef = FirebaseDatabase.getInstance().getReference().child("Teachers").child(fullNameT);
         profilImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,12 +91,21 @@ public class profil_teacher extends AppCompatActivity {
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseRef.child("gmail").setValue(gmail);
-                databaseRef.child("full Name").setValue(fullNameT);
-                saveProfile();
-                saveListViewItems();
-                Toast.makeText(profil_teacher.this, "Profile and ListView items saved successfully", Toast.LENGTH_SHORT).show();
+                String gmail = gmailTxt.getText().toString().trim();
+                String leaderOf = leaderOfTxt.getText().toString().trim();
 
+                if (!gmail.isEmpty() && !leaderOf.isEmpty()) {
+                    // Stocker les valeurs dans Firebase
+                    databaseRef.child("gmail").setValue(gmail);
+                    databaseRef.child("leaderOf").setValue(leaderOf);
+                    saveProfile();
+                    saveListViewItems();
+
+
+                    Toast.makeText(profil_teacher.this, "Profile saved successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(profil_teacher.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         loadProfile();
@@ -113,6 +121,7 @@ public class profil_teacher extends AppCompatActivity {
         dbHelper.close();
         super.onDestroy();
     }
+
 
 
     private void chargerFilieres() {
@@ -160,6 +169,10 @@ public class profil_teacher extends AppCompatActivity {
             // Get the selected image URI and set it to the ImageView
             Uri selectedImage = data.getData();
             profilImg.setImageURI(selectedImage);
+
+            // Stocker l'URI de l'image dans Firebase
+            String fullNameT = fullNameTxt.getText().toString();
+            databaseRef.child("profileImageUri").setValue(selectedImage.toString());
         }
     }
     private void saveProfile() {
@@ -188,9 +201,6 @@ public class profil_teacher extends AppCompatActivity {
         leaderOfTxt.setText(leaderOf);
         gmailTxt.setText(gmail);
 
-        SharedPreferences sharedPreferences2 = getSharedPreferences("MyPrefs1", MODE_PRIVATE);
-        String fullNameT = sharedPreferences2.getString("FULL_NAME", "");
-        fullNameTxt.setText(fullNameT);
 
 
         // Charger et afficher l'image de profil

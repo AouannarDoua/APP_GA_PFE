@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +24,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -51,7 +56,8 @@ public class Profil_Student extends AppCompatActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
     private static final int PERMISSION_REQUEST_CODE = 2;
 
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences ,  sharedPreferences2;
+
 
 
 
@@ -77,12 +83,18 @@ public class Profil_Student extends AppCompatActivity {
 
         String imageUriKey = fullNameS + "_IMAGE_URI";
 
+
         String imageUriString = sharedPreferences.getString(imageUriKey, null);
         if (imageUriString != null) {
             selectedImageUri = Uri.parse(imageUriString);
             profilImg2.setImageURI(selectedImageUri);
         }
 
+        // Récupérer le nom de l'utilisateur transmis via l'Intent
+
+        sharedPreferences2 = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String full = sharedPreferences2.getString("nameS", "");
+        Toast.makeText(Profil_Student.this, "Profile" + full, Toast.LENGTH_SHORT).show();
 
 
 
@@ -103,13 +115,14 @@ public class Profil_Student extends AppCompatActivity {
 
                 if (!fullNameS.isEmpty()) {
                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(fullNameS);
+                    userRef.child("name").setValue(fullNameS);
                     userRef.child("Gmail").setValue(gmail);
                     userRef.child("imag").setValue(imageUriString);
-
+                    userRef.child("program").setValue(filiereSelectionne);
+                    userRef.child("semester").setValue(selectedSemester);
                     if (selectedImageUri != null) {
                         oploadImage(fullNameS);
                     }
-
                     Toast.makeText(Profil_Student.this, "Profile saved successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Profil_Student.this, "Please enter a valid gmail", Toast.LENGTH_SHORT).show();
@@ -120,7 +133,7 @@ public class Profil_Student extends AppCompatActivity {
         });
     }
 
-    private void oploadImage(String fullName) {
+    private void oploadImage(String fullNameS) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading file...");
         progressDialog.show();

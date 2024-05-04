@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aouannar Doua"
+        android:onClick="nomm"
         android:textColor="@color/white"
         android:textStyle="bold"/>
 
